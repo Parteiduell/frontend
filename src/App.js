@@ -124,6 +124,7 @@ class Fragen extends Component {
               <div>
                 <h3 class="these"> {item.these} </h3>
                 <h2 class="statement"> {item.statement} </h2>
+                <div class="source">{item.source} - {item.context}</div>
                 <div id="optionen">
                   {parties.map(
                     partei => (

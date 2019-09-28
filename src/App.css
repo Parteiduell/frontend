@@ -36,3 +36,9 @@ img:hover {
 .title {
   margin-bottom: 3px;
 }
+
+.source {
+  text-align: right;
+  margin-bottom: 3em;
+  color: grey;
+}
