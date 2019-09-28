@@ -13,6 +13,7 @@ class Fragen extends Component {
   };
 }
 componentDidMount() {
+  document.addEventListener("keydown", this.handleKeyDown.bind(this));
   this.setState({
     items: this.fetchItem()
   });
@@ -28,9 +29,20 @@ compare(partei){
         korrekt: false
       })
     }
-  };
+  }
 }
 
+    handleKeyDown(e) {
+      if (e.key === "ArrowUp") {
+        this.compare(this.state.items[0].parteien[0])();
+      } else if (e.key === "ArrowLeft") {
+        this.compare(this.state.items[0].parteien[1])();
+      } else if (e.key === "ArrowDown") {
+        this.compare(this.state.items[0].parteien[2])();
+      } else if (e.key === "ArrowRight") {
+        this.compare(this.state.items[0].parteien[3])();
+      }
+    }
 handleNext(){
   this.setState({
     korrekt: null,
@@ -76,10 +88,11 @@ renderResult(){
       <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
       </div>
     )
-    }
   }
 }
-  render() {
+}
+
+  render(){
     const { err, isLoaded, items } = this.state;
     console.log(parties);
     if(isLoaded){
