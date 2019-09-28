@@ -16,7 +16,8 @@ class Fragen extends Component {
       err: null,
       items: [],
       korrekt: null,
-      parties: []
+      parties: [],
+      selected: null
     };
   }
   componentDidMount() {
@@ -30,11 +31,13 @@ class Fragen extends Component {
     return () => {
       if (partei === this.state.items[0].answer) {
         this.setState({
-          korrekt: true
+          korrekt: true,
+          selected: partei
         })
       } else {
         this.setState({
-          korrekt: false
+          korrekt: false,
+          selected: partei
         })
       }
     }
@@ -87,7 +90,8 @@ class Fragen extends Component {
   }
 
   renderResult() {
-    const { items, korrekt } = this.state;
+    const { items, korrekt, selected } = this.state;
+    console.log(items);
     if (korrekt != null) {
       if (korrekt) {
         return (
@@ -100,6 +104,8 @@ class Fragen extends Component {
         return (
           <div>
             <p> Falsch, diese Aussage war von {items[0].answer} </p>
+            <p> Die Partei "{selected}" hat folgendes Statement abgegeben:</p>
+            <p><small>{items[0].possibleAnswers[selected]}</small></p>
             <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
           </div>
         )
@@ -108,7 +114,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { err, isLoaded, items } = this.state;
+    const { err, isLoaded, items, selected } = this.state;
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
@@ -122,8 +128,8 @@ class Fragen extends Component {
                   {parties.map(
                     partei => (
                       <div>
-                        <label class="parteien">
-                          <img src={this.getImage(partei)} alt={partei} />
+                        <label class="parteien" >
+                          <img src={this.getImage(partei)} alt={partei} class={"selected" ? partei === selected : ""} />
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
