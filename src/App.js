@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./App.css";
+import Confetti from 'react-confetti';
 
 function importAll(r) {
   return r.keys().map(r);
@@ -89,6 +90,13 @@ class Fragen extends Component {
           console.log("AHHH");
         })
   }
+  returnColours(){
+    if(this.state.selected === "NPD" || this.state.selected === "AfD"){
+      return ['#8B4513'];
+    }else{
+      return ['#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFEB3B','#FFC107','#FF9800','#FF5722','#795548'];
+    }
+  }
 
   renderResult() {
     const { items, korrekt, selected } = this.state;
@@ -98,6 +106,12 @@ class Fragen extends Component {
         return (
           <div>
             <p>RICHTIG </p>
+            <Confetti
+            recycle = {false}
+            gravity  = {0.2}
+            numberOfPieces = {400}
+            colors = {this.returnColours()}
+            />
             <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
           </div>
         )
