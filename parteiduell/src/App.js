@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class Fragen extends Component {
 
@@ -9,7 +7,9 @@ class Fragen extends Component {
   this.state = {
     isLoaded: false,
     err: null,
-    items: []
+    items: [],
+    korrekt : null,
+
   };
 }
 componentDidMount() {
@@ -35,7 +35,34 @@ componentDidMount() {
   //     console.log(this.state)
   //   })
 }
+compare(partei){
+  return () => {
+    if(partei === this.state.items[0].antwort){
+      this.setState({
+        korrekt: true
+      })
+    }else{
+      this.setState({
+        korrekt: false
+      })
+    }
+  };
+}
 
+renderResult(){
+  const {items, korrekt } = this.state;
+  if(korrekt != null){
+    if(korrekt){
+      return(
+        <p> HELLO WORLD </p>
+      )
+    }else{
+      return(
+      <p> BYE WORLD </p>
+    )
+    }
+  }
+}
   render() {
     const { err, isLoaded, items } = this.state;
     console.log(items);
@@ -49,10 +76,12 @@ componentDidMount() {
             <h3> {item.frage} </h3>
             {item.parteien.map(
               partei =>
-                  <ul> <li> {partei} </li> </ul>
+                <button onClick={this.compare(partei)}> {partei} </button>
             )}
           </div>
-          )}
+        )}
+          {this.renderResult()}
+
         </div>
     );
   }
