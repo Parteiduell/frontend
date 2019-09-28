@@ -1,17 +1,38 @@
-#root {
-  max-width: 30em;
+.container {
+  max-width: 40em;
   margin: 0 auto;
 }
 
 .parteien button {
   display: none
 }
-img{
-  width: 50px;
+
+img {
+  width: 100px;
   height: auto;
+  border-radius: 100%;
+  box-shadow: 0px 0px 5px #cacaca
 }
-#optionen{
+
+img:hover {
+  transition-duration: 0.1s;
+  border: 4px rgb(0, 102, 255) solid;
+}
+
+#optionen {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.header {
+  width: 100%;
+  padding-top: 10px;
+  margin-top: 0;
+  padding-bottom: 1px;
+  box-shadow: 0px 0px 10px #cacaca;
+}
+
+.title {
+  margin-bottom: 3px;
 }
