@@ -14,26 +14,8 @@ class Fragen extends Component {
 }
 componentDidMount() {
   this.setState({
-    isLoaded: true,
-    items: [{thema: "Umwelt", frage: "Sollte Deutschland mehr CO2 einsparen?", parteien: ["CDU", "SPD", "AfD", "LINKE"], antwort: "LINKE", kontext: null }]
-  });
-
-  // fetch("https://pa-clubs.herokuapp.com/database"). // fetch from REMOTE!
-  // then(result => result.json())
-  //   .then((res) => {
-  //     console.log(res); //wahrscheinlich nicht
-  //     this.setState({
-  //       isLoaded: true,
-  //       items: res
-  //     });
-  //   },
-  //   (error) => { //was passiert, wenn das ganze falsch läuft ???
-  //     this.setState({
-  //       isLoaded: false,
-  //       error
-  //     });
-  //     console.log(this.state)
-  //   })
+    items: this.fetchItem()
+  })
 }
 compare(partei){
   return () => {
@@ -49,16 +31,53 @@ compare(partei){
   };
 }
 
+handleNext(){
+  this.setState({
+    korrekt: null,
+    items: this.fetchItem(),
+    isLoaded: false
+  })
+}
+
+fetchItem(){
+  this.setState({
+    isLoaded: true,
+  });
+  return ([{thema: "Umwelt", frage: "Sollte Deutschland mehr CO2 einsparen?", parteien: ["CDU", "SPD", "AfD", "LINKE"], antwort: "LINKE", kontext: null }]);
+  //
+  // fetch("https://pa-clubs.herokuapp.com/database"). // fetch from REMOTE!
+  // then(result => result.json())
+  //   .then((res) => {
+  //     this.setState({
+  //       isLoaded: true,
+  //     });
+  //     return res;
+  //   },
+  //   (error) => { //was passiert, wenn das ganze falsch läuft ???
+  //     this.setState({
+  //       isLoaded: false,
+  //       error
+  //     });
+  //     console.log(this.state)
+  //   })
+}
+
 renderResult(){
   const {items, korrekt } = this.state;
   if(korrekt != null){
     if(korrekt){
       return(
-        <p> HELLO WORLD </p>
+        <div>
+        <p>RICHTIG </p>
+        <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
+        </div>
       )
     }else{
       return(
-      <p> BYE WORLD </p>
+        <div>
+      <p> Falsch, diese Aussage war von {items[0].antwort} </p>
+      <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
+      </div>
     )
     }
   }
@@ -81,7 +100,6 @@ renderResult(){
           </div>
         )}
           {this.renderResult()}
-
         </div>
     );
   }
