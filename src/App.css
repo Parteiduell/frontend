@@ -44,3 +44,14 @@ img.selected {
   margin-bottom: 3em;
   color: grey;
 }
+
+#antwort{
+  font-size: 40px;
+  font-weight: 400;
+  color: #00FF00;
+  text-align: center;
+
+}
+.error{
+    color: red;
+}

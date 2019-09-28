@@ -18,7 +18,8 @@ class Fragen extends Component {
       items: [],
       korrekt: null,
       parties: [],
-      selected: null
+      selected: null,
+      score: 0
     };
   }
   componentDidMount() {
@@ -67,7 +68,8 @@ class Fragen extends Component {
     this.setState({
       korrekt: null,
       items: this.fetchItem(),
-      isLoaded: false
+      isLoaded: false,
+      selected: null
     })
   }
 
@@ -105,7 +107,7 @@ class Fragen extends Component {
       if (korrekt) {
         return (
           <div>
-            <p>RICHTIG </p>
+            <p id="antwort">Richtig!</p>
             <Confetti
             recycle = {false}
             gravity  = {0.2}
@@ -161,7 +163,7 @@ class Fragen extends Component {
       );
     } else {
       return (
-        <p> WAITING </p>
+        <p class="error"> Hmm, scheint, als hättest du keine gute Internetverbindung...</p>
       );
     }
   }
