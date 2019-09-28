@@ -51,14 +51,15 @@ class Fragen extends Component {
     console.error("Kein passendes Bild gefunden!", partei);
   }
   handleKeyDown(e) {
+    console.log(this.state.items[0])
     if (e.key === "ArrowUp") {
-      this.compare(this.state.items[0].parteien[0])();
+      this.compare(this.state.items[0].possibleParties[0])();
     } else if (e.key === "ArrowLeft") {
-      this.compare(this.state.items[0].parteien[1])();
+      this.compare(this.state.items[0].possibleParties[1])();
     } else if (e.key === "ArrowDown") {
-      this.compare(this.state.items[0].parteien[2])();
+      this.compare(this.state.items[0].possibleParties[2])();
     } else if (e.key === "ArrowRight") {
-      this.compare(this.state.items[0].parteien[3])();
+      this.compare(this.state.items[0].possibleParties[3])();
     }
   }
   handleNext() {
@@ -130,7 +131,7 @@ class Fragen extends Component {
                     partei => (
                       <div>
                         <label class="parteien" >
-                          <img src={this.getImage(partei)} alt={partei} class={"selected" ? partei === selected : ""} />
+                          <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} />
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
