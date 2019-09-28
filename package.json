@@ -1,7 +1,8 @@
 {
   "name": "parteiduell",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "license": "MIT",
   "dependencies": {
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
