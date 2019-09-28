@@ -9,17 +9,17 @@ class Fragen extends Component {
     err: null,
     items: [],
     korrekt : null,
-
+    parties: []
   };
 }
 componentDidMount() {
   this.setState({
     items: this.fetchItem()
-  })
+  });
 }
 compare(partei){
   return () => {
-    if(partei === this.state.items[0].antwort){
+    if(partei === this.state.items[0].answer){
       this.setState({
         korrekt: true
       })
@@ -40,30 +40,27 @@ handleNext(){
 }
 
 fetchItem(){
-  this.setState({
-    isLoaded: true,
-  });
-  return ([{thema: "Umwelt", frage: "Sollte Deutschland mehr CO2 einsparen?", parteien: ["CDU", "SPD", "AfD", "LINKE"], antwort: "LINKE", kontext: null }]);
-  //
-  // fetch("https://pa-clubs.herokuapp.com/database"). // fetch from REMOTE!
-  // then(result => result.json())
-  //   .then((res) => {
-  //     this.setState({
-  //       isLoaded: true,
-  //     });
-  //     return res;
-  //   },
-  //   (error) => { //was passiert, wenn das ganze falsch läuft ???
-  //     this.setState({
-  //       isLoaded: false,
-  //       error
-  //     });
-  //     console.log(this.state)
-  //   })
+  fetch("https://solver.cloud:440/list") // fetch from REMOTE!
+  .then(result => result.json())
+    .then((res) => {
+      this.setState({
+        isLoaded: true,
+        items: res,
+      });
+      return res;
+    },
+    (error) => { //was passiert, wenn das ganze falsch läuft ???
+      this.setState({
+        isLoaded: false,
+        error
+      });
+      console.log(this.state);
+      console.log("AHHH");
+    })
 }
 
 renderResult(){
-  const {items, korrekt } = this.state;
+  const { items, korrekt } = this.state;
   if(korrekt != null){
     if(korrekt){
       return(
@@ -75,7 +72,7 @@ renderResult(){
     }else{
       return(
         <div>
-      <p> Falsch, diese Aussage war von {items[0].antwort} </p>
+      <p> Falsch, diese Aussage war von {items[0].answer} </p>
       <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
       </div>
     )
@@ -84,25 +81,37 @@ renderResult(){
 }
   render() {
     const { err, isLoaded, items } = this.state;
-    console.log(items);
-    return (
-      <div>
-      <h2> ParteiDuell </h2>
-          {items.map(
-         item =>
-         <div>
-           <h2> {item.thema} </h2>
-            <h3> {item.frage} </h3>
-            {item.parteien.map(
-              partei =>
-                <button onClick={this.compare(partei)}> {partei} </button>
-            )}
+    console.log(parties);
+    if(isLoaded){
+      var parties = Object.keys(items[0].possibleAnswers);
+      return(
+        <div>
+        <h2> ParteiDuell </h2>
+            {items.map(
+           item => (
+           <div>
+             <h2> {item.these} </h2>
+              <h3> {item.statement} </h3>
+              {parties.map(
+                partei => (
+                  <button onClick={this.compare(partei)}> {partei} </button>
+                )
+              )}
+
+
+            </div>
+          ))}
+            {this.renderResult()}
           </div>
-        )}
-          {this.renderResult()}
-        </div>
-    );
+      );
+  }else{
+    return(
+    <p> WAITING </p>
+  );
   }
 }
+
+
+  }
 
 export default Fragen;
