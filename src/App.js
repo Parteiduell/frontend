@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./App.css";
+import Confetti from 'react-confetti';
 
 function importAll(r) {
   return r.keys().map(r);
@@ -17,7 +18,8 @@ class Fragen extends Component {
       items: [],
       korrekt: null,
       parties: [],
-      selected: null
+      selected: null,
+      score: 0
     };
   }
   componentDidMount() {
@@ -66,7 +68,8 @@ class Fragen extends Component {
     this.setState({
       korrekt: null,
       items: this.fetchItem(),
-      isLoaded: false
+      isLoaded: false,
+      selected: null
     })
   }
 
@@ -89,6 +92,13 @@ class Fragen extends Component {
           console.log("AHHH");
         })
   }
+  returnColours(){
+    if(this.state.selected === "NPD" || this.state.selected === "AfD"){
+      return ['#8B4513'];
+    }else{
+      return ['#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFEB3B','#FFC107','#FF9800','#FF5722','#795548'];
+    }
+  }
 
   renderResult() {
     const { items, korrekt, selected } = this.state;
@@ -97,8 +107,19 @@ class Fragen extends Component {
       if (korrekt) {
         return (
           <div>
-            <p>RICHTIG </p>
-            <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
+            <p id="antwort">Richtig!</p>
+            <Confetti
+            //width = {width}
+            //height = {height}
+            recycle = {false}
+            gravity  = {0.2}
+            numberOfPieces = {400}
+            colors = {this.returnColours()}
+            />
+            <label class="weiter">
+            <button onClick={this.handleNext.bind(this)} >  </button>
+            Nächste Frage
+            </label>
           </div>
         )
       } else {
@@ -107,7 +128,10 @@ class Fragen extends Component {
             <p> Falsch, diese Aussage war von {items[0].answer} </p>
             <p> Die Partei "{selected}" hat folgendes Statement abgegeben:</p>
             <p><small>{items[0].possibleAnswers[selected]}</small></p>
-            <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
+            <label class="weiter">
+            <button onClick={this.handleNext.bind(this)} >  </button>
+            Nächste Frage
+            </label>
           </div>
         )
       }
@@ -115,7 +139,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { err, isLoaded, items, selected } = this.state;
+    const { err, isLoaded, items, selected, korrekt } = this.state;
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
@@ -131,7 +155,7 @@ class Fragen extends Component {
                     partei => (
                       <div>
                         <label class="parteien" >
-                          <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} />
+                        <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} className={partei === selected && korrekt ? "right" : "wrong"}/>
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
@@ -147,7 +171,7 @@ class Fragen extends Component {
       );
     } else {
       return (
-        <p> WAITING </p>
+        <p class=""> Hmm, scheint, als hättest du keine gute Internetverbindung...</p>
       );
     }
   }
