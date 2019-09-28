@@ -131,7 +131,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { err, isLoaded, items, selected } = this.state;
+    const { isLoaded, items, selected } = this.state;
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
