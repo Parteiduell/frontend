@@ -109,12 +109,17 @@ class Fragen extends Component {
           <div>
             <p id="antwort">Richtig!</p>
             <Confetti
+            //width = {width}
+            //height = {height}
             recycle = {false}
             gravity  = {0.2}
             numberOfPieces = {400}
             colors = {this.returnColours()}
             />
-            <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
+            <label class="weiter">
+            <button onClick={this.handleNext.bind(this)} >  </button>
+            Nächste Frage
+            </label>
           </div>
         )
       } else {
@@ -123,7 +128,10 @@ class Fragen extends Component {
             <p> Falsch, diese Aussage war von {items[0].answer} </p>
             <p> Die Partei "{selected}" hat folgendes Statement abgegeben:</p>
             <p><small>{items[0].possibleAnswers[selected]}</small></p>
-            <button onClick={this.handleNext.bind(this)}> Nächste Frage </button>
+            <label class="weiter">
+            <button onClick={this.handleNext.bind(this)} >  </button>
+            Nächste Frage
+            </label>
           </div>
         )
       }
@@ -131,7 +139,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { err, isLoaded, items, selected } = this.state;
+    const { err, isLoaded, items, selected, korrekt } = this.state;
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
@@ -147,7 +155,7 @@ class Fragen extends Component {
                     partei => (
                       <div>
                         <label class="parteien" >
-                          <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} />
+                        <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} className={partei === selected && korrekt ? "right" : "wrong"}/>
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
@@ -163,7 +171,7 @@ class Fragen extends Component {
       );
     } else {
       return (
-        <p class="error"> Hmm, scheint, als hättest du keine gute Internetverbindung...</p>
+        <p class=""> Hmm, scheint, als hättest du keine gute Internetverbindung...</p>
       );
     }
   }

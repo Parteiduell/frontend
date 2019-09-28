@@ -1,12 +1,23 @@
 .container {
   max-width: 50em;
   margin: 0 auto;
+
 }
 
-.parteien button {
+button {
   display: none
 }
 
+.header{
+  display: flex;
+  flex-direction: row;
+}
+.header img{
+  width: 60px;
+}
+.header img:hover{
+  border: 0px red solid;
+}
 img {
   width: 100px;
   height: auto;
@@ -19,7 +30,10 @@ img.selected {
   transition-duration: 0.1s;
   border: 4px rgb(0, 102, 255) solid;
 }
-
+img.right{
+  transition-duration: 0.1s;
+  border: 4px rgb(0, 255, 0) solid;
+}
 #optionen {
   display: flex;
   flex-direction: row;
@@ -54,4 +68,19 @@ img.selected {
 }
 .error{
     color: red;
+}
+
+.weiter {
+  border: 2px rgb(202, 202, 202) solid;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  margin: 3em;
+  width: calc(100% - 6em);
+  position: relative;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+}
+.weiter:hover {
+  border: 2px rgb(0, 102, 255) solid;
 }
