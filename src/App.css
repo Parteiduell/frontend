@@ -118,13 +118,11 @@ img.right {
 }
 
 .these:before {
-  content: '“';
   margin-left: -20px;
   font-size: 60px;
 }
 
 .statement:after {
-  content: '”';
   margin-left: -10px;
 }
 
@@ -154,4 +152,11 @@ img.right {
 
 .weiter:hover {
   border: 2px rgb(0, 102, 255) solid;
+}
+
+.quote::before{
+  content: '”';
+}
+.quote::after{
+  content: ' ”';
 }
