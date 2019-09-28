@@ -92,11 +92,11 @@ class Fragen extends Component {
           console.log("AHHH");
         })
   }
-  returnColours(){
-    if(this.state.selected === "NPD" || this.state.selected === "AfD"){
+  returnColours() {
+    if (this.state.selected === "NPD" || this.state.selected === "AfD") {
       return ['#8B4513'];
-    }else{
-      return ['#f44336','#e91e63','#9c27b0','#673ab7','#3f51b5','#2196f3','#03a9f4','#00bcd4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFEB3B','#FFC107','#FF9800','#FF5722','#795548'];
+    } else {
+      return ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548'];
     }
   }
 
@@ -109,30 +109,30 @@ class Fragen extends Component {
           <div>
             <p id="antwort">Richtig!</p>
             <Confetti
-            //width = {width}
-            //height = {height}
-            recycle = {false}
-            gravity  = {0.2}
-            numberOfPieces = {400}
-            colors = {this.returnColours()}
+              //width = {width}
+              //height = {height}
+              recycle={false}
+              gravity={0.2}
+              numberOfPieces={400}
+              colors={this.returnColours()}
             />
             <label class="weiter">
-            <button onClick={this.handleNext.bind(this)} >  </button>
-            Nächste Frage
+              <button onClick={this.handleNext.bind(this)} >  </button>
+              Nächste Frage
             </label>
           </div>
         )
       } else {
         return (
           <div>
-            <p> Falsch, diese Aussage war von {items[0].answer} </p>
-            <p> Die Partei "{selected}" hat folgendes Statement abgegeben:</p>
-            <p><small>{items[0].possibleAnswers[selected]}</small></p>
+            <h2> Falsch, diese Aussage war von {items[0].answer} </h2>
+            <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
+            <p class="quote">{items[0].possibleAnswers[selected]}</p>
             <label class="weiter">
-            <button onClick={this.handleNext.bind(this)} >  </button>
-            Nächste Frage
+              <button onClick={this.handleNext.bind(this)} >  </button>
+              Nächste Frage
             </label>
-          </div>
+          </div >
         )
       }
     }
@@ -148,14 +148,14 @@ class Fragen extends Component {
             item => (
               <div>
                 <h3 class="these"> {item.these} </h3>
-                <h2 class="statement"> {item.statement} </h2>
+                <h2 class="statement quote"> {item.statement} </h2>
                 <div class="source">{item.source} - {item.context}</div>
                 <div id="optionen">
                   {parties.map(
                     partei => (
                       <div>
                         <label class="parteien" >
-                        <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} className={partei === selected && korrekt ? "right" : "wrong"}/>
+                          <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} className={partei === selected && korrekt ? "right" : "wrong"} />
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
