@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import "./App.css";
+import spd from "./pictures/spd.png";
+
+function importAll(r) {
+  return r.keys().map(r);
+}
+
+const images = importAll(require.context("./pictures/", false, /\.(png|jpe?g|svg)$/));
 
 class Fragen extends Component {
 
@@ -17,6 +25,7 @@ componentDidMount() {
   this.setState({
     items: this.fetchItem()
   });
+  console.log(images);
 }
 compare(partei){
   return () => {
@@ -31,7 +40,14 @@ compare(partei){
     }
   }
 }
-
+getImage(partei) {
+  for (var image of images) {
+    if (image.includes(partei.toLowerCase().replace("/", "-"))){
+      return image;
+    }
+  }
+  console.error("Kein passendes Bild gefunden!", partei);
+}
     handleKeyDown(e) {
       if (e.key === "ArrowUp") {
         this.compare(this.state.items[0].parteien[0])();
@@ -94,7 +110,6 @@ renderResult(){
 
   render(){
     const { err, isLoaded, items } = this.state;
-    console.log(parties);
     if(isLoaded){
       var parties = Object.keys(items[0].possibleAnswers);
       return(
@@ -105,11 +120,18 @@ renderResult(){
            <div>
              <h2> {item.these} </h2>
               <h3> {item.statement} </h3>
+              <div id="optionen">
               {parties.map(
                 partei => (
-                  <button onClick={this.compare(partei)}> {partei} </button>
+                  <div>
+                  <label class="parteien">
+                   <img src={this.getImage(partei)} alt={partei}/>
+                   <button onClick={this.compare(partei)}> {partei} </button>
+                  </label>
+                  </div>
                 )
               )}
+              </div>
 
 
             </div>

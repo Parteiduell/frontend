@@ -1,0 +1,17 @@
+#root {
+  max-width: 30em;
+  margin: 0 auto;
+}
+
+.parteien button {
+  display: none
+}
+img{
+  width: 50px;
+  height: auto;
+}
+#optionen{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
