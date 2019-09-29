@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./App.css";
 import Confetti from 'react-confetti';
+import windowSize from 'react-window-size';
 
 function importAll(r) {
   return r.keys().map(r);
@@ -27,7 +28,6 @@ class Fragen extends Component {
     this.setState({
       items: this.fetchItem()
     });
-    console.log(images);
   }
   compare(partei) {
     return () => {
@@ -103,15 +103,14 @@ class Fragen extends Component {
 
   renderResult() {
     const { items, korrekt, selected } = this.state;
-    console.log(items);
     if (korrekt != null) {
       if (korrekt) {
         return (
           <div>
             <p id="antwort">Richtig!</p>
             <Confetti
-              //width = {width}
-              //height = {height}
+              width={this.props.windowWidth}
+              height={this.props.windowHeight + 50} //adjusts window size automatically
               recycle={false}
               gravity={0.2}
               numberOfPieces={400}
@@ -144,27 +143,25 @@ class Fragen extends Component {
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
-        <div>
+        <div id="allthings">
           {items.map(
             item => (
               <div>
                 <h3 class="these"> {item.these} </h3>
-                <h2 class="statement quote"> {item.statement} </h2>
+                <h2 class="statement quote">{item.statement}</h2>
                 <div class="source">{item.source} - {item.context}</div>
-                <div id="optionen">
+                <div id="optionen" className={selected ? "selected" : ""}>
                   {parties.map(
                     partei => (
-                      <div>
+                      <div class="logos">
                         <label class="parteien" >
-                          <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} className={partei === selected && korrekt ? "right" : "wrong"} />
+                          <img src={this.getImage(partei)} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
                     )
                   )}
                 </div>
-
-
               </div>
             ))}
           {this.renderResult()}
@@ -177,7 +174,6 @@ class Fragen extends Component {
     }
   }
 
-
 }
 
-export default Fragen;
+export default windowSize(Fragen);

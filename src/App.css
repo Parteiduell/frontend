@@ -143,15 +143,20 @@ img.selected {
   border: 4px rgb(0, 102, 255) solid;
 }
 
-img.right {
+.selected img.right {
   transition-duration: 0.1s;
   border: 4px rgb(0, 255, 0) solid;
 }
 
+.selected img.wrong {
+  transition-duration: 0.1s;
+  border: 4px rgb(255, 0, 0) solid;
+}
 #optionen {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -207,4 +212,13 @@ img.right {
 
 .quote::after {
   content: ' ”';
+}
+
+.quote{
+  font-style: italic;
+}
+
+#allthings{
+  padding-left: 10%;
+  padding-right: 10%;
 }
