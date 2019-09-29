@@ -8,7 +8,7 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
-function findGetParameter(parameterName) {
+function findGetParameter(parameterName) { //extract parameter from url to toggle test mode and joystick mode
   var result = null,
     tmp = [];
   location.search
@@ -34,7 +34,7 @@ class Fragen extends Component {
       korrekt: null,
       parties: [],
       selected: null,
-      score: 0,
+      score: 0, //not yet used, maybe in a later version ?
       mock_item: 0
     };
   }
@@ -42,7 +42,8 @@ class Fragen extends Component {
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
     this.handleNext();
   }
-  compare(partei) {
+
+  compare(partei) { //do the selected party and the right party match?
     return () => {
       if (partei === this.state.items[0].answer) {
         this.setState({
@@ -59,13 +60,13 @@ class Fragen extends Component {
   }
   getImage(partei) {
     for (var image of images) {
-      if (image.includes(partei.toLowerCase().replace("/", "-"))) {
-        return image;
+      if (image.includes(partei.toLowerCase().replace("/", "-"))) { //hier könnte mit zu kleinen fotos ein fehler aufgrund base64
+        return image;                                               // konvertierung geben.
       }
     }
     console.error("Kein passendes Bild gefunden!", partei);
   }
-  handleKeyDown(e) {
+  handleKeyDown(e) { //für den joystick
     console.log(this.state.items[0])
     if (e.key === "ArrowUp") {
       this.compare(this.state.items[0].possibleParties[0])();
@@ -98,7 +99,7 @@ class Fragen extends Component {
             items: res,
           });
         },
-          (error) => { //was passiert, wenn das ganze falsch läuft ???
+          (error) => { 
             this.setState({
               isLoaded: false,
               error
@@ -127,7 +128,7 @@ class Fragen extends Component {
             <p id="antwort">Richtig!</p>
             <Confetti
               width={this.props.windowWidth}
-              height={this.props.windowHeight + 50} //adjusts window size automatically
+              height={this.props.windowHeight} //adjusts window size automatically
               recycle={false}
               gravity={0.2}
               numberOfPieces={400}
@@ -186,7 +187,7 @@ class Fragen extends Component {
       );
     } else {
       return (
-        <p class=""> Hmm, scheint, als hättest du keine gute Internetverbindung...</p>
+        <p class=""> Hmm, Daten werden noch geladen...</p>
       );
     }
   }
