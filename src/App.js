@@ -74,7 +74,7 @@ class Fragen extends Component {
   }
 
   fetchItem() {
-    fetch(process.env.BACKEND_URL + "/list") // fetch from REMOTE!
+    fetch("https://api.parteiduell.de/list") // fetch from REMOTE!
       .then(result => result.json())
       .then((res) => {
         this.setState({
@@ -89,7 +89,6 @@ class Fragen extends Component {
             error
           });
           console.log(this.state);
-          console.log(process.env.BACKEND_URL);
           console.log("Error during connect!");
         })
   }
@@ -139,7 +138,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { err, isLoaded, items, selected, korrekt } = this.state;
+    const { isLoaded, items, selected } = this.state;
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
