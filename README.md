@@ -6,9 +6,9 @@ Als Teil des "Jugend hackt"-Workshops in Frankfurt am Main haben wir ein Quiz er
 
 Wir wollen Menschen unterhaltsam über Politik informieren und die Position der Parteien aufzeigen.
 
-In unserem Datensatz vom [Wahl-O-Meter](www.wahlometer.watch) sind alle Daten des Wahl-O-Mat zu Landtagswahlen, Bundestagswahlen und Europawahlen zwischen 2002 und 2017 angegeben.
+In unserem Datensatz vom [Wahl-O-Meter](https://www.wahlometer.watch) sind alle Daten des Wahl-O-Mat zu Landtagswahlen, Bundestagswahlen und Europawahlen zwischen 2002 und 2017 angegeben.
 
 
 Das Frontend-Projekt wurde mit create-react-app gebootstrapped.
 
-Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zusätzlich [das Backend](www.github.com/jugendhackt/parteiduell-backend) geclont werden.
+Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zusätzlich [das Backend](https://www.github.com/jugendhackt/parteiduell-backend) geclont werden.
