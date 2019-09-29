@@ -114,8 +114,13 @@ button {
   padding: 0;
 }
 
+.header a {
+  width: 5em;
+}
+
 .header img {
-  height: calc(100% - 1em);
+  height: 4em;
+  width: auto;
   margin: 0.5em;
 }
 
@@ -194,9 +199,10 @@ img.right {
   border: 2px rgb(0, 102, 255) solid;
 }
 
-.quote::before{
+.quote::before {
   content: '”';
 }
-.quote::after{
+
+.quote::after {
   content: ' ”';
 }
