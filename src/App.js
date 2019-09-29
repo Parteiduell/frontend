@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import "./App.css";
+
 import Confetti from 'react-confetti';
 import windowSize from 'react-window-size';
 
 import mock from "./mock.json"
+import "./App.css";
+
+
 function importAll(r) {
   return r.keys().map(r);
 }
 
-function findGetParameter(parameterName) { //extract parameter from url to toggle test mode and joystick mode
+/*
+* extract parameter from url to toggle test mode and joystick mode
+*/
+function findGetParameter(parameterName) {
   var result = null,
     tmp = [];
   location.search
@@ -21,7 +27,10 @@ function findGetParameter(parameterName) { //extract parameter from url to toggl
   return result;
 }
 
+
+const url = "https://api.parteiduell.de/list";
 const images = importAll(require.context("./pictures/", false, /\.(png|jpe?g|svg)$/));
+
 
 class Fragen extends Component {
 
@@ -31,44 +40,44 @@ class Fragen extends Component {
       isLoaded: false,
       err: null,
       items: [],
-      korrekt: null,
+      correct: null,
       parties: [],
       selected: null,
       score: 0, //not yet used, maybe in a later version ?
-      mock_item: 0
+      mockItem: 0
     };
   }
   componentDidMount() {
+    // Specify keydown handler
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
+
+    // Load first question
     this.handleNext();
   }
 
-  compare(partei) { //do the selected party and the right party match?
+  // Is the selected party the right one?
+  compare(partei) {
     return () => {
-      if (partei === this.state.items[0].answer) {
-        this.setState({
-          korrekt: true,
-          selected: partei
-        })
-      } else {
-        this.setState({
-          korrekt: false,
-          selected: partei
-        })
-      }
+      this.setState({
+        correct: partei === this.state.items[0].answer,
+        selected: partei
+      })
     }
   }
+
+  // Get icon from party name
   getImage(partei) {
     for (var image of images) {
-      if (image.includes(partei.toLowerCase().replace("/", "-"))) { //hier könnte mit zu kleinen fotos ein fehler aufgrund base64
-        return image;                                               // konvertierung geben.
+      // Small images are encoded as base64 in webpack. That breaks this.
+      if (image.includes(partei.toLowerCase().replace("/", "-"))) {
+        return image;
       }
     }
     console.error("Kein passendes Bild gefunden!", partei);
   }
-  handleKeyDown(e) { //für den joystick
-    console.log(this.state.items[0])
 
+  // Handle keypresses for the joystick
+  handleKeyDown(e) {
     if (e.key === "ArrowUp") {
       this.compare(this.state.items[0].possibleParties[0])();
     } else if (e.key === "ArrowLeft") {
@@ -81,39 +90,39 @@ class Fragen extends Component {
       this.handleNext();
     }
   }
+
   handleNext() {
     this.setState({
-      korrekt: null,
+      correct: null,
       isLoaded: false,
       selected: null
     });
+
+
     if (findGetParameter("mock") === "True") {
-      this.setState({ isLoaded: true, items: [mock[this.state.mock_item]] });
-      if (this.state.mock_item < mock.length) {
-        this.setState({ mock_item: this.state.mock_item + 1 });
+      // use mock data when GET arg mock is set to "True"
+      this.setState({ isLoaded: true, items: [mock[this.state.mockItem]] });
+      if (this.state.mockItem < mock.length) {
+        this.setState({ mock_item: this.state.mockItem + 1 });
       }
     } else {
-      fetch("https://api.parteiduell.de/list") // fetch from REMOTE!
+      // use data from backend
+      fetch(url) // fetch from REMOTE!
         .then(result => result.json())
-        .then((res) => {
-
+        .then((result) => {
           this.setState({
             isLoaded: true,
-            items: res,
+            items: result,
           });
         },
           (error) => {
-            this.setState({
-              isLoaded: false,
-              error
-            });
-            console.log(this.state);
-            console.log(process.env.REACT_APP_BACKEND_URL + "/list")
-            console.log("Error connecting to backend!");
+            console.log("Error connecting to backend! (url: " + url + ")", error);
           })
     }
 
   }
+
+  // return colours for confetti
   returnColours() {
     if (this.state.selected === "NPD" || this.state.selected === "AfD") {
       return ['#8B4513'];
@@ -123,12 +132,12 @@ class Fragen extends Component {
   }
 
   renderResult() {
-    const { items, korrekt, selected } = this.state;
-    if (korrekt != null) {
-      if (korrekt) {
+    const { items, correct, selected } = this.state;
+    if (correct != null) {
+      if (correct) {
         return (
           <div>
-            <p id="antwort">Richtig!</p>
+            <p id="answer">Richtig!</p>
             <Confetti
               width={this.props.windowWidth}
               height={this.props.windowHeight} //adjusts window size automatically
@@ -137,8 +146,8 @@ class Fragen extends Component {
               numberOfPieces={400}
               colors={this.returnColours()}
             />
-            <label class="weiter">
-              <button onClick={this.handleNext.bind(this)} >  </button>
+            <label class="next">
+              <button onClick={this.handleNext.bind(this)}></button>
               Nächste Frage
             </label>
           </div>
@@ -146,11 +155,11 @@ class Fragen extends Component {
       } else {
         return (
           <div>
-            <h2> Falsch, diese Aussage war von {items[0].answer} </h2>
+            <h2>Falsch, diese Aussage war von {items[0].answer}</h2>
             <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
             <p class="quote">{items[0].possibleAnswers[selected]}</p>
-            <label class="weiter">
-              <button onClick={this.handleNext.bind(this)} >  </button>
+            <label class="next">
+              <button onClick={this.handleNext.bind(this)}></button>
               Nächste Frage
             </label>
           </div >
@@ -166,22 +175,20 @@ class Fragen extends Component {
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
-        <div id="allthings">
+        <div>
           {items.map(
             item => (
               <div>
-                <h3 class="these"> {item.these} </h3>
-                <h2 class="statement quote">{item.statement}</h2>
+                <p class="these"> {item.these} </p>
+                <p class="statement quote">{item.statement}</p>
                 <div class="source">{item.source} - {item.context}</div>
-                <div id="optionen" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
+                <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
                   {parties.map(
                     partei => (
-                      <div class="logos">
-                        <label class="parteien" >
-                          <img src={this.getImage(partei)} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
-                          <button onClick={this.compare(partei)}> {partei} </button>
-                        </label>
-                      </div>
+                      <label class="logos">
+                        <img src={this.getImage(partei)} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
+                        <button onClick={this.compare(partei)}> {partei} </button>
+                      </label>
                     )
                   )}
                 </div>
@@ -192,7 +199,7 @@ class Fragen extends Component {
       );
     } else {
       return (
-        <p class=""> Hmm, Daten werden noch geladen...</p>
+        <p> Hmm, Daten werden noch geladen...</p>
       );
     }
   }
