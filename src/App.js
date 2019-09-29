@@ -27,7 +27,6 @@ class Fragen extends Component {
     this.setState({
       items: this.fetchItem()
     });
-    console.log(images);
   }
   compare(partei) {
     return () => {
@@ -89,7 +88,6 @@ class Fragen extends Component {
             error
           });
           console.log(this.state);
-          console.log("AHHH");
         })
   }
   returnColours() {
@@ -102,15 +100,12 @@ class Fragen extends Component {
 
   renderResult() {
     const { items, korrekt, selected } = this.state;
-    console.log(items);
     if (korrekt != null) {
       if (korrekt) {
         return (
           <div>
             <p id="antwort">Richtig!</p>
             <Confetti
-              //width = {width}
-              //height = {height}
               recycle={false}
               gravity={0.2}
               numberOfPieces={400}
