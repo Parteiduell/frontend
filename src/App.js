@@ -35,7 +35,7 @@ class Fragen extends Component {
       parties: [],
       selected: null,
       score: 0,
-      mock_item: 0
+      mock_item: 0,
     };
   }
   componentDidMount() {
@@ -67,6 +67,7 @@ class Fragen extends Component {
   }
   handleKeyDown(e) {
     console.log(this.state.items[0])
+
     if (e.key === "ArrowUp") {
       this.compare(this.state.items[0].possibleParties[0])();
     } else if (e.key === "ArrowLeft") {
@@ -75,6 +76,8 @@ class Fragen extends Component {
       this.compare(this.state.items[0].possibleParties[2])();
     } else if (e.key === "ArrowRight") {
       this.compare(this.state.items[0].possibleParties[3])();
+    } else if (e.key === "a") {
+      this.handleNext();
     }
   }
   handleNext() {
@@ -157,6 +160,8 @@ class Fragen extends Component {
 
   render() {
     const { isLoaded, items, selected } = this.state;
+    var joystick = findGetParameter("joystick") === "True";
+
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
@@ -167,7 +172,7 @@ class Fragen extends Component {
                 <h3 class="these"> {item.these} </h3>
                 <h2 class="statement quote">{item.statement}</h2>
                 <div class="source">{item.source} - {item.context}</div>
-                <div id="optionen" className={selected ? "selected" : ""}>
+                <div id="optionen" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
                   {parties.map(
                     partei => (
                       <div class="logos">
