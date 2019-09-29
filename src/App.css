@@ -141,16 +141,6 @@ button {
   width: 5em;
 }
 
-.header img {
-  height: 4em;
-  width: auto;
-  margin: 0.5em;
-}
-
-.header img:hover {
-  border: 0px red solid;
-}
-
 #optionen img {
   width: 100px;
   height: auto;
