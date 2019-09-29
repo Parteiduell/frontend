@@ -78,6 +78,27 @@
   /* Legacy iOS */
 }
 
+S
+
+/* playfair-display-regular - latin */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/playfair-display-v15-latin-regular.eot');
+  /* IE9 Compat Modes */
+  src: local('Playfair Display Regular'), local('PlayfairDisplay-Regular'),
+    url('../fonts/playfair-display-v15-latin-regular.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('../fonts/playfair-display-v15-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('../fonts/playfair-display-v15-latin-regular.woff') format('woff'),
+    /* Modern Browsers */
+    url('../fonts/playfair-display-v15-latin-regular.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url('../fonts/playfair-display-v15-latin-regular.svg#PlayfairDisplay') format('svg');
+  /* Legacy iOS */
+}
 
 body {
   font-family: Raleway !important;
@@ -140,6 +161,32 @@ button {
   margin-bottom: 10px;
 }
 
+#optionen.joystick {
+  display: grid;
+  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 100px);
+}
+
+.joystick .logos:first-child {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.joystick .logos:nth-child(2) {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.joystick .logos:nth-child(4) {
+  grid-row: 2;
+  grid-column: 3;
+}
+
+.joystick .logos:nth-child(3) {
+  grid-row: 3;
+  grid-column: 2;
+}
+
 #optionen img:hover {
   transition-duration: 0.1s;
   border: 4px rgb(0, 102, 255) solid;
@@ -154,13 +201,15 @@ button {
   transition-duration: 0.1s;
   border: 4px rgb(255, 0, 0) solid;
 }
+
 #optionen {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-.title{
+
+.title {
   margin-bottom: 3px;
   font-size: 40px;
   letter-spacing: 0.1em;
@@ -217,18 +266,20 @@ button {
   content: ' ”';
 }
 
-.quote{
+.quote {
   font-style: italic;
 }
 
-#allthings{
+#allthings {
   padding-left: 10%;
   padding-right: 10%;
 }
-.content{
-    flex: 1 0 auto;
+
+.content {
+  flex: 1 0 auto;
 }
-.footer{
+
+.footer {
   padding: 15px;
   margin-top: 10px;
   flex-shrink: 0;
@@ -238,10 +289,11 @@ button {
   border-top: 1px #cacaca solid;
 
 }
-.footer img{
+
+.footer img {
   height: 20px;
 }
 
-.footer a{
+.footer a {
   color: black;
 }
