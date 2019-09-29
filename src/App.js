@@ -74,7 +74,7 @@ class Fragen extends Component {
   }
 
   fetchItem() {
-    fetch("https://solver.cloud:440/list") // fetch from REMOTE!
+    fetch(process.env.BACKEND_URL + "/list") // fetch from REMOTE!
       .then(result => result.json())
       .then((res) => {
         this.setState({
@@ -89,7 +89,8 @@ class Fragen extends Component {
             error
           });
           console.log(this.state);
-          console.log("AHHH");
+          console.log(process.env.BACKEND_URL);
+          console.log("Error during connect!");
         })
   }
   returnColours() {
