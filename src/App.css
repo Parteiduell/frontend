@@ -97,7 +97,7 @@ h5 {
 .container {
   max-width: 50em;
   margin: 0 auto;
-
+  padding-bottom: 15px;
 }
 
 button {
@@ -160,9 +160,10 @@ button {
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
-
-.title {
+.title{
   margin-bottom: 3px;
+  font-size: 40px;
+  letter-spacing: 0.1em;
 }
 
 .source {
