@@ -3,8 +3,22 @@ import "./App.css";
 import Confetti from 'react-confetti';
 import windowSize from 'react-window-size';
 
+import mock from "./mock.json"
 function importAll(r) {
   return r.keys().map(r);
+}
+
+function findGetParameter(parameterName) {
+  var result = null,
+    tmp = [];
+  location.search
+    .substr(1)
+    .split("&")
+    .forEach(function (item) {
+      tmp = item.split("=");
+      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+  return result;
 }
 
 const images = importAll(require.context("./pictures/", false, /\.(png|jpe?g|svg)$/));
@@ -20,14 +34,13 @@ class Fragen extends Component {
       korrekt: null,
       parties: [],
       selected: null,
-      score: 0
+      score: 0,
+      mock_item: 0
     };
   }
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
-    this.setState({
-      items: this.fetchItem()
-    });
+    this.handleNext();
   }
   compare(partei) {
     return () => {
@@ -67,31 +80,35 @@ class Fragen extends Component {
   handleNext() {
     this.setState({
       korrekt: null,
-      items: this.fetchItem(),
       isLoaded: false,
       selected: null
-    })
-  }
+    });
+    if (findGetParameter("mock") === "True") {
+      this.setState({ isLoaded: true, items: [mock[this.state.mock_item]] });
 
-  fetchItem() {
-    fetch(process.env.BACKEND_URL + "/list") // fetch from REMOTE!
-      .then(result => result.json())
-      .then((res) => {
-        this.setState({
-          isLoaded: true,
-          items: res,
-        });
-        return res;
-      },
-        (error) => { //was passiert, wenn das ganze falsch läuft ???
+      if (this.state.mock_item < mock.length) {
+        this.setState({ mock_item: this.state.mock_item + 1 });
+      }
+    } else {
+      fetch(process.env.REACT_APP_BACKEND_URL + "/list") // fetch from REMOTE!
+        .then(result => result.json())
+        .then((res) => {
           this.setState({
-            isLoaded: false,
-            error
+            isLoaded: true,
+            items: res,
           });
-          console.log(this.state);
-          console.log(process.env.BACKEND_URL);
-          console.log("Error during connect!");
-        })
+        },
+          (error) => { //was passiert, wenn das ganze falsch läuft ???
+            this.setState({
+              isLoaded: false,
+              error
+            });
+            console.log(this.state);
+            console.log(process.env.REACT_APP_BACKEND_URL + "/list")
+            console.log("Error connecting to backend!");
+          })
+    }
+
   }
   returnColours() {
     if (this.state.selected === "NPD" || this.state.selected === "AfD") {
