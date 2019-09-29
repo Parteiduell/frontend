@@ -85,14 +85,14 @@ class Fragen extends Component {
     });
     if (findGetParameter("mock") === "True") {
       this.setState({ isLoaded: true, items: [mock[this.state.mock_item]] });
-
       if (this.state.mock_item < mock.length) {
         this.setState({ mock_item: this.state.mock_item + 1 });
       }
     } else {
-      fetch(process.env.REACT_APP_BACKEND_URL + "/list") // fetch from REMOTE!
+      fetch("https://api.parteiduell.de/list") // fetch from REMOTE!
         .then(result => result.json())
         .then((res) => {
+
           this.setState({
             isLoaded: true,
             items: res,
@@ -156,7 +156,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { err, isLoaded, items, selected, korrekt } = this.state;
+    const { isLoaded, items, selected } = this.state;
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (

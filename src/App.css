@@ -81,7 +81,9 @@
 
 body {
   font-family: Raleway !important;
-
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 h1,
@@ -128,27 +130,27 @@ button {
   border: 0px red solid;
 }
 
-img {
+#optionen img {
   width: 100px;
   height: auto;
   border-radius: 100%;
   border: 4px rgba(0, 102, 255, 0) solid;
   box-shadow: 0px 0px 5px #cacaca;
   transition-duration: 0.1s;
+  margin-bottom: 10px;
 }
 
-img:hover,
-img.selected {
+#optionen img:hover {
   transition-duration: 0.1s;
   border: 4px rgb(0, 102, 255) solid;
 }
 
-.selected img.right {
+#optionen.selected img.right {
   transition-duration: 0.1s;
   border: 4px rgb(0, 255, 0) solid;
 }
 
-.selected img.wrong {
+#optionen.selected img.wrong {
   transition-duration: 0.1s;
   border: 4px rgb(255, 0, 0) solid;
 }
@@ -180,7 +182,7 @@ img.selected {
 
 #antwort {
   font-size: 40px;
-  font-weight: 400;
+  font-weight: bold;
   color: #00FF00;
   text-align: center;
 
@@ -221,4 +223,24 @@ img.selected {
 #allthings{
   padding-left: 10%;
   padding-right: 10%;
+}
+.content{
+    flex: 1 0 auto;
+}
+.footer{
+  padding: 15px;
+  margin-top: 10px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-top: 1px #cacaca solid;
+
+}
+.footer img{
+  height: 20px;
+}
+
+.footer a{
+  color: black;
 }

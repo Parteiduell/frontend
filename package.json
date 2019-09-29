@@ -4,7 +4,6 @@
   "private": false,
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^8.1.0",
     "react": "^16.10.0",
     "react-confetti": "^4.0.1",
     "react-dom": "^16.10.0",
