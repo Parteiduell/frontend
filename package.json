@@ -10,9 +10,12 @@
     "react-scripts": "0.9.5",
     "react-window-size": "^1.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build; cd build; http-server",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
