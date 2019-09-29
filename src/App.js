@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./App.css";
 import Confetti from 'react-confetti';
+import windowSize from 'react-window-size';
 
 function importAll(r) {
   return r.keys().map(r);
@@ -106,6 +107,8 @@ class Fragen extends Component {
           <div>
             <p id="antwort">Richtig!</p>
             <Confetti
+            width={this.props.windowWidth}
+            height={this.props.windowHeight + 50} //adjusts window size automatically
               recycle={false}
               gravity={0.2}
               numberOfPieces={400}
@@ -138,7 +141,7 @@ class Fragen extends Component {
     if (isLoaded) {
       var parties = Object.keys(items[0].possibleAnswers);
       return (
-        <div>
+        <div id="allthings">
           {items.map(
             item => (
               <div>
@@ -148,7 +151,7 @@ class Fragen extends Component {
                 <div id="optionen" className={selected ? "selected" : ""}>
                   {parties.map(
                     partei => (
-                      <div>
+                      <div class= "logos">
                         <label class="parteien" >
                           <img src={this.getImage(partei)} alt={partei}  className={(partei === this.state.items[0].answer)? "right" : "wrong"} />
                           <button onClick={this.compare(partei)}> {partei} </button>
@@ -157,8 +160,6 @@ class Fragen extends Component {
                     )
                   )}
                 </div>
-
-
               </div>
             ))}
           {this.renderResult()}
@@ -171,7 +172,6 @@ class Fragen extends Component {
     }
   }
 
-
 }
 
-export default Fragen;
+export default windowSize(Fragen);

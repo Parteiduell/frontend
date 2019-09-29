@@ -156,6 +156,7 @@ img.selected {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -215,4 +216,9 @@ img.selected {
 
 .quote{
   font-style: italic;
+}
+
+#allthings{
+  padding-left: 10%;
+  padding-right: 10%;
 }
