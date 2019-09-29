@@ -7,7 +7,8 @@
     "react": "^16.10.0",
     "react-confetti": "^4.0.1",
     "react-dom": "^16.10.0",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "react-window-size": "^1.2.2"
   },
   "devDependencies": {},
   "scripts": {
