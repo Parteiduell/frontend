@@ -78,7 +78,7 @@
   /* Legacy iOS */
 }
 
-S
+
 
 /* playfair-display-regular - latin */
 @font-face {
@@ -213,7 +213,8 @@ button {
   margin-bottom: 3px;
   font-size: 40px;
   letter-spacing: 0.1em;
-  font-family: Playfair Display;
+  font-family: "Playfair Display" !important;
+  font-weight: 400;
 }
 
 .source {
