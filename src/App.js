@@ -148,14 +148,14 @@ class Fragen extends Component {
             item => (
               <div>
                 <h3 class="these"> {item.these} </h3>
-                <h2 class="statement quote"> {item.statement} </h2>
+                <h2 class="statement quote">{item.statement}</h2>
                 <div class="source">{item.source} - {item.context}</div>
-                <div id="optionen">
+                <div id="optionen" className={selected ? "selected" : ""}>
                   {parties.map(
                     partei => (
                       <div>
                         <label class="parteien" >
-                          <img src={this.getImage(partei)} alt={partei} className={partei === selected ? "selected" : ""} className={partei === selected && korrekt ? "right" : "wrong"} />
+                          <img src={this.getImage(partei)} alt={partei}  className={(partei === this.state.items[0].answer)? "right" : "wrong"} />
                           <button onClick={this.compare(partei)}> {partei} </button>
                         </label>
                       </div>
