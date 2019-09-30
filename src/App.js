@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 
 import Confetti from 'react-confetti';
+import { BarLoader } from "react-spinners";
+import { css } from "@emotion/core";
 import windowSize from 'react-window-size';
 
 import mock from "./mock.json"
 import "./App.css";
 
 
+const BarLoader_CSS = css`    
+  display: block;
+  margin: 0 auto;
+`;
 function importAll(r) {
   return r.keys().map(r);
 }
@@ -198,9 +204,7 @@ class Fragen extends Component {
         </div>
       );
     } else {
-      return (
-        <p> Hmm, Daten werden noch geladen...</p>
-      );
+      return <BarLoader css={BarLoader_CSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
     }
   }
 

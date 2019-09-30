@@ -4,12 +4,13 @@
   "private": false,
   "license": "MIT",
   "dependencies": {
+    "http-server": "^0.11.1",
     "react": "^16.10.0",
     "react-confetti": "^4.0.1",
     "react-dom": "^16.10.0",
     "react-scripts": "0.9.5",
-    "react-window-size": "^1.2.2",
-    "http-server": "^0.11.1"
+    "react-spinners": "^0.6.1",
+    "react-window-size": "^1.2.2"
   },
   "devDependencies": {},
   "scripts": {
