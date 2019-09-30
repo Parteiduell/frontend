@@ -1,3 +1,5 @@
+[![Jugend hackt](https://nschroetler.de/jhbadge/?evt=ffm&year=2019)](https://jugendhackt.org)
+
 # ParteiDuell Frontend
 
 Ein "Jugend hackt"-Projekt von Jannik, Tamina, Liv, Dominique, Dominik und Ole.
