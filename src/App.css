@@ -159,14 +159,6 @@ button {
   border: 2px rgb(0, 102, 255) solid;
 }
 
-.quote::before {
-  content: '”';
-}
-
-.quote::after {
-  content: ' ”';
-}
-
 .quote {
   font-style: italic;
 }
