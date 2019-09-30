@@ -173,7 +173,7 @@ class Fragen extends Component {
       if (correct) {
         return (
           <div>
-            <p id="answer">Richtig!</p>
+            <p autoFocus={true} id="answer">Richtig!</p>
             <Confetti
               width={this.props.windowWidth}
               height={this.props.windowHeight} //adjusts window size automatically
@@ -191,11 +191,11 @@ class Fragen extends Component {
       } else {
         return (
           <div>
-            <h2>Falsch, diese Aussage war von {item.answer}</h2>
+            <h2 autoFocus={true}>Falsch, diese Aussage war von {item.answer}</h2>
             <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
             <p class="quote">{item.possibleAnswers[selected]}</p>
             <label class="next">
-              <button onClick={this.handleNext.bind(this)}></button>
+              <button role={"button"} onClick={this.handleNext.bind(this)}></button>
               Nächste Frage
             </label>
           </div >
@@ -214,20 +214,19 @@ class Fragen extends Component {
         <div>
           <div>
             <p class="these"> {item.these} </p>
-            <p class="statement quote">{item.statement}</p>
+            <p class="statement quote">{'"'+item.statement+'"'}</p>
             <div class="source">{item.source} - {item.context}</div>
             <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
               {parties.map(
                 partei => (
                   <label class="logos">
-                    <img src={this.getImage(partei)} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
-                    <button onClick={this.compare(partei)}> {partei} </button>
-                  </label>
+			              <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
+                    <button onClick={this.compare(partei)}></button>
+                    </label>
                 )
               )}
             </div>
           </div>
-
           {this.renderResult()}
         </div>
       );
