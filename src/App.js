@@ -46,6 +46,7 @@ class Fragen extends Component {
       isLoaded: false,
       err: null,
       items: [],
+      item: null,
       correct: null,
       parties: [],
       selected: null,
@@ -65,7 +66,7 @@ class Fragen extends Component {
   compare(partei) {
     return () => {
       this.setState({
-        correct: partei === this.state.items[0].answer,
+        correct: partei === this.state.item.answer,
         selected: partei
       })
     }
@@ -85,47 +86,76 @@ class Fragen extends Component {
   // Handle keypresses for the joystick
   handleKeyDown(e) {
     if (e.key === "ArrowUp") {
-      this.compare(this.state.items[0].possibleParties[0])();
+      this.compare(this.state.item.possibleParties[0])();
     } else if (e.key === "ArrowLeft") {
-      this.compare(this.state.items[0].possibleParties[1])();
+      this.compare(this.state.item.possibleParties[1])();
     } else if (e.key === "ArrowDown") {
-      this.compare(this.state.items[0].possibleParties[2])();
+      this.compare(this.state.item.possibleParties[2])();
     } else if (e.key === "ArrowRight") {
-      this.compare(this.state.items[0].possibleParties[3])();
+      this.compare(this.state.item.possibleParties[3])();
     } else if (e.key === "a") {
       this.handleNext();
     }
   }
 
   handleNext() {
-    this.setState({
-      correct: null,
-      isLoaded: false,
-      selected: null
-    });
+    if (this.state.items.length > 0) {
+      // There are enough items, take one from the list
+      this.setState({
+        correct: null,
+        isLoaded: true,
+        selected: null,
+        item: this.state.items.shift()
+      });
 
+      // Preload items if there are less than 5 remaining
+      if (this.state.items.length < 5) {
+        // use data from backend
+        fetch(url + "?count=10") // fetch from REMOTE!
+          .then(result => result.json())
+          .then((result) => {
+            var item = result.shift()
 
-    if (findGetParameter("mock") === "True") {
-      // use mock data when GET arg mock is set to "True"
-      this.setState({ isLoaded: true, items: [mock[this.state.mockItem]] });
-      if (this.state.mockItem < mock.length) {
-        this.setState({ mock_item: this.state.mockItem + 1 });
+            this.setState({
+              items: this.state.items.concat(result),
+            });
+          },
+            (error) => {
+              console.log("Error connecting to backend! (url: " + url + ")", error);
+            })
       }
-    } else {
-      // use data from backend
-      fetch(url) // fetch from REMOTE!
-        .then(result => result.json())
-        .then((result) => {
-          this.setState({
-            isLoaded: true,
-            items: result,
-          });
-        },
-          (error) => {
-            console.log("Error connecting to backend! (url: " + url + ")", error);
-          })
-    }
 
+    } else {
+      // Load items the first time (loading only 3 because preloading will extend it by 10 in the background)
+      this.setState({
+        correct: null,
+        isLoaded: false,
+        selected: null,
+      });
+
+      if (findGetParameter("mock") === "True") {
+        // use mock data when GET arg mock is set to "True"
+        this.setState({ isLoaded: true, items: [mock[this.state.mockItem]] });
+        if (this.state.mockItem < mock.length) {
+          this.setState({ mock_item: this.state.mockItem + 1 });
+        }
+      } else {
+        // use data from backend
+        fetch(url + "?count=3") // fetch from REMOTE!
+          .then(result => result.json())
+          .then((result) => {
+            var item = result.shift()
+            this.setState({
+              isLoaded: true,
+              items: result,
+              item: item
+            });
+          },
+            (error) => {
+              console.log("Error connecting to backend! (url: " + url + ")", error);
+            })
+      }
+    }
   }
 
   // return colours for confetti
@@ -138,7 +168,7 @@ class Fragen extends Component {
   }
 
   renderResult() {
-    const { items, correct, selected } = this.state;
+    const { item, correct, selected } = this.state;
     if (correct != null) {
       if (correct) {
         return (
@@ -161,9 +191,9 @@ class Fragen extends Component {
       } else {
         return (
           <div>
-            <h2 autoFocus={true}>Falsch, diese Aussage war von {items[0].answer}</h2>
-            <p>Die Partei "{selected}" hat folgendes Statement abgegeben:</p>
-            <p class="quote">{items[0].possibleAnswers[selected]}</p>
+            <h2 autoFocus={true}>Falsch, diese Aussage war von {item.answer}</h2>
+            <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
+            <p class="quote">{item.possibleAnswers[selected]}</p>
             <label class="next">
               <button role={"button"} onClick={this.handleNext.bind(this)}></button>
               Nächste Frage
@@ -175,31 +205,28 @@ class Fragen extends Component {
   }
 
   render() {
-    const { isLoaded, items, selected } = this.state;
+    const { isLoaded, items, item, selected } = this.state;
     var joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
-      var parties = Object.keys(items[0].possibleAnswers);
+      var parties = Object.keys(item.possibleAnswers);
       return (
         <div>
-          {items.map(
-            item => (
-              <div>
-                <p class="these"> {item.these} </p>
-                <p class="statement quote">{'"'+item.statement+'"'}</p>
-                <div class="source">{item.source} - {item.context}</div>
-                <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
-                  {parties.map(
-                    partei => (
-                      <label class="logos">
-			                  <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
-                        <button onClick={this.compare(partei)}></button>
-                      </label>
-                    )
-                  )}
-                </div>
-              </div>
-            ))}
+          <div>
+            <p class="these"> {item.these} </p>
+            <p class="statement quote">{'"'+item.statement+'"'}</p>
+            <div class="source">{item.source} - {item.context}</div>
+            <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
+              {parties.map(
+                partei => (
+                  <label class="logos">
+			              <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
+                    <button onClick={this.compare(partei)}></button>
+                    </label>
+                )
+              )}
+            </div>
+          </div>
           {this.renderResult()}
         </div>
       );
