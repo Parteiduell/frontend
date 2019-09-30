@@ -1,11 +1,11 @@
 @import "fonts.css";
 
 body {
-  font-family: Raleway !important;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+    font-family: Raleway !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 h1,
@@ -13,186 +13,189 @@ h2,
 h3,
 h4,
 h5 {
-  font-weight: 100;
+    font-weight: 100;
 }
 
 .container {
-  max-width: 50em;
-  margin: 0 auto;
-  margin-top: 15px;
-  padding: 0 0.5em;
+    max-width: 50em;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 0 0.5em;
 }
 
 button {
-  display: none
+    display: none;
 }
 
 .header {
-  width: 100%;
-  padding-top: 10px;
-  margin-top: 0;
-  padding-bottom: 1px;
-  margin-bottom: 2em;
-  box-shadow: 0px 0px 10px #cacaca;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 0;
+    padding-bottom: 1px;
+    margin-bottom: 2em;
+    box-shadow: 0px 0px 10px #cacaca;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
 }
 
 .header a {
-  width: 5em;
+    width: 5em;
 }
 
 #options img {
-  width: 100px;
-  height: auto;
-  border-radius: 100%;
-  border: 4px rgba(0, 102, 255, 0) solid;
-  box-shadow: 0px 0px 5px #cacaca;
-  transition-duration: 0.1s;
-  margin-bottom: 10px;
+    width: 100px;
+    height: auto;
+    border-radius: 100%;
+    border: 4px rgba(0, 102, 255, 0) solid;
+    box-shadow: 0px 0px 5px #cacaca;
+    transition-duration: 0.1s;
+    margin-bottom: 10px;
 }
 
 #options.joystick {
-  display: grid;
-  grid-template-rows: repeat(3, 100px);
-  grid-template-columns: repeat(3, 100px);
+    display: grid;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
 }
 
 .joystick .logos:first-child {
-  grid-row: 1;
-  grid-column: 2;
+    grid-row: 1;
+    grid-column: 2;
 }
 
 .joystick .logos:nth-child(2) {
-  grid-row: 2;
-  grid-column: 1;
+    grid-row: 2;
+    grid-column: 1;
 }
 
 .joystick .logos:nth-child(4) {
-  grid-row: 2;
-  grid-column: 3;
+    grid-row: 2;
+    grid-column: 3;
 }
 
 .joystick .logos:nth-child(3) {
-  grid-row: 3;
-  grid-column: 2;
+    grid-row: 3;
+    grid-column: 2;
 }
 
 #options img:hover {
-  transition-duration: 0.1s;
-  border: 4px rgb(0, 102, 255) solid;
+    transition-duration: 0.1s;
+    border: 4px rgb(0, 102, 255) solid;
 }
 
 #options.selected img.right {
-  transition-duration: 0.1s;
-  border: 4px rgb(0, 255, 0) solid;
+    transition-duration: 0.1s;
+    border: 4px rgb(0, 255, 0) solid;
 }
 
 #options.selected img.wrong {
-  transition-duration: 0.1s;
-  border: 4px rgb(255, 0, 0) solid;
+    transition-duration: 0.1s;
+    border: 4px rgb(255, 0, 0) solid;
 }
 
 #options {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .title {
-  font-size: 40px;
-  letter-spacing: 0.1em;
-  font-family: "Playfair Display" !important;
-  font-weight: 400;
-  margin: 0 0.5em 2px 0.5em;
+    font-size: 40px;
+    letter-spacing: 0.1em;
+    font-family: "Playfair Display" !important;
+    font-weight: 400;
+    margin: 0 0.5em 2px 0.5em;
 }
 
 .source {
-  text-align: right;
-  margin-bottom: 3em;
-  color: grey;
+    text-align: right;
+    margin-bottom: 3em;
+    color: grey;
 }
 
 .these {
-  font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 .these:before {
-  margin-left: 1.25em;
-  font-size: 3.75em;
+    margin-left: 1.25em;
+    font-size: 3.75em;
 }
 
 .statement {
-  font-size: 1.5em;
-  word-break: normal;
-  text-align: justify;
+    font-size: 1.5em;
+    word-break: normal;
+}
+
+@media only screen and (min-width: 600px) {
+    .statement {
+        text-align: justify;
+    }
 }
 
 .statement:after {
-  margin-left: -10px;
+    margin-left: -10px;
 }
 
 #answer {
-  font-size: 40px;
-  font-weight: bold;
-  color: #00FF00;
-  text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #00FF00;
+    text-align: center;
 }
 
 .error {
-  color: red;
+    color: red;
 }
 
 .next {
-  border: 2px rgb(202, 202, 202) solid;
-  padding: 0.5em;
-  border-radius: 0.5em;
-  margin: 3em;
-  width: calc(100% - 6em);
-  position: relative;
-  display: block;
-  text-align: center;
-  box-sizing: border-box;
+    border: 2px rgb(202, 202, 202) solid;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    margin: 3em;
+    width: calc(100% - 6em);
+    position: relative;
+    display: block;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .next:hover {
-  border: 2px rgb(0, 102, 255) solid;
+    border: 2px rgb(0, 102, 255) solid;
 }
 
 .quote::before {
-  content: '”';
+    content: '”';
 }
 
 .quote::after {
-  content: ' ”';
+    content: ' ”';
 }
 
 .quote {
-  font-style: italic;
+    font-style: italic;
 }
 
-
 .content {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .footer {
-  padding: 15px;
-  margin-top: 10px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  border-top: 1px #cacaca solid;
-
+    padding: 15px;
+    margin-top: 10px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-top: 1px #cacaca solid;
 }
 
 .footer img {
-  height: 20px;
+    height: 20px;
 }
 
 .footer a {
-  color: black;
+    color: black;
 }
