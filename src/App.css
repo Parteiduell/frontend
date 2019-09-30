@@ -126,6 +126,8 @@ button {
 
 .statement {
   font-size: 1.5em;
+  word-break: normal;
+  text-align: justify;
 }
 
 .statement:after {
