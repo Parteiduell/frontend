@@ -114,8 +114,6 @@ class Fragen extends Component {
         fetch(url + "?count=10") // fetch from REMOTE!
           .then(result => result.json())
           .then((result) => {
-            var item = result.shift()
-
             this.setState({
               items: this.state.items.concat(result),
             });
@@ -205,7 +203,7 @@ class Fragen extends Component {
   }
 
   render() {
-    const { isLoaded, items, item, selected } = this.state;
+    const { isLoaded, item, selected } = this.state;
     var joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
