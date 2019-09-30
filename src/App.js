@@ -133,6 +133,7 @@ class Fragen extends Component {
               width={this.props.windowWidth}
               height={this.props.windowHeight} //adjusts window size automatically
               recycle={false}
+              wind={0.1}
               gravity={0.2}
               numberOfPieces={400}
               colors={this.returnColours()}
