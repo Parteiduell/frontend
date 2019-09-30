@@ -2,7 +2,7 @@
 
 # ParteiDuell Frontend
 
-Ein "Jugend hackt"-Projekt von Jannik, Tamina, Liv, Dominique, Dominik und Ole.
+Ein "Jugend hackt"-Projekt von Jannik, Tamina, Liv, Dominique, Dominik, Max und Ole.
 
 Als Teil des "Jugend hackt"-Workshops in Frankfurt am Main haben wir ein Quiz erstellt, welches der Spieler*in die Möglichkeit gibt, zu einer politischen Aussage zu raten, welche Partei sie gesagt hat.
 
