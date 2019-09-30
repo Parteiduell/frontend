@@ -220,7 +220,7 @@ class Fragen extends Component {
               {parties.map(
                 partei => (
                   <label class="logos">
-			              <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.items[0].answer) ? "right" : "wrong"} />
+			              <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
                     <button onClick={this.compare(partei)}></button>
                     </label>
                 )
