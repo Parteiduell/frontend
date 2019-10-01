@@ -21,7 +21,7 @@ const BarLoader_CSS = css`
 function findGetParameter(parameterName) {
   var result = null,
     tmp = [];
-  location.search
+  window.location.search
     .substr(1)
     .split("&")
     .forEach(function (item) {

@@ -39,7 +39,7 @@ class Result extends Component {
                         <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
                         <p className="quote">{item.possibleAnswers[selected]}</p>
                         <label className="next">
-                            <button role={"button"} onClick={this.props.onNext}></button>
+                            <button onClick={this.props.onNext}></button>
                             Nächste Frage
                         </label>
                     </div >
