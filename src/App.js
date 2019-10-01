@@ -161,12 +161,12 @@ class Main extends Component {
       return (
         <div>
           <p className="these">{item.these}</p>
-          <p className="statement quote">{'"' + item.statement + '"'}</p>
+          <p className="statement quote">{this.renderStatment()}</p>
           <div className="source">{item.source} - {item.context}</div>
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
             {parties.map(
               (partei, index) => (
-                <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)}/>
+                <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)} />
               )
             )}
           </div>
@@ -178,6 +178,22 @@ class Main extends Component {
     }
   }
 
+  renderStatment() {
+    const { item } = this.state;
+    var parts = item.statement.split("█████");
+    return parts.map(
+      (part, i) =>
+        (
+          <React.Fragment>
+            {part}
+            {parts.length !== i + 1 &&
+              <span aria-label="Partei" > <span aria-hidden="true">█████</span></span>
+            }
+          </React.Fragment>
+        )
+    )
+
+  }
 }
 
 export default windowSize(Main);
