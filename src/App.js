@@ -98,32 +98,9 @@ class Fragen extends Component {
   }
 
   handleNext() {
-    if (this.state.items.length > 0) {
-      // There are enough items, take one from the list
-      this.setState({
-        correct: null,
-        isLoaded: true,
-        selected: null,
-        item: this.state.items.shift()
-      });
+    if (this.state.items.length === 0) {
+      // There aren't any loaded items
 
-      // Preload items if there are less than 5 remaining
-      if (this.state.items.length < 5) {
-        // use data from backend
-        fetch(url + "?count=10") // fetch from REMOTE!
-          .then(result => result.json())
-          .then((result) => {
-            this.setState({
-              items: this.state.items.concat(result),
-            });
-          },
-            (error) => {
-              console.log("Error connecting to backend! (url: " + url + ")", error);
-            })
-      }
-
-    } else {
-      // Load items the first time (loading only 3 because preloading will extend it by 10 in the background)
       this.setState({
         correct: null,
         isLoaded: false,
@@ -141,7 +118,8 @@ class Fragen extends Component {
 
 
       } else {
-        // use data from backend
+        // Load items the first time (loading only 3 because preloading will extend it by 10 in the background)
+
         fetch(url + "?count=3") // fetch from REMOTE!
           .then(result => result.json())
           .then((result) => {
@@ -150,6 +128,30 @@ class Fragen extends Component {
               isLoaded: true,
               items: result,
               item: item
+            });
+          },
+            (error) => {
+              console.log("Error connecting to backend! (url: " + url + ")", error);
+            })
+      }
+    } else {
+      // There are enough items, take one from the list
+
+      this.setState({
+        correct: null,
+        isLoaded: true,
+        selected: null,
+        item: this.state.items.shift()
+      });
+
+      // Preload items if there are less than 5 remaining
+      if (this.state.items.length < 5) {
+        // use data from backend
+        fetch(url + "?count=10") // fetch from REMOTE!
+          .then(result => result.json())
+          .then((result) => {
+            this.setState({
+              items: this.state.items.concat(result),
             });
           },
             (error) => {
