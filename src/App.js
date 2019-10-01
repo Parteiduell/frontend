@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import Confetti from 'react-confetti';
 import { BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
 import windowSize from 'react-window-size';
 
 import mock from "./mock.json"
 import "./App.css";
+import Result from './Result.js';
 
 
 const BarLoader_CSS = css`    
@@ -37,8 +37,17 @@ function findGetParameter(parameterName) {
 const url = "https://api.parteiduell.de/list";
 const images = importAll(require.context("./pictures/", false, /\.(svg)$/));
 
+// Get icon from party name
+function getImage(partei) {
+  for (var image of images) {
+    if (image.includes(partei.toLowerCase().replace("/", "-"))) {
+      return image;
+    }
+  }
+  console.error("Kein passendes Bild gefunden!", partei);
+}
 
-class Fragen extends Component {
+class Main extends Component {
 
   constructor(props) {
     super(props);
@@ -71,15 +80,6 @@ class Fragen extends Component {
     }
   }
 
-  // Get icon from party name
-  getImage(partei) {
-    for (var image of images) {
-      if (image.includes(partei.toLowerCase().replace("/", "-"))) {
-        return image;
-      }
-    }
-    console.error("Kein passendes Bild gefunden!", partei);
-  }
 
   // Handle keypresses for the joystick
   handleKeyDown(e) {
@@ -166,54 +166,9 @@ class Fragen extends Component {
     }
   }
 
-  // return colours for confetti
-  returnColours() {
-    if (this.state.selected === "NPD" || this.state.selected === "AfD") {
-      return ['#8B4513'];
-    } else {
-      return ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548'];
-    }
-  }
-
-  renderResult() {
-    const { item, correct, selected } = this.state;
-    if (correct != null) {
-      if (correct) {
-        return (
-          <div>
-            <p autoFocus={true} id="answer">Richtig!</p>
-            <Confetti
-              width={this.props.windowWidth}
-              height={this.props.windowHeight} //adjusts window size automatically
-              recycle={false}
-              gravity={0.2}
-              numberOfPieces={400}
-              colors={this.returnColours()}
-            />
-            <label className="next">
-              <button onClick={this.handleNext.bind(this)}></button>
-              Nächste Frage
-            </label>
-          </div>
-        )
-      } else {
-        return (
-          <div>
-            <h2 autoFocus={true}>Falsch, diese Aussage war von {item.answer}</h2>
-            <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
-            <p className="quote">{item.possibleAnswers[selected]}</p>
-            <label className="next">
-              <button role={"button"} onClick={this.handleNext.bind(this)}></button>
-              Nächste Frage
-            </label>
-          </div >
-        )
-      }
-    }
-  }
 
   render() {
-    const { isLoaded, item, selected } = this.state;
+    const { isLoaded, item, selected, correct } = this.state;
     var joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
@@ -221,21 +176,21 @@ class Fragen extends Component {
       return (
         <div>
           <div>
-            <p className="these"> {item.these} </p>
+            <p className="these">{item.these}</p>
             <p className="statement quote">{'"' + item.statement + '"'}</p>
             <div className="source">{item.source} - {item.context}</div>
             <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
               {parties.map(
                 (partei, index) => (
                   <label key={index} className="logos">
-                    <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
+                    <img role={"button"} src={getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
                     <button onClick={this.compare(partei)}></button>
                   </label>
                 )
               )}
             </div>
           </div>
-          {this.renderResult()}
+          <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)}/>
         </div>
       );
     } else {
@@ -245,4 +200,4 @@ class Fragen extends Component {
 
 }
 
-export default windowSize(Fragen);
+export default windowSize(Main);
