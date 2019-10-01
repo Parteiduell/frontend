@@ -15,6 +15,15 @@
         "maintenance",
         "infra"
       ]
+    },
+    {
+      "login": "redsolver",
+      "name": "redsolver",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/30355444?v=4",
+      "profile": "https://github.com/redsolver",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
