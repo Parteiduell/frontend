@@ -51,7 +51,6 @@ class Fragen extends Component {
       parties: [],
       selected: null,
       score: 0, //not yet used, maybe in a later version ?
-      mockItem: 0
     };
   }
   componentDidMount() {
@@ -133,10 +132,23 @@ class Fragen extends Component {
 
       if (findGetParameter("mock") === "True") {
         // use mock data when GET arg mock is set to "True"
-        this.setState({ isLoaded: true, items: [mock[this.state.mockItem]] });
-        if (this.state.mockItem < mock.length) {
-          this.setState({ mock_item: this.state.mockItem + 1 });
+        if (mock.length !== 0) {
+          this.setState({
+            correct: null,
+            isLoaded: true,
+            selected: null,
+            item: mock.shift()
+          });
+        } else {
+          this.setState({
+            correct: null,
+            isLoaded: false,
+            selected: null,
+            item: mock.shift()
+          });
         }
+
+
       } else {
         // use data from backend
         fetch(url + "?count=3") // fetch from REMOTE!
