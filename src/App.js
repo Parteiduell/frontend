@@ -161,7 +161,9 @@ class Main extends Component {
       return (
         <div>
           <p className="these">{item.these}</p>
-          <p className="statement quote">{this.renderStatment()}</p>
+          <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
+            <span aria-hidden="true">{item.statement}</span>
+          </p>
           <div className="source">{item.source} - {item.context}</div>
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
             {parties.map(
@@ -176,23 +178,6 @@ class Main extends Component {
     } else {
       return <BarLoader css={BarLoader_CSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
     }
-  }
-
-  renderStatment() {
-    const { item } = this.state;
-    var parts = item.statement.split("█████");
-    return parts.map(
-      (part, i) =>
-        (
-          <React.Fragment>
-            {part}
-            {parts.length !== i + 1 &&
-              <span aria-label="Partei" > <span aria-hidden="true">█████</span></span>
-            }
-          </React.Fragment>
-        )
-    )
-
   }
 }
 
