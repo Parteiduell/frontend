@@ -1,5 +1,5 @@
 [![Jugend hackt](https://jhbadge.com/?year=2019&evt=ffm)](https://jugendhackt.org) [![Build Status](https://travis-ci.com/Jugendhackt/parteiduell-frontend.svg?branch=master)](https://travis-ci.com/Jugendhackt/parteiduell-frontend)
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
 # ParteiDuell Frontend
 
@@ -44,6 +44,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/redsolver"><img src="https://avatars1.githubusercontent.com/u/30355444?v=4" width="100px;" alt="redsolver"/><br /><sub><b>redsolver</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=redsolver" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jnnkB"><img src="https://avatars0.githubusercontent.com/u/29376715?v=4" width="100px;" alt="jnnkB"/><br /><sub><b>jnnkB</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=jnnkB" title="Code">💻</a> <a href="#design-jnnkB" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/Max20013108"><img src="https://avatars1.githubusercontent.com/u/43184247?v=4" width="100px;" alt="Max20013108"/><br /><sub><b>Max20013108</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=Max20013108" title="Code">💻</a> <a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=Max20013108" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/lmaertens"><img src="https://avatars1.githubusercontent.com/u/44585549?v=4" width="100px;" alt="Liv Märtens"/><br /><sub><b>Liv Märtens</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=lmaertens" title="Code">💻</a> <a href="#design-lmaertens" title="Design">🎨</a></td>
   </tr>
 </table>
 
