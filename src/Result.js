@@ -25,6 +25,7 @@ class Result extends Component {
                             gravity={0.2}
                             numberOfPieces={400}
                             colors={this.returnColours()}
+                            className={"confetti"}
                         />
                         <label className="next">
                             <button onClick={this.props.onNext}></button>

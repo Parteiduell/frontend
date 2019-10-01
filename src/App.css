@@ -199,6 +199,9 @@ button {
     height: 20px;
 }
 
+.confetti {
+    position: fixed !important;
+}
 
 @media (prefers-color-scheme: dark) {
     body {
