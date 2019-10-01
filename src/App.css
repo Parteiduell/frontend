@@ -1,10 +1,5 @@
 @import "fonts.css";
 
-
-
-
-
-
 body {
     font-family: Raleway !important;
     display: flex;
@@ -203,8 +198,46 @@ button {
     position: fixed !important;
 }
 
+.startscreen {
+    position: fixed;
+    background-color: #fff;
+    max-width: 40em;
+    max-height: 40em;
+    left: 0;
+    top: 0;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    margin-left: calc(50% - 20em);
+    padding: 1.5em;
+    box-sizing: border-box;
+    margin-top: calc(50vh - 20em);
+    border-radius: 1em;
+    box-shadow: 0 0 1em #5a5a5a;
+    font-weight: 500;
+}
+
+.startscreen-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 40em) {
+    .startscreen {
+        margin-left: 0;
+        border-radius: 0;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
-    body {
+
+    body,
+    .startscreen {
         background-color: #000000;
         color: #dddddd;
         font-weight: 500;
@@ -223,5 +256,9 @@ button {
         background: #ddd;
         border-radius: 100%;
         border: 1px #ddd solid;
+    }
+
+    .startscreen-overlay {
+        background-color: rgba(37, 37, 37, 0.5);
     }
 }

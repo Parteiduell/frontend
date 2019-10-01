@@ -8,6 +8,7 @@ import mock from "./mock.json"
 import "./App.css";
 import Result from "./Result.js";
 import Option from "./Option.js"
+import Startscreen from "./Startscreen"
 
 const BarLoader_CSS = css`    
   display: block;
@@ -159,7 +160,8 @@ class Main extends Component {
     if (isLoaded) {
       var parties = Object.keys(item.possibleAnswers);
       return (
-        <div>
+        <>
+          <Startscreen />
           <p className="these">{item.these}</p>
           <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
             <span aria-hidden="true">{item.statement}</span>
@@ -173,7 +175,7 @@ class Main extends Component {
             )}
           </div>
           <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
-        </div>
+        </>
       );
     } else {
       return <BarLoader css={BarLoader_CSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
