@@ -134,16 +134,7 @@ class Fragen extends Component {
         // use mock data when GET arg mock is set to "True"
         if (mock.length !== 0) {
           this.setState({
-            correct: null,
             isLoaded: true,
-            selected: null,
-            item: mock.shift()
-          });
-        } else {
-          this.setState({
-            correct: null,
-            isLoaded: false,
-            selected: null,
             item: mock.shift()
           });
         }
