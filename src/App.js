@@ -80,7 +80,6 @@ class Main extends Component {
     }
   }
 
-
   // Handle keypresses for the joystick
   handleKeyDown(e) {
     if (e.key === "ArrowUp") {
@@ -175,22 +174,20 @@ class Main extends Component {
       var parties = Object.keys(item.possibleAnswers);
       return (
         <div>
-          <div>
-            <p className="these">{item.these}</p>
-            <p className="statement quote">{'"' + item.statement + '"'}</p>
-            <div className="source">{item.source} - {item.context}</div>
-            <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
-              {parties.map(
-                (partei, index) => (
-                  <label key={index} className="logos">
-                    <img role={"button"} src={getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
-                    <button onClick={this.compare(partei)}></button>
-                  </label>
-                )
-              )}
-            </div>
+          <p className="these">{item.these}</p>
+          <p className="statement quote">{'"' + item.statement + '"'}</p>
+          <div className="source">{item.source} - {item.context}</div>
+          <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
+            {parties.map(
+              (partei, index) => (
+                <label key={index} className="logos">
+                  <img role={"button"} src={getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
+                  <button onClick={this.compare(partei)}></button>
+                </label>
+              )
+            )}
           </div>
-          <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)}/>
+          <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
         </div>
       );
     } else {
