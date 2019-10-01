@@ -1,5 +1,5 @@
 [![Jugend hackt](https://jhbadge.com/?year=2019&evt=ffm)](https://jugendhackt.org) [![Build Status](https://travis-ci.com/Jugendhackt/parteiduell-frontend.svg?branch=master)](https://travis-ci.com/Jugendhackt/parteiduell-frontend)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
 # ParteiDuell Frontend
 
@@ -41,6 +41,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://gruselhaus.com"><img src="https://avatars2.githubusercontent.com/u/33380107?v=4" width="100px;" alt="Nico Finkernagel"/><br /><sub><b>Nico Finkernagel</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=gruselhaus" title="Code">💻</a> <a href="#maintenance-gruselhaus" title="Maintenance">🚧</a> <a href="#infra-gruselhaus" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/redsolver"><img src="https://avatars1.githubusercontent.com/u/30355444?v=4" width="100px;" alt="redsolver"/><br /><sub><b>redsolver</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=redsolver" title="Code">💻</a></td>
   </tr>
 </table>
 
