@@ -40,7 +40,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore -->
 <table>
   <tr>
-    <td align="center"><a href="https://gruselhaus.com"><img src="https://avatars2.githubusercontent.com/u/33380107?v=4" width="100px;" alt="Nico Finkernagel"/><br /><sub><b>Nico Finkernagel</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=gruselhaus" title="Code">💻</a></td>
+    <td align="center"><a href="https://gruselhaus.com"><img src="https://avatars2.githubusercontent.com/u/33380107?v=4" width="100px;" alt="Nico Finkernagel"/><br /><sub><b>Nico Finkernagel</b></sub></a><br /><a href="https://github.com/Jugendhackt/parteiduell-frontend/commits?author=gruselhaus" title="Code">💻</a> <a href="#maintenance-gruselhaus" title="Maintenance">🚧</a> <a href="#infra-gruselhaus" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
 
