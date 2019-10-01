@@ -1,4 +1,4 @@
-[![Jugend hackt](https://nschroetler.de/jhbadge/?evt=ffm&year=2019)](https://jugendhackt.org)
+[![Jugend hackt](https://jhbadge.com/?year=2019&evt=ffm)](https://jugendhackt.org)
 
 # ParteiDuell Frontend
 
