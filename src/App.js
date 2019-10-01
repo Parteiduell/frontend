@@ -180,7 +180,7 @@ class Fragen extends Component {
               numberOfPieces={400}
               colors={this.returnColours()}
             />
-            <label class="next">
+            <label className="next">
               <button onClick={this.handleNext.bind(this)}></button>
               Nächste Frage
             </label>
@@ -191,8 +191,8 @@ class Fragen extends Component {
           <div>
             <h2 autoFocus={true}>Falsch, diese Aussage war von {item.answer}</h2>
             <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
-            <p class="quote">{item.possibleAnswers[selected]}</p>
-            <label class="next">
+            <p className="quote">{item.possibleAnswers[selected]}</p>
+            <label className="next">
               <button role={"button"} onClick={this.handleNext.bind(this)}></button>
               Nächste Frage
             </label>
@@ -211,16 +211,16 @@ class Fragen extends Component {
       return (
         <div>
           <div>
-            <p class="these"> {item.these} </p>
-            <p class="statement quote">{'"'+item.statement+'"'}</p>
-            <div class="source">{item.source} - {item.context}</div>
+            <p className="these"> {item.these} </p>
+            <p className="statement quote">{'"' + item.statement + '"'}</p>
+            <div className="source">{item.source} - {item.context}</div>
             <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
               {parties.map(
-                partei => (
-                  <label class="logos">
-			              <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
+                (partei, index) => (
+                  <label key={index} className="logos">
+                    <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
                     <button onClick={this.compare(partei)}></button>
-                    </label>
+                  </label>
                 )
               )}
             </div>
