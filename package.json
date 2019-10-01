@@ -5,9 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "http-server": "^0.11.1",
-    "react": "^16.10.0",
+    "react": "^16.10.1",
     "react-confetti": "^4.0.1",
-    "react-dom": "^16.10.0",
+    "react-dom": "^16.10.1",
     "react-scripts": "0.9.5",
     "react-spinners": "^0.6.1",
     "react-window-size": "^1.2.2"
