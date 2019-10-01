@@ -6,16 +6,14 @@ import windowSize from 'react-window-size';
 
 import mock from "./mock.json"
 import "./App.css";
-import Result from './Result.js';
-
+import Result from "./Result.js";
+import Option from "./Option.js"
 
 const BarLoader_CSS = css`    
   display: block;
   margin: 0 auto;
 `;
-function importAll(r) {
-  return r.keys().map(r);
-}
+
 
 /*
 * extract parameter from url to toggle test mode and joystick mode
@@ -33,19 +31,7 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-
 const url = "https://api.parteiduell.de/list";
-const images = importAll(require.context("./pictures/", false, /\.(svg)$/));
-
-// Get icon from party name
-function getImage(partei) {
-  for (var image of images) {
-    if (image.includes(partei.toLowerCase().replace("/", "-"))) {
-      return image;
-    }
-  }
-  console.error("Kein passendes Bild gefunden!", partei);
-}
 
 class Main extends Component {
 
@@ -180,10 +166,7 @@ class Main extends Component {
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
             {parties.map(
               (partei, index) => (
-                <label key={index} className="logos">
-                  <img role={"button"} src={getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
-                  <button onClick={this.compare(partei)}></button>
-                </label>
+                <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)}/>
               )
             )}
           </div>
