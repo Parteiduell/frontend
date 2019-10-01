@@ -214,4 +214,10 @@ button {
     .footer {
         border-top-color: #dddddd
     }
+
+    .github {
+        background: #ddd;
+        border-radius: 100%;
+        border: 1px #ddd solid;
+    }
 }
