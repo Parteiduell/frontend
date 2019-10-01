@@ -14,13 +14,13 @@ In unserem Datensatz vom [Wahl-O-Meter](https://www.wahlometer.watch) sind alle 
 
 Das Frontend-Projekt wurde mit create-react-app gebootstrapped.
 
-Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zusätzlich [das Backend](https://www.github.com/jugendhackt/parteiduell-backend) geclont werden.
+Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zusätzlich [das Backend](https://www.github.com/jugendhackt/parteiduell-backend) geklont werden.
 
 ## Server lokal starten
 
 1. [Node.js installieren](https://nodejs.org)
 
-2. Frontend lokal clonen
+2. Frontend lokal klonen
 `git clone https://github.com/Jugendhackt/parteiduell-frontend`
 
 3. Ordner wechseln
