@@ -118,9 +118,9 @@ class Fragen extends Component {
 
 
       } else {
-        // Load items the first time (loading only 3 because preloading will extend it by 10 in the background)
+        // Load items the first time (loading only 1 because preloading will extend it by 10 in the background)
 
-        fetch(url + "?count=3") // fetch from REMOTE!
+        fetch(url + "?count=1") // fetch from REMOTE!
           .then(result => result.json())
           .then((result) => {
             var item = result.shift()
@@ -133,6 +133,8 @@ class Fragen extends Component {
             (error) => {
               console.log("Error connecting to backend! (url: " + url + ")", error);
             })
+        // preload items cause we only have one
+        this.preload();
       }
     } else {
       // There are enough items, take one from the list
@@ -145,19 +147,23 @@ class Fragen extends Component {
       });
 
       // Preload items if there are less than 5 remaining
-      if (this.state.items.length < 5) {
-        // use data from backend
-        fetch(url + "?count=10") // fetch from REMOTE!
-          .then(result => result.json())
-          .then((result) => {
-            this.setState({
-              items: this.state.items.concat(result),
-            });
-          },
-            (error) => {
-              console.log("Error connecting to backend! (url: " + url + ")", error);
-            })
-      }
+      this.preload();
+    }
+  }
+
+  preload() {
+    if (this.state.items.length < 5) {
+      // use data from backend
+      fetch(url + "?count=10") // fetch from REMOTE!
+        .then(result => result.json())
+        .then((result) => {
+          this.setState({
+            items: this.state.items.concat(result),
+          });
+        },
+          (error) => {
+            console.log("Error connecting to backend! (url: " + url + ")", error);
+          })
     }
   }
 
