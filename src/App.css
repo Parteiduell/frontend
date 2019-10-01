@@ -1,5 +1,10 @@
 @import "fonts.css";
 
+
+
+
+
+
 body {
     font-family: Raleway !important;
     display: flex;
@@ -13,7 +18,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-weight: 100;
+    font-weight: inherit;
 }
 
 .container {
@@ -51,6 +56,7 @@ button {
     box-shadow: 0px 0px 5px #cacaca;
     transition-duration: 0.1s;
     margin-bottom: 10px;
+    background-color: #fff;
 }
 
 #options.joystick {
@@ -133,6 +139,10 @@ button {
     .statement {
         text-align: justify;
     }
+
+    .quote {
+        text-align: justify;
+    }
 }
 
 .statement:after {
@@ -168,6 +178,7 @@ button {
 
 .quote {
     font-style: italic;
+    word-break: normal;
 }
 
 .content {
@@ -188,6 +199,26 @@ button {
     height: 20px;
 }
 
-.footer a {
-    color: black;
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #000000;
+        color: #dddddd;
+        font-weight: 500;
+    }
+
+    #options img,
+    .header {
+        box-shadow: 0px 0px 10px #5a5a5a;
+    }
+
+    .footer {
+        border-top-color: #dddddd
+    }
+
+    .github {
+        background: #ddd;
+        border-radius: 100%;
+        border: 1px #ddd solid;
+    }
 }

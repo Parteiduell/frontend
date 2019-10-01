@@ -1,0 +1,64 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "gruselhaus",
+      "name": "Nico Finkernagel",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33380107?v=4",
+      "profile": "https://gruselhaus.com",
+      "contributions": [
+        "code",
+        "maintenance",
+        "infra"
+      ]
+    },
+    {
+      "login": "redsolver",
+      "name": "redsolver",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/30355444?v=4",
+      "profile": "https://github.com/redsolver",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jnnkB",
+      "name": "jnnkB",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/29376715?v=4",
+      "profile": "https://github.com/jnnkB",
+      "contributions": [
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "Max20013108",
+      "name": "Max20013108",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/43184247?v=4",
+      "profile": "https://github.com/Max20013108",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "lmaertens",
+      "name": "Liv Märtens",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/44585549?v=4",
+      "profile": "https://github.com/lmaertens",
+      "contributions": [
+        "code",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "parteiduell-frontend",
+  "projectOwner": "Jugendhackt",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}

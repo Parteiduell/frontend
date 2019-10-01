@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 
-import Confetti from 'react-confetti';
 import { BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
 import windowSize from 'react-window-size';
 
 import mock from "./mock.json"
 import "./App.css";
-
+import Result from "./Result.js";
+import Option from "./Option.js"
 
 const BarLoader_CSS = css`    
   display: block;
   margin: 0 auto;
 `;
-function importAll(r) {
-  return r.keys().map(r);
-}
+
 
 /*
 * extract parameter from url to toggle test mode and joystick mode
@@ -23,7 +21,7 @@ function importAll(r) {
 function findGetParameter(parameterName) {
   var result = null,
     tmp = [];
-  location.search
+  window.location.search
     .substr(1)
     .split("&")
     .forEach(function (item) {
@@ -33,12 +31,9 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-
 const url = "https://api.parteiduell.de/list";
-const images = importAll(require.context("./pictures/", false, /\.(png|jpe?g|svg)$/));
 
-
-class Fragen extends Component {
+class Main extends Component {
 
   constructor(props) {
     super(props);
@@ -51,7 +46,6 @@ class Fragen extends Component {
       parties: [],
       selected: null,
       score: 0, //not yet used, maybe in a later version ?
-      mockItem: 0
     };
   }
   componentDidMount() {
@@ -72,17 +66,6 @@ class Fragen extends Component {
     }
   }
 
-  // Get icon from party name
-  getImage(partei) {
-    for (var image of images) {
-      // Small images are encoded as base64 in webpack. That breaks this.
-      if (image.includes(partei.toLowerCase().replace("/", "-"))) {
-        return image;
-      }
-    }
-    console.error("Kein passendes Bild gefunden!", partei);
-  }
-
   // Handle keypresses for the joystick
   handleKeyDown(e) {
     if (e.key === "ArrowUp") {
@@ -99,34 +82,9 @@ class Fragen extends Component {
   }
 
   handleNext() {
-    if (this.state.items.length > 0) {
-      // There are enough items, take one from the list
-      this.setState({
-        correct: null,
-        isLoaded: true,
-        selected: null,
-        item: this.state.items.shift()
-      });
+    if (this.state.items.length === 0) {
+      // There aren't any loaded items
 
-      // Preload items if there are less than 5 remaining
-      if (this.state.items.length < 5) {
-        // use data from backend
-        fetch(url + "?count=10") // fetch from REMOTE!
-          .then(result => result.json())
-          .then((result) => {
-            var item = result.shift()
-
-            this.setState({
-              items: this.state.items.concat(result),
-            });
-          },
-            (error) => {
-              console.log("Error connecting to backend! (url: " + url + ")", error);
-            })
-      }
-
-    } else {
-      // Load items the first time (loading only 3 because preloading will extend it by 10 in the background)
       this.setState({
         correct: null,
         isLoaded: false,
@@ -135,13 +93,18 @@ class Fragen extends Component {
 
       if (findGetParameter("mock") === "True") {
         // use mock data when GET arg mock is set to "True"
-        this.setState({ isLoaded: true, items: [mock[this.state.mockItem]] });
-        if (this.state.mockItem < mock.length) {
-          this.setState({ mock_item: this.state.mockItem + 1 });
+        if (mock.length !== 0) {
+          this.setState({
+            isLoaded: true,
+            item: mock.shift()
+          });
         }
+
+
       } else {
-        // use data from backend
-        fetch(url + "?count=3") // fetch from REMOTE!
+        // Load items the first time (loading only 1 because preloading will extend it by 10 in the background)
+
+        fetch(url + "?count=1") // fetch from REMOTE!
           .then(result => result.json())
           .then((result) => {
             var item = result.shift()
@@ -154,19 +117,25 @@ class Fragen extends Component {
             (error) => {
               console.log("Error connecting to backend! (url: " + url + ")", error);
             })
+        // preload items cause we only have one
+        this.preload();
       }
-    }
-  }
-
-  // return colours for confetti
-  returnColours() {
-    if (this.state.selected === "NPD" || this.state.selected === "AfD") {
-      return ['#8B4513'];
     } else {
-      return ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548'];
+      // There are enough items, take one from the list
+
+      this.setState({
+        correct: null,
+        isLoaded: true,
+        selected: null,
+        item: this.state.items.shift()
+      });
+
+      // Preload items if there are less than 5 remaining
+      this.preload();
     }
   }
 
+<<<<<<< HEAD
   renderResult() {
     const { item, correct, selected } = this.state;
     if (correct != null) {
@@ -202,40 +171,52 @@ class Fragen extends Component {
           </div >
         )
       }
+=======
+  preload() {
+    if (this.state.items.length < 5) {
+      // use data from backend
+      fetch(url + "?count=10") // fetch from REMOTE!
+        .then(result => result.json())
+        .then((result) => {
+          this.setState({
+            items: this.state.items.concat(result),
+          });
+        },
+          (error) => {
+            console.log("Error connecting to backend! (url: " + url + ")", error);
+          })
+>>>>>>> e25842450a6ec4941cba664d124ae3015694605e
     }
   }
 
+
   render() {
-    const { isLoaded, items, item, selected } = this.state;
+    const { isLoaded, item, selected, correct } = this.state;
     var joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
       var parties = Object.keys(item.possibleAnswers);
       return (
         <div>
-          <div>
-            <p class="these"> {item.these} </p>
-            <p class="statement quote">{'"'+item.statement+'"'}</p>
-            <div class="source">{item.source} - {item.context}</div>
-            <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
-              {parties.map(
-                partei => (
-                  <label class="logos">
-			              <img role={"button"} src={this.getImage(partei)} aria-label={partei} alt={partei} className={(partei === this.state.item.answer) ? "right" : "wrong"} />
-                    <button onClick={this.compare(partei)}></button>
-                    </label>
-                )
-              )}
-            </div>
+          <p className="these">{item.these}</p>
+          <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
+            <span aria-hidden="true">{item.statement}</span>
+          </p>
+          <div className="source">{item.source} - {item.context}</div>
+          <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
+            {parties.map(
+              (partei, index) => (
+                <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)} />
+              )
+            )}
           </div>
-          {this.renderResult()}
+          <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
         </div>
       );
     } else {
       return <BarLoader css={BarLoader_CSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
     }
   }
-
 }
 
-export default windowSize(Fragen);
+export default windowSize(Main);
