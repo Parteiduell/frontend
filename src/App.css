@@ -1,5 +1,10 @@
 @import "fonts.css";
 
+
+
+
+
+
 body {
     font-family: Raleway !important;
     display: flex;
@@ -13,7 +18,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-weight: 100;
+    font-weight: inherit;
 }
 
 .container {
@@ -195,4 +200,21 @@ button {
 
 .footer a {
     color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #000000;
+        color: #dddddd;
+        font-weight: 500;
+    }
+
+    #options img,
+    .header {
+        box-shadow: 0px 0px 10px #5a5a5a;
+    }
+
+    .footer {
+        border-top-color: #dddddd
+    }
 }
