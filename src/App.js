@@ -15,7 +15,6 @@ const BarLoader_CSS = css`
   margin: 0 auto;
 `;
 
-
 /*
 * extract parameter from url to toggle test mode and joystick mode
 */
@@ -32,8 +31,10 @@ function findGetParameter(parameterName) {
   return result;
 }
 
-const url = "https://api.parteiduell.de/list";
-
+const url = process.env.REACT_APP_BACKEND_URL;
+console.log(`Backend URL: ${url}`);
+console.log(process.env.REACT_APP_GIT_SHA);
+  
 class Main extends Component {
 
   constructor(props) {
