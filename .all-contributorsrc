@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "gruselhaus",
+      "name": "Nico Finkernagel",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33380107?v=4",
+      "profile": "https://gruselhaus.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "parteiduell-frontend",
+  "projectOwner": "Jugendhackt",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
