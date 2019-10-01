@@ -35,7 +35,7 @@ function findGetParameter(parameterName) {
 
 
 const url = "https://api.parteiduell.de/list";
-const images = importAll(require.context("./pictures/", false, /\.(png|jpe?g|svg)$/));
+const images = importAll(require.context("./pictures/", false, /\.(svg)$/));
 
 
 class Fragen extends Component {
@@ -74,7 +74,6 @@ class Fragen extends Component {
   // Get icon from party name
   getImage(partei) {
     for (var image of images) {
-      // Small images are encoded as base64 in webpack. That breaks this.
       if (image.includes(partei.toLowerCase().replace("/", "-"))) {
         return image;
       }
