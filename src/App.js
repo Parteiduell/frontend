@@ -33,7 +33,6 @@ function findGetParameter(parameterName) {
 
 const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de/list";
 console.log(`Backend URL: ${url}`);
-console.log(process.env.REACT_APP_GIT_SHA);
 
 class Main extends Component {
 
