@@ -4,18 +4,21 @@
   "private": false,
   "license": "MIT",
   "dependencies": {
-    "http-server": "^0.11.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "react": "^16.10.1",
     "react-confetti": "^4.0.1",
     "react-dom": "^16.10.1",
     "react-scripts": "3.1.2",
     "react-spinners": "^0.6.1",
     "react-window-size": "^1.2.2",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "universal-cookie": "^4.0.2"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "cd build; http-server",
+    "start": "node server.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
