@@ -5,7 +5,7 @@ const cookies = new Cookies();
 
 class Startscreen extends Component {
     start() {
-        cookies.set("completed-startscreen", "true", { path: '/' });
+        cookies.set("completed-startscreen", "true", { path: '/', maxAge: 60 * 60 * 24 * 30 * 3 });
         this.forceUpdate();
     }
     render() {
