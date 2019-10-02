@@ -38,7 +38,7 @@ class Result extends Component {
                     <div>
                         <h2 autoFocus={true}>Falsch, diese Aussage war von {item.answer}</h2>
                         <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
-                        <p className="quote">{item.possibleAnswers[selected]}</p>
+                        <p className="quote">{'„' + item.possibleAnswers[selected] + '“'}</p>
                         <label className="next">
                             <button onClick={this.props.onNext}></button>
                             Nächste Frage

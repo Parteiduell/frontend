@@ -165,7 +165,7 @@ class Main extends Component {
           <Startscreen />
           <p className="these">{item.these}</p>
           <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
-            <span aria-hidden="true">{item.statement}</span>
+            <span aria-hidden="true">{'„' + item.statement + '“'}</span>
           </p>
           <div className="source">{item.source} - {item.context}</div>
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
