@@ -9,6 +9,8 @@ import "./App.css";
 import Result from "./Result.js";
 import Option from "./Option.js"
 import Startscreen from "./Startscreen"
+import Settings from "./Settings"
+
 
 const BarLoader_CSS = css`    
   display: block;
@@ -32,6 +34,7 @@ function findGetParameter(parameterName) {
 }
 
 const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de/list";
+window.url = url;
 console.log(`Backend URL: ${url}`);
 
 class Main extends Component {
@@ -101,7 +104,6 @@ class Main extends Component {
           });
         }
 
-
       } else {
         // Load items the first time (loading only 1 because preloading will extend it by 10 in the background)
 
@@ -152,6 +154,9 @@ class Main extends Component {
     }
   }
 
+  onPartiesChange(parties) {
+    this.setState(({ "parties": parties }));
+  }
 
   render() {
     const { isLoaded, item, selected, correct } = this.state;
@@ -162,6 +167,7 @@ class Main extends Component {
       return (
         <>
           <Startscreen />
+          <Settings onPartiesChange={this.onPartiesChange.bind(this)} />
           <p className="these">{item.these}</p>
           {
             // eslint-disable-next-line
