@@ -16,6 +16,14 @@ h5 {
     font-weight: inherit;
 }
 
+.settings-icon {
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .container {
     max-width: 50em;
     margin: 0 auto;
