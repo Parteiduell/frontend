@@ -60,6 +60,12 @@ class Main extends Component {
                 "NPD",
                 "Die PARTEI",
                 "AfD"
+            ],
+            selectedSources: [
+                "Bundestagswahl 2005",
+                "Bundestagswahl 2009",
+                "Bundestagswahl 2013",
+                "Bundestagswahl 2017"
             ]
         };
     }
@@ -150,7 +156,7 @@ class Main extends Component {
     }
 
     createFetchUrl(count) {
-        return url + "?count=" + String(count) + "&parties=" + this.state.selectedParties.join(",");
+        return url + "?count=" + String(count) + "&parties=" + this.state.selectedParties.join(",") + "&sources=" + this.state.selectedSources.join(",");
     }
 
     preload() {
@@ -174,9 +180,13 @@ class Main extends Component {
         this.setState(({ "selectedParties": selectedParties, items: [] }));
     }
 
+    onSourcesChange(selectedSources) {
+        this.setState(({ "selectedSources": selectedSources, items: [] }));
+    }
+
 
     render() {
-        const { isLoaded, item, selected, correct, selectedParties } = this.state;
+        const { isLoaded, item, selected, correct, selectedParties, selectedSources } = this.state;
         var joystick = findGetParameter("joystick") === "True";
 
         if (isLoaded) {
@@ -184,7 +194,7 @@ class Main extends Component {
             return (
                 <>
                     <Startscreen />
-                    <Settings ref={this.settings} selectedParties={selectedParties} onPartiesChange={this.onPartiesChange.bind(this)} />
+                    <Settings ref={this.settings} selectedParties={selectedParties} onPartiesChange={this.onPartiesChange.bind(this)} selectedSources={selectedSources} onSourcesChange={this.onSourcesChange.bind(this)} />
                     <p className="these">{item.these}</p>
                     {
                         // eslint-disable-next-line
