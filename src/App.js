@@ -41,15 +41,26 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
+    this.settings = React.createRef();
     this.state = {
       isLoaded: false,
       err: null,
       items: [],
       item: null,
       correct: null,
-      parties: [],
       selected: null,
       score: 0, //not yet used, maybe in a later version ?
+      selectedParties: [
+        "SPD",
+        "CDU/CSU",
+        "GRÜNE",
+        "FDP",
+        "PIRATEN",
+        "DIE LINKE",
+        "NPD",
+        "Die PARTEI",
+        "AfD"
+      ]
     };
   }
   componentDidMount() {
@@ -107,7 +118,7 @@ class Main extends Component {
       } else {
         // Load items the first time (loading only 1 because preloading will extend it by 10 in the background)
 
-        fetch(url + "?count=1") // fetch from REMOTE!
+        fetch(this.createFetchUrl(1)) // fetch from REMOTE!
           .then(result => result.json())
           .then((result) => {
             var item = result.shift()
@@ -118,7 +129,7 @@ class Main extends Component {
             });
           },
             (error) => {
-              console.log("Error connecting to backend! (url: " + url + ")", error);
+              console.log("Error connecting to backend! (url: " + this.createFetchUrl(1) + ")", error);
             })
         // preload items cause we only have one
         this.preload();
@@ -138,10 +149,14 @@ class Main extends Component {
     }
   }
 
+  createFetchUrl(count) {
+    return url + "?count=" + String(count) + "&parties=" + this.state.selectedParties.join(",");
+  }
+
   preload() {
     if (this.state.items.length < 5) {
       // use data from backend
-      fetch(url + "?count=10") // fetch from REMOTE!
+      fetch(this.createFetchUrl(10)) // fetch from REMOTE!
         .then(result => result.json())
         .then((result) => {
           this.setState({
@@ -149,17 +164,18 @@ class Main extends Component {
           });
         },
           (error) => {
-            console.log("Error connecting to backend! (url: " + url + ")", error);
+            console.log("Error connecting to backend! (url: " + this.createFetchUrl(10) + ")", error);
           })
     }
   }
 
-  onPartiesChange(parties) {
-    this.setState(({ "parties": parties }));
+
+  onPartiesChange(selectedParties) {
+    this.setState(({ "selectedParties": selectedParties, items: [] }));
   }
 
   render() {
-    const { isLoaded, item, selected, correct } = this.state;
+    const { isLoaded, item, selected, correct, selectedParties } = this.state;
     var joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
@@ -167,7 +183,7 @@ class Main extends Component {
       return (
         <>
           <Startscreen />
-          <Settings onPartiesChange={this.onPartiesChange.bind(this)} />
+          <Settings ref={this.settings} selectedParties={selectedParties} onPartiesChange={this.onPartiesChange.bind(this)} />
           <p className="these">{item.these}</p>
           {
             // eslint-disable-next-line
@@ -175,6 +191,7 @@ class Main extends Component {
             <span aria-hidden="true">{'„' + item.statement + '“'}</span>
           </p>
           <div className="source">{item.source} - {item.context}</div>
+
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
             {parties.map(
               (partei, index) => (
@@ -183,6 +200,10 @@ class Main extends Component {
             )}
           </div>
           <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
+          <label >
+            <button onClick={function () { this.settings.current.show() }.bind(this)}></button>
+            Settings
+          </label>
         </>
       );
     } else {

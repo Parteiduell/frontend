@@ -198,7 +198,8 @@ button {
     position: fixed !important;
 }
 
-.startscreen {
+.startscreen,
+.settings {
     position: fixed;
     background-color: #fff;
     max-width: 40em;
@@ -219,7 +220,7 @@ button {
     overflow-y: scroll;
 }
 
-.startscreen-overlay {
+.overlay {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     left: 0;
@@ -229,7 +230,9 @@ button {
 }
 
 @media (max-width: 40em) {
-    .startscreen {
+
+    .startscreen,
+    .settings {
         margin-left: 0;
 
         border-radius: 0;
@@ -237,7 +240,9 @@ button {
 }
 
 @media (max-height: 40em) {
-    .startscreen {
+
+    .startscreen,
+    .settings {
         margin-top: 0;
         border-radius: 0;
     }
@@ -267,7 +272,7 @@ button {
         border: 1px #ddd solid;
     }
 
-    .startscreen-overlay {
+    .overlay {
         background-color: rgba(37, 37, 37, 0.5);
     }
 
