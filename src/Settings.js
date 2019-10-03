@@ -50,6 +50,7 @@ class Settings extends Component {
 
     close() {
         this.setState({ closed: true })
+        this.props.onClose();
     }
 
     show() {

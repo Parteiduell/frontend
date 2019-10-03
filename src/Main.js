@@ -194,7 +194,13 @@ class Main extends Component {
             return (
                 <>
                     <Startscreen />
-                    <Settings ref={this.settings} selectedParties={selectedParties} onPartiesChange={this.onPartiesChange.bind(this)} selectedSources={selectedSources} onSourcesChange={this.onSourcesChange.bind(this)} />
+                    <Settings
+                        ref={this.settings}
+                        selectedParties={selectedParties}
+                        onPartiesChange={this.onPartiesChange.bind(this)}
+                        selectedSources={selectedSources}
+                        onSourcesChange={this.onSourcesChange.bind(this)}
+                        onClose={this.handleNext.bind(this)} />
                     <p className="these">{item.these}</p>
                     {
                         // eslint-disable-next-line
