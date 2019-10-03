@@ -16,6 +16,14 @@ h5 {
     font-weight: inherit;
 }
 
+.settings-icon {
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .container {
     max-width: 50em;
     margin: 0 auto;
@@ -45,13 +53,17 @@ button {
 
 #options img {
     width: 100px;
-    height: auto;
+    height: 100px;
     border-radius: 100%;
     border: 4px rgba(0, 102, 255, 0) solid;
     box-shadow: 0px 0px 5px #cacaca;
     transition-duration: 0.1s;
     margin-bottom: 10px;
     background-color: #fff;
+    display: block;
+    text-align: center;
+    color: #000;
+    line-height: 100px;
 }
 
 #options.joystick {
@@ -198,7 +210,8 @@ button {
     position: fixed !important;
 }
 
-.startscreen {
+.startscreen,
+.settings {
     position: fixed;
     background-color: #fff;
     max-width: 40em;
@@ -219,7 +232,7 @@ button {
     overflow-y: scroll;
 }
 
-.startscreen-overlay {
+.overlay {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     left: 0;
@@ -229,7 +242,9 @@ button {
 }
 
 @media (max-width: 40em) {
-    .startscreen {
+
+    .startscreen,
+    .settings {
         margin-left: 0;
 
         border-radius: 0;
@@ -237,7 +252,9 @@ button {
 }
 
 @media (max-height: 40em) {
-    .startscreen {
+
+    .startscreen,
+    .settings {
         margin-top: 0;
         border-radius: 0;
     }
@@ -246,10 +263,41 @@ button {
 @media (prefers-color-scheme: dark) {
 
     body,
-    .startscreen {
+    .startscreen,
+    .settings {
         background-color: #000000;
         color: #dddddd;
         font-weight: 500;
+    }
+
+    .select .select__control {
+        background-color: #000;
+    }
+
+    .select .select__control--is-focused {
+        box-shadow: 0 0 0 1px #ffa800;
+        border-color: #ffa800 !important;
+    }
+
+    .select .select__multi-value {
+        background-color: #333;
+    }
+
+    .select .select__multi-value__label {
+        color: #fff;
+    }
+
+    .select .select__menu {
+        background-color: #000;
+        box-shadow: 0px 0px 5px #333;
+    }
+
+    .select .select__indicator-separator {
+        background-color: #333;
+    }
+
+    .select .select__option--is-focused {
+        background-color: #333;
     }
 
     #options img,
@@ -267,7 +315,7 @@ button {
         border: 1px #ddd solid;
     }
 
-    .startscreen-overlay {
+    .overlay {
         background-color: rgba(37, 37, 37, 0.5);
     }
 

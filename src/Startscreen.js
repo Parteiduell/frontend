@@ -13,7 +13,7 @@ class Startscreen extends Component {
 
         if (alreadUsed !== "true") {
             return (
-                <div className="startscreen-overlay">
+                <div className="overlay">
                     <div className="startscreen">
                         <h2>Willkommen bei Parteiduell!</h2>
                         <p>
