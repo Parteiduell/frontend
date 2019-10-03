@@ -67,6 +67,8 @@ class Settings extends Component {
                     <div className="settings">
                         <h2>Parteien</h2>
                         <Select
+                            className="select"
+                            classNamePrefix="select"
                             value={selectedParties}
                             onChange={this.handlePartiesChange.bind(this)}
                             options={parties}
@@ -74,6 +76,8 @@ class Settings extends Component {
                         />
                         <h2>Quellen</h2>
                         <Select
+                            className="select"
+                            classNamePrefix="select"
                             value={selectedSources}
                             onChange={this.handleSourcesChange.bind(this)}
                             options={sources}
