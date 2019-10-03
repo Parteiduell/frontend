@@ -9,7 +9,7 @@
     "react": "^16.10.1",
     "react-confetti": "^4.0.1",
     "react-dom": "^16.10.1",
-    "react-scripts": "3.1.2",
+    "react-scripts": "3.2.0",
     "react-spinners": "^0.6.1",
     "react-window-size": "^1.2.2",
     "request": "^2.88.0",
