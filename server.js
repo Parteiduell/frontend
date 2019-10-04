@@ -26,4 +26,8 @@ server.get("/version", async (_, res) => {
   }
 });
 
+server.get("/ping", (_, res) => {
+  res.send("Pong!");
+});
+
 server.listen(process.env.PORT || 4000, () => console.log(`Server started at port: ${process.env.PORT || 4000}`));
