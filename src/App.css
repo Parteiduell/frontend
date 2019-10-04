@@ -140,6 +140,7 @@ button {
 .statement {
     font-size: 1.5em;
     word-break: normal;
+    hyphens: auto;
 }
 
 @media only screen and (min-width: 600px) {
@@ -186,6 +187,7 @@ button {
 .quote {
     font-style: italic;
     word-break: normal;
+    hyphens: auto;
 }
 
 .content {
