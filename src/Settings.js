@@ -108,6 +108,7 @@ class Settings extends Component {
                             onChange={this.handlePartiesChange.bind(this)}
                             options={parties}
                             isMulti={true}
+                            closeMenuOnSelect={false}
                         />
                         <h2>Quellen</h2>
                         <Select
@@ -117,6 +118,7 @@ class Settings extends Component {
                             onChange={this.handleSourcesChange.bind(this)}
                             options={sources}
                             isMulti={true}
+                            closeMenuOnSelect={false}
                         />
                         <label className="next">
                             <button onClick={this.close.bind(this)}></button>
