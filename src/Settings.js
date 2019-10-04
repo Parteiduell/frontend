@@ -50,7 +50,9 @@ class Settings extends Component {
     }
 
     handlePartiesChange(selectedParties) {
+      if (selectedParties.length >= 2) {
         this.setState(({ "selectedParties": selectedParties.map(party => party.value) }));
+      }
     }
 
     handleSourcesChange(selectedSources) {
