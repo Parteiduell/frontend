@@ -73,6 +73,7 @@ class Main extends Component {
 
     // Handle keypresses for the joystick
     handleKeyDown(e) {
+        if (this.state.selected === null || e.key === "a") {
         if (e.key === "ArrowUp") {
             this.compare(this.state.item.possibleParties[0])();
         } else if (e.key === "ArrowLeft") {
@@ -84,6 +85,8 @@ class Main extends Component {
         } else if (e.key === "a") {
             this.handleNext();
         }
+    }
+
     }
 
     handleNext() {
