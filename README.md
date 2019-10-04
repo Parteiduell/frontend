@@ -1,4 +1,4 @@
-[![Jugend hackt](https://jhbadge.com/?year=2019&evt=ffm)](https://jugendhackt.org) [![Build Status](https://travis-ci.com/Jugendhackt/parteiduell-frontend.svg?branch=master)](https://travis-ci.com/Jugendhackt/parteiduell-frontend)
+[![Jugend hackt](https://jhbadge.com/?year=2019&evt=ffm)](https://jugendhackt.org)
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
 # ParteiDuell Frontend
