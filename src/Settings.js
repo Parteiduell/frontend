@@ -7,6 +7,19 @@ const cookies = new Cookies();
 const parties = [];
 const sources = [];
 var fetched = false;
+
+function sortAlphabetically(a, b) {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+
+    if (a < b) {
+        return -1
+    }
+    if (a > b) {
+        return 1
+    }
+    return 0
+}
 class Settings extends Component {
     constructor(props) {
         super(props);
@@ -56,6 +69,7 @@ class Settings extends Component {
         if (!fetched) {
             fetch(window.url.replace("/list", "/allParties"))
                 .then(result => result.json())
+                .then(result => result.sort(sortAlphabetically))
                 .then(result => {
                     result.forEach(party => {
                         parties.push({ value: party, label: party })
@@ -64,6 +78,7 @@ class Settings extends Component {
 
             fetch(window.url.replace("/list", "/allSources"))
                 .then(result => result.json())
+                .then(result => result.sort(sortAlphabetically))
                 .then(result => {
                     result.forEach(source => {
                         sources.push({ value: source, label: source })
