@@ -11,28 +11,44 @@ class Settings extends Component {
     constructor(props) {
         super(props);
 
+        const selectedParties = cookies.get("selectedParties")
+        const selectedSources = cookies.get("selectedSources")
+
         this.state = {
-            closed: true
+            closed: true,
+            selectedParties: selectedParties ? selectedParties : [
+                "SPD",
+                "CDU/CSU",
+                "GRÜNE",
+                "FDP",
+                "PIRATEN",
+                "DIE LINKE",
+                "NPD",
+                "Die PARTEI",
+                "AfD"
+            ],
+            selectedSources: selectedSources ? selectedSources : [
+                "Bundestagswahl 2005",
+                "Bundestagswahl 2009",
+                "Bundestagswahl 2013",
+                "Bundestagswahl 2017"
+            ]
         };
     }
 
     handlePartiesChange(selectedParties) {
-        if (selectedParties.length >= 2) {
-            this.props.onPartiesChange(selectedParties.map(party => party.value));
-        }
+        this.setState(({ "selectedParties": selectedParties.map(party => party.value) }));
     }
 
     handleSourcesChange(selectedSources) {
-        if (selectedSources !== null) {
-            this.props.onSourcesChange(selectedSources.map(source => source.value));
-        }
+        this.setState(({ "selectedSources": selectedSources.map(source => source.value) }));
     }
 
     close() {
         this.setState({ closed: true })
         this.props.onClose();
-        cookies.set("selectedSources", this.props.selectedSources, { path: '/', maxAge: 60 * 60 * 24 * 3 });
-        cookies.set("selectedParties", this.props.selectedParties, { path: '/', maxAge: 60 * 60 * 24 * 3 });
+        cookies.set("selectedSources", this.state.selectedSources, { path: '/', maxAge: 60 * 60 * 24 * 3 });
+        cookies.set("selectedParties", this.state.selectedParties, { path: '/', maxAge: 60 * 60 * 24 * 3 });
     }
 
     show() {
@@ -57,9 +73,13 @@ class Settings extends Component {
         }
     }
 
+    getSettings() {
+        return this.state;
+    }
+
     render() {
-        const selectedParties = this.props.selectedParties.map(party => { return { label: party, value: party } });
-        const selectedSources = this.props.selectedSources.map(source => { return { label: source, value: source } });
+        const selectedParties = this.state.selectedParties.map(party => { return { label: party, value: party } });
+        const selectedSources = this.state.selectedSources.map(source => { return { label: source, value: source } });
 
         if (!this.state.closed) {
             return (

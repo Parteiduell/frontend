@@ -10,9 +10,7 @@ import Result from "./Result.js";
 import Option from "./Option.js"
 import Startscreen from "./Startscreen"
 import Settings from "./Settings"
-import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
 
 const BarLoader_CSS = css`    
   display: block;
@@ -45,9 +43,6 @@ class Main extends Component {
         super(props);
         this.settings = React.createRef();
 
-        const selectedParties = cookies.get("selectedParties")
-        const selectedSources = cookies.get("selectedSources")
-
         this.state = {
             isLoaded: false,
             err: null,
@@ -56,23 +51,6 @@ class Main extends Component {
             correct: null,
             selected: null,
             score: 0, //not yet used, maybe in a later version ?
-            selectedParties: selectedParties ? selectedParties : [
-                "SPD",
-                "CDU/CSU",
-                "GRÜNE",
-                "FDP",
-                "PIRATEN",
-                "DIE LINKE",
-                "NPD",
-                "Die PARTEI",
-                "AfD"
-            ],
-            selectedSources: selectedSources ? selectedSources : [
-                "Bundestagswahl 2005",
-                "Bundestagswahl 2009",
-                "Bundestagswahl 2013",
-                "Bundestagswahl 2017"
-            ]
         };
     }
     componentDidMount() {
@@ -162,7 +140,13 @@ class Main extends Component {
     }
 
     createFetchUrl(count) {
-        return url + "?count=" + String(count) + "&parties=" + this.state.selectedParties.join(",") + "&sources=" + this.state.selectedSources.join(",");
+        var settings = null
+        if (this.settings.current !== null) {
+            settings = this.settings.current.getSettings();
+        } else {
+            settings = new Settings().getSettings()
+        }
+        return url + "?count=" + String(count) + "&parties=" + settings.selectedParties.join(",") + "&sources=" + settings.selectedSources.join(",");
     }
 
     preload() {
@@ -181,18 +165,16 @@ class Main extends Component {
         }
     }
 
-
-    onPartiesChange(selectedParties) {
-        this.setState(({ "selectedParties": selectedParties, items: [] }));
-    }
-
-    onSourcesChange(selectedSources) {
-        this.setState(({ "selectedSources": selectedSources, items: [] }));
+    onSettingsClose() {
+        this.setState(
+            { items: [] },
+            () => { this.handleNext() }
+        )
     }
 
 
     render() {
-        const { isLoaded, item, selected, correct, selectedParties, selectedSources } = this.state;
+        const { isLoaded, item, selected, correct } = this.state;
         var joystick = findGetParameter("joystick") === "True";
 
         if (isLoaded) {
@@ -202,11 +184,7 @@ class Main extends Component {
                     <Startscreen />
                     <Settings
                         ref={this.settings}
-                        selectedParties={selectedParties}
-                        onPartiesChange={this.onPartiesChange.bind(this)}
-                        selectedSources={selectedSources}
-                        onSourcesChange={this.onSourcesChange.bind(this)}
-                        onClose={this.handleNext.bind(this)} />
+                        onClose={this.onSettingsClose.bind(this)} />
                     <p className="these">{item.these}</p>
                     {
                         // eslint-disable-next-line
