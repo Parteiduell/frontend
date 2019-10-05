@@ -35,7 +35,12 @@ class Result extends Component {
                     </div>
                 )
               }else{
-                return(<div> Dies ist zwar richtig, war aber leider nicht deine erste Wahl ☹️&#xFE0E; </div>)
+                return(<div> <p className="notfirst"> Dies ist zwar richtig, war aber leider nicht deine erste Wahl </p> <p className="emoji"> ☹️&#xFE0E; </p>
+                  <label className="next">
+                      <button onClick={this.props.onNext}></button>
+                      Nächste Frage
+                  </label>
+                  </div>)
               }
             } else {
                 return (

@@ -330,3 +330,12 @@ button {
         border: 4px #ffa800 solid;
     }
 }
+
+.emoji{
+  font-size: 3em;
+  text-align: center;
+}
+
+.notfirst{
+  text-align: center;
+}

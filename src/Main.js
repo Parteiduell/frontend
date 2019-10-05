@@ -120,7 +120,7 @@ class Main extends Component {
                         this.setState({
                             isLoaded: true,
                             items: result,
-                            item: item
+                            item: item,
                         });
                     },
                         (error) => {
@@ -136,6 +136,7 @@ class Main extends Component {
                 correct: null,
                 isLoaded: true,
                 selected: null,
+                first: null,
                 item: this.state.items.shift()
             });
 
