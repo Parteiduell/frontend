@@ -12,7 +12,7 @@ import Startscreen from "./Startscreen"
 import Settings from "./Settings"
 
 
-const BarLoader_CSS = css`    
+const BarLoader_CSS = css`
   display: block;
   margin: 0 auto;
 `;
@@ -50,7 +50,7 @@ class Main extends Component {
             item: null,
             correct: null,
             selected: null,
-            score: 0, //not yet used, maybe in a later version ?
+            first: null,
         };
     }
     componentDidMount() {
@@ -66,7 +66,8 @@ class Main extends Component {
         return () => {
             this.setState({
                 correct: partei === this.state.item.answer,
-                selected: partei
+                selected: partei,
+                first: this.state.first === null ? true : false
             })
         }
     }
@@ -97,6 +98,7 @@ class Main extends Component {
                 correct: null,
                 isLoaded: false,
                 selected: null,
+                first: null
             });
 
             if (findGetParameter("mock") === "True") {
@@ -177,7 +179,7 @@ class Main extends Component {
 
 
     render() {
-        const { isLoaded, item, selected, correct } = this.state;
+        const { isLoaded, item, selected, correct, first } = this.state;
         var joystick = findGetParameter("joystick") === "True";
 
         if (isLoaded) {
@@ -203,7 +205,7 @@ class Main extends Component {
                             )
                         )}
                     </div>
-                    <Result item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
+                    <Result first={first} item={item} correct={correct} selected={selected}  onNext={this.handleNext.bind(this)} />
 
                 </>
             );

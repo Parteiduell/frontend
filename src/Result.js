@@ -12,9 +12,10 @@ class Result extends Component {
     }
 
     render() {
-        const { item, correct, selected } = this.props;
+        const { item, correct, selected, first } = this.props;
         if (correct != null) {
             if (correct) {
+              if(first){
                 return (
                     <div>
                         <p autoFocus={true} id="answer">Richtig!</p>
@@ -33,6 +34,9 @@ class Result extends Component {
                         </label>
                     </div>
                 )
+              }else{
+                return(<div> Dies ist zwar richtig, war aber leider nicht deine erste Wahl ☹️&#xFE0E; </div>)
+              }
             } else {
                 return (
                     <div>
