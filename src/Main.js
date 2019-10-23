@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import { BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
-import windowSize from 'react-window-size';
 
 import mock from "./mock.json"
 import "./App.css";
@@ -216,4 +215,4 @@ class Main extends Component {
     }
 }
 
-export default windowSize(Main);
+export default Main;

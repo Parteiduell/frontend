@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Confetti from "react-confetti";
+import windowSize from 'react-window-size';
 
 class Result extends Component {
   // return colours for confetti
@@ -100,4 +101,4 @@ class Result extends Component {
   }
 }
 
-export default Result;
+export default windowSize(Result);
