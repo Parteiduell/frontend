@@ -1,8 +1,5 @@
 import Select from "react-select";
 import React, { Component } from "react";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
 
 const parties = [];
 const sources = [];
@@ -24,8 +21,18 @@ class Settings extends Component {
   constructor(props) {
     super(props);
 
-    const selectedParties = cookies.get("selectedParties");
-    const selectedSources = cookies.get("selectedSources");
+    var selectedParties = []
+    var selectedSources = []
+    if (typeof (Storage) !== "undefined") {
+      selectedParties = localStorage.getItem("selectedParties");
+      if (selectedParties) {
+        selectedParties = JSON.parse(selectedParties);
+      }
+      selectedSources = localStorage.getItem("selectedSources");
+      if (selectedSources) {
+        selectedSources = JSON.parse(selectedSources);
+      }
+    } 
 
     this.state = {
       closed: true,
@@ -51,13 +58,18 @@ class Settings extends Component {
   close() {
     this.setState({ closed: true });
     this.props.onClose();
-    cookies.set("selectedSources", this.state.selectedSources, { path: "/", maxAge: 60 * 60 * 24 * 3 });
-    cookies.set("selectedParties", this.state.selectedParties, { path: "/", maxAge: 60 * 60 * 24 * 3 });
+    if (typeof (Storage) !== "undefined") {
+      localStorage.setItem("selectedSources", JSON.stringify(this.state.selectedSources));
+      localStorage.setItem("selectedParties", JSON.stringify(this.state.selectedParties));
+    } 
   }
 
   reset() {
-    if (document.cookie.indexOf("selectedSources") >= 0) cookies.remove("selectedSources");
-    if (document.cookie.indexOf("selectedParties") >= 0) cookies.remove("selectedParties");
+    if (typeof (Storage) !== "undefined") {
+      localStorage.removeItem('selectedSources');
+      localStorage.removeItem('selectedParties');
+    }
+  
     this.setState({ closed: true });
     this.props.onClose();
   }

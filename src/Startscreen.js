@@ -1,17 +1,24 @@
 import React, { Component } from "react";
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
 
 class Startscreen extends Component {
+    constructor() {
+        super()
+        var completedStartscreen = false
+        if (typeof (Storage) !== "undefined") {
+            completedStartscreen = true ? localStorage.getItem("completedStartscreen") === "true": false;
+        }
+        
+        this.state = {"completedStartscreen": completedStartscreen ? completedStartscreen : false}
+    }
     start() {
-        cookies.set("completed-startscreen", "true", { path: '/', maxAge: 60 * 60 * 24 * 30 * 3 });
-        this.forceUpdate();
+        if (typeof (Storage) !== "undefined") {
+            localStorage.setItem("completedStartscreen", "true");
+        }
+        this.setState({ "completedStartscreen": true})
     }
     render() {
-        var alreadUsed = cookies.get("completed-startscreen");
-
-        if (alreadUsed !== "true") {
+        const { completedStartscreen } = this.state;
+        if (completedStartscreen !== true) {
             return (
                 <div className="overlay">
                     <div className="startscreen">
