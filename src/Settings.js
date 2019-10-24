@@ -1,10 +1,6 @@
 import Select from "react-select";
 import React, { Component } from "react";
 
-const parties = [];
-const sources = [];
-var fetched = false;
-
 function sortAlphabetically(a, b) {
   a = a.toLowerCase();
   b = b.toLowerCase();
@@ -17,12 +13,21 @@ function sortAlphabetically(a, b) {
   }
   return 0;
 }
+
+function optionsToElements(options) {
+  return options.map(option => option.value);
+}
+
+function elementsToOptions(elements) {
+  return elements.map(element => { return { value: element, label: element } });
+}
 class Settings extends Component {
   constructor(props) {
     super(props);
 
     var selectedParties = []
     var selectedSources = []
+
     if (typeof (Storage) !== "undefined") {
       selectedParties = localStorage.getItem("selectedParties");
       if (selectedParties) {
@@ -32,9 +37,10 @@ class Settings extends Component {
       if (selectedSources) {
         selectedSources = JSON.parse(selectedSources);
       }
-    } 
+    }
 
     this.state = {
+      fetched: false,
       closed: true,
       selectedParties: selectedParties
         ? selectedParties
@@ -45,23 +51,43 @@ class Settings extends Component {
     };
   }
 
-  handlePartiesChange(selectedParties) {
-    if (selectedParties.length >= 2) {
-      this.setState({ selectedParties: selectedParties.map(party => party.value) });
+  handleSourcesChange(selectedSources) {
+    if (selectedSources !== null && selectedSources.length >= 1) {
+      this.setState({ selectedSources: optionsToElements(selectedSources) }, () => {
+        this.getSelectableParties().then(parties => {
+          this.setState({ selectedParties: this.state.selectedParties.filter(x => { console.log(x, parties, parties.includes(x)); return parties.includes(x); }) })
+          this.setState({ parties })
+        });
+      });
+      
     }
   }
 
-  handleSourcesChange(selectedSources) {
-    this.setState({ selectedSources: selectedSources.map(source => source.value) });
+  handlePartiesChange(selectedParties) {
+    if (selectedParties.length >= 2) {
+      this.setState({ selectedParties: optionsToElements(selectedParties) });
+    }
+  }
+
+  getSelectableParties() {
+    return fetch(window.url.replace("/list", "/allParties?source=" + this.state.selectedSources.join(",")))
+      .then(result => result.json())
+      .then(result => result.sort(sortAlphabetically));
+  }
+
+  getSelectableSources() {
+    return fetch(window.url.replace("/list", "/allSources"))
+      .then(result => result.json())
+      .then(result => result.sort(sortAlphabetically))
   }
 
   close() {
-    this.setState({ closed: true });
-    this.props.onClose();
     if (typeof (Storage) !== "undefined") {
       localStorage.setItem("selectedSources", JSON.stringify(this.state.selectedSources));
       localStorage.setItem("selectedParties", JSON.stringify(this.state.selectedParties));
-    } 
+    }
+    this.setState({ closed: true });
+    this.props.onClose();
   }
 
   reset() {
@@ -69,32 +95,19 @@ class Settings extends Component {
       localStorage.removeItem('selectedSources');
       localStorage.removeItem('selectedParties');
     }
-  
+
     this.setState({ closed: true });
     this.props.onClose();
   }
 
   show() {
     this.setState({ closed: false });
-    if (!fetched) {
-      fetch(window.url.replace("/list", "/allParties"))
-        .then(result => result.json())
-        .then(result => result.sort(sortAlphabetically))
-        .then(result => {
-          result.forEach(party => {
-            parties.push({ value: party, label: party });
-          });
-        });
-
-      fetch(window.url.replace("/list", "/allSources"))
-        .then(result => result.json())
-        .then(result => result.sort(sortAlphabetically))
-        .then(result => {
-          result.forEach(source => {
-            sources.push({ value: source, label: source });
-          });
-        });
-      fetched = true;
+    if (!this.state.fetched) {
+      this.getSelectableParties()
+        .then(parties => this.setState({ parties }));
+      this.getSelectableSources()
+        .then(sources => this.setState({ sources }));
+      this.setState({ fetched: true });
     }
   }
 
@@ -103,27 +116,14 @@ class Settings extends Component {
   }
 
   render() {
-    const selectedParties = this.state.selectedParties.map(party => {
-      return { label: party, value: party };
-    });
-    const selectedSources = this.state.selectedSources.map(source => {
-      return { label: source, value: source };
-    });
-
-    if (!this.state.closed) {
+    if (!this.state.closed && this.state.parties !== undefined && this.state.sources !== undefined) {
+      const selectedParties = elementsToOptions(this.state.selectedParties)
+      const selectedSources = elementsToOptions(this.state.selectedSources)
+      const parties = elementsToOptions(this.state.parties)
+      const sources = elementsToOptions(this.state.sources)
       return (
         <div className="overlay">
           <div className="settings">
-            <h2>Parteien</h2>
-            <Select
-              className="select"
-              classNamePrefix="select"
-              value={selectedParties}
-              onChange={this.handlePartiesChange.bind(this)}
-              options={parties}
-              isMulti={true}
-              closeMenuOnSelect={false}
-            />
             <h2>Quellen</h2>
             <Select
               className="select"
@@ -131,6 +131,16 @@ class Settings extends Component {
               value={selectedSources}
               onChange={this.handleSourcesChange.bind(this)}
               options={sources}
+              isMulti={true}
+              closeMenuOnSelect={false}
+            />
+            <h2>Parteien</h2>
+            <Select
+              className="select"
+              classNamePrefix="select"
+              value={selectedParties}
+              onChange={this.handlePartiesChange.bind(this)}
+              options={parties}
               isMulti={true}
               closeMenuOnSelect={false}
             />
