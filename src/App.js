@@ -8,7 +8,6 @@ class App extends Component {
   }
 
   showSettings() {
-    console.log(this.main)
     this.main.current.settings.current.show()
   }
 
