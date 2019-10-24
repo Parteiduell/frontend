@@ -8,7 +8,8 @@ class App extends Component {
   }
 
   showSettings() {
-    this.main.current.wrappedInstance.settings.current.show()
+    console.log(this.main)
+    this.main.current.settings.current.show()
   }
 
   render() {
