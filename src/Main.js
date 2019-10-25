@@ -24,14 +24,15 @@ function findGetParameter(parameterName) {
   window.location.search
     .substr(1)
     .split("&")
-    .forEach(function(item) {
+    .forEach(function (item) {
       tmp = item.split("=");
       if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
     });
   return result;
 }
 
-const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de/list";
+const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de";
+window.url = url;
 console.log(`Backend URL: ${url}`);
 
 class Main extends Component {
@@ -148,15 +149,16 @@ class Main extends Component {
     } else {
       settings = new Settings().getSettings();
     }
+
     return (
       url +
       "/list" +
       "?count=" +
       String(count) +
       "&parties=" +
-      settings.selectedParties.join(",") +
+      encodeURIComponent(settings.selectedParties.join(",")) +
       "&sources=" +
-      settings.selectedSources.join(",")
+      encodeURIComponent(settings.selectedSources.join(","))
     );
   }
 
