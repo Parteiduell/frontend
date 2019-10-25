@@ -70,14 +70,12 @@ class Settings extends Component {
   }
 
   getSelectableParties() {
-    console.log(window.url + "/allParties?sources=" + encodeURIComponent(this.state.selectedSources.join(",")));
     return fetch(window.url + "/allParties?sources=" + encodeURIComponent(this.state.selectedSources.join(",")))
       .then(result => result.json())
       .then(result => result.sort(sortAlphabetically));
   }
 
   getSelectableSources() {
-    console.log(window.url + "/allSources");
     return fetch(window.url + "/allSources")
       .then(result => result.json())
       .then(result => result.sort(sortAlphabetically))
