@@ -59,7 +59,7 @@ class Settings extends Component {
           this.setState({ parties })
         });
       });
-      
+
     }
   }
 
@@ -70,13 +70,13 @@ class Settings extends Component {
   }
 
   getSelectableParties() {
-    return fetch(window.url.replace("/list", "/allParties?source=" + this.state.selectedSources.join(",")))
+    return fetch(window.url + "/allParties?sources=" + encodeURIComponent(this.state.selectedSources.join(",")))
       .then(result => result.json())
       .then(result => result.sort(sortAlphabetically));
   }
 
   getSelectableSources() {
-    return fetch(window.url.replace("/list", "/allSources"))
+    return fetch(window.url + "/allSources")
       .then(result => result.json())
       .then(result => result.sort(sortAlphabetically))
   }
