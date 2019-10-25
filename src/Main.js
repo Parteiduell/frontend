@@ -47,7 +47,7 @@ class Main extends Component {
       item: null,
       correct: null,
       selected: null,
-      first: null
+      first: null,
     };
   }
   componentDidMount() {
@@ -55,7 +55,28 @@ class Main extends Component {
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
     // Load first question
-    this.handleNext();
+     if (window.location.hash === "") {
+        this.handleNext();
+          } else {
+            const [theseId, possibleParties] = window.location.hash.substr(1).split(":");
+            const fetch_url = url + "/list?id=" + encodeURIComponent(theseId) + "&parties=" + encodeURIComponent(possibleParties.split(","))
+       
+            fetch(fetch_url) // fetch from REMOTE!
+            .then(result => result.json())
+                .then((result) => {
+                console.log(result)
+                var item = result.shift()
+                this.setState({
+                    isLoaded: true,
+                    items: result,
+                    item: item,
+                });
+            },
+                (error) => {
+                    console.log("Error connecting to backend! (url: " + fetch_url + ")", error);
+                })
+            this.preload();
+        }
   }
 
   // Is the selected party the right one?
@@ -144,6 +165,7 @@ class Main extends Component {
 
   createFetchUrl(count) {
     var settings = null;
+
     if (this.settings.current !== null) {
       settings = this.settings.current.getSettings();
     } else {
@@ -192,6 +214,8 @@ class Main extends Component {
 
     if (isLoaded) {
       var parties = Object.keys(item.possibleAnswers);
+      window.location.hash = item.theseId + ":" + item.possibleParties.join(",");
+
       return (
         <>
           <Startscreen />
