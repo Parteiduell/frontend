@@ -197,8 +197,7 @@ class Main extends Component {
           <p className="these">{item.these}</p>
           {
             // eslint-disable-next-line
-          }
-          <p className="statement quote" role="text" aria-label={item.statement.replace(/█████/g, "Partei")}>
+          }<p className="statement quote" role="text" aria-label={item.statement.replace(/█████/g, "Partei")}>
             <span aria-hidden="true">{"„" + item.statement + "“"}</span>
           </p>
           <div className="source">
