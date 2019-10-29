@@ -116,7 +116,7 @@ export class API {
   list(count, params) {
     const settings = this.getSettings()
 
-    return this.fetch_api("/list", {
+    return this.fetchApi("/list", {
       count: count,
       parties: settings.selectedParties.join(","),
       sources: settings.selectedSources.join(","),
@@ -152,12 +152,12 @@ export class API {
 
   getSelectableParties() {
     const settings = this.getSettings()
-    return this.fetch_api("/allParties", { "sources": settings.selectedSources.join(",") })
+    return this.fetchApi("/allParties", { "sources": settings.selectedSources.join(",") })
       .then(result => result.sort(sortAlphabetically));
   }
 
   getSelectableSources() {
-    return this.fetch_api("/allSources")
+    return this.fetchApi("/allSources")
       .then(result => result.sort(sortAlphabetically));
   }
 }
