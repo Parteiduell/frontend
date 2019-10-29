@@ -1,34 +1,25 @@
 import Select from "react-select";
 import React, { Component } from "react";
+import { API } from "./API";
 
-function sortAlphabetically(a, b) {
-  a = a.toLowerCase();
-  b = b.toLowerCase();
-
-  if (a < b) {
-    return -1;
-  }
-  if (a > b) {
-    return 1;
-  }
-  return 0;
-}
 
 function optionsToElements(options) {
   return options.map(option => option.value);
 }
 
 function elementsToOptions(elements) {
-  return elements.map(element => { return { value: element, label: element } });
+  return elements.map(element => {
+    return { value: element, label: element };
+  });
 }
 class Settings extends Component {
   constructor(props) {
     super(props);
 
-    var selectedParties = []
-    var selectedSources = []
+    let selectedParties = [];
+    let selectedSources = [];
 
-    if (typeof (Storage) !== "undefined") {
+    if (typeof Storage !== "undefined") {
       selectedParties = localStorage.getItem("selectedParties");
       if (selectedParties) {
         selectedParties = JSON.parse(selectedParties);
@@ -39,27 +30,50 @@ class Settings extends Component {
       }
     }
 
+    this.api = new API(this);
+
     this.state = {
       fetched: false,
       closed: true,
       selectedParties: selectedParties
         ? selectedParties
-        : ["SPD", "CDU/CSU", "GRÜNE", "FDP", "PIRATEN", "DIE LINKE", "NPD", "Die PARTEI", "AfD"],
+        : [
+            "SPD",
+            "CDU/CSU",
+            "GRÜNE",
+            "FDP",
+            "PIRATEN",
+            "DIE LINKE",
+            "NPD",
+            "Die PARTEI",
+            "AfD"
+          ],
       selectedSources: selectedSources
         ? selectedSources
-        : ["Bundestagswahl 2005", "Bundestagswahl 2009", "Bundestagswahl 2013", "Bundestagswahl 2017"]
+        : [
+            "Bundestagswahl 2005",
+            "Bundestagswahl 2009",
+            "Bundestagswahl 2013",
+            "Bundestagswahl 2017"
+          ]
     };
   }
 
   handleSourcesChange(selectedSources) {
     if (selectedSources !== null && selectedSources.length >= 1) {
-      this.setState({ selectedSources: optionsToElements(selectedSources) }, () => {
-        this.getSelectableParties().then(parties => {
-          this.setState({ selectedParties: this.state.selectedParties.filter(x => { console.log(x, parties, parties.includes(x)); return parties.includes(x); }) })
-          this.setState({ parties })
-        });
-      });
-
+      this.setState(
+        { selectedSources: optionsToElements(selectedSources) },
+        () => {
+          this.api.getSelectableParties().then(parties => {
+            this.setState({
+              selectedParties: this.state.selectedParties.filter(x => {
+                return parties.includes(x);
+              })
+            });
+            this.setState({ parties });
+          });
+        }
+      );
     }
   }
 
@@ -69,31 +83,26 @@ class Settings extends Component {
     }
   }
 
-  getSelectableParties() {
-    return fetch(window.url + "/allParties?sources=" + encodeURIComponent(this.state.selectedSources.join(",")))
-      .then(result => result.json())
-      .then(result => result.sort(sortAlphabetically));
-  }
-
-  getSelectableSources() {
-    return fetch(window.url + "/allSources")
-      .then(result => result.json())
-      .then(result => result.sort(sortAlphabetically))
-  }
 
   close() {
-    if (typeof (Storage) !== "undefined") {
-      localStorage.setItem("selectedSources", JSON.stringify(this.state.selectedSources));
-      localStorage.setItem("selectedParties", JSON.stringify(this.state.selectedParties));
+    if (typeof Storage !== "undefined") {
+      localStorage.setItem(
+        "selectedSources",
+        JSON.stringify(this.state.selectedSources)
+      );
+      localStorage.setItem(
+        "selectedParties",
+        JSON.stringify(this.state.selectedParties)
+      );
     }
     this.setState({ closed: true });
     this.props.onClose();
   }
 
   reset() {
-    if (typeof (Storage) !== "undefined") {
-      localStorage.removeItem('selectedSources');
-      localStorage.removeItem('selectedParties');
+    if (typeof Storage !== "undefined") {
+      localStorage.removeItem("selectedSources");
+      localStorage.removeItem("selectedParties");
     }
 
     this.setState({ closed: true });
@@ -103,10 +112,8 @@ class Settings extends Component {
   show() {
     this.setState({ closed: false });
     if (!this.state.fetched) {
-      this.getSelectableParties()
-        .then(parties => this.setState({ parties }));
-      this.getSelectableSources()
-        .then(sources => this.setState({ sources }));
+      this.api.getSelectableParties().then(parties => this.setState({ parties }));
+      this.api.getSelectableSources().then(sources => this.setState({ sources }));
       this.setState({ fetched: true });
     }
   }
@@ -116,11 +123,15 @@ class Settings extends Component {
   }
 
   render() {
-    if (!this.state.closed && this.state.parties !== undefined && this.state.sources !== undefined) {
-      const selectedParties = elementsToOptions(this.state.selectedParties)
-      const selectedSources = elementsToOptions(this.state.selectedSources)
-      const parties = elementsToOptions(this.state.parties)
-      const sources = elementsToOptions(this.state.sources)
+    if (
+      !this.state.closed &&
+      this.state.parties !== undefined &&
+      this.state.sources !== undefined
+    ) {
+      const selectedParties = elementsToOptions(this.state.selectedParties);
+      const selectedSources = elementsToOptions(this.state.selectedSources);
+      const parties = elementsToOptions(this.state.parties);
+      const sources = elementsToOptions(this.state.sources);
       return (
         <div className="overlay">
           <div className="settings">

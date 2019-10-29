@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Settings } from 'react-bytesize-icons';
-import Main from "./Main"
+import React, { Component } from "react";
+import { Settings } from "react-bytesize-icons";
+import Main from "./Main";
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.main = React.createRef();
   }
 
   showSettings() {
-    this.main.current.settings.current.show()
+    this.main.current.settings.current.show();
   }
 
   render() {
@@ -19,9 +19,14 @@ class App extends Component {
             <div className="container">
               <h1 className="title">ParteiDuell</h1>
             </div>
-            <label >
-              <button onClick={this.showSettings.bind(this)}></button>
-              <Settings width="20" height="20" className="settings-icon" strokeWidth="4%" />
+            <label>
+              <button onClick={this.showSettings.bind(this)} />
+              <Settings
+                width="20"
+                height="20"
+                className="settings-icon"
+                strokeWidth="4%"
+              />
             </label>
           </div>
           <div className="container" role="main">
@@ -29,17 +34,20 @@ class App extends Component {
           </div>
         </div>
         <div className="footer">
-          <div>
-            Mit ❤&#xFE0E; beim JHFFM19 erstellt.
-          </div>
+          <div>Mit ❤&#xFE0E; beim JHFFM19 erstellt.</div>
           <a href="https://www.github.com/jugendhackt/parteiduell-frontend">
-            <img className="github" role="link" aria-label="GitHub" src="/github.png" alt="GitHub" />
+            <img
+              className="github"
+              role="link"
+              aria-label="GitHub"
+              src="/github.png"
+              alt="GitHub"
+            />
           </a>
           <img src="/logo.png" alt="Logo" aria-hidden="true" />
         </div>
       </>
-    )
-
+    );
   }
 }
 

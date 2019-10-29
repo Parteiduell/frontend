@@ -1,0 +1,32 @@
+{
+  "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true
+      }
+      
+  },
+  "plugins": [
+    "react",
+    "jest"
+  ],
+  "rules": {
+    "react/prop-types": 0,
+    "camelcase": ["error", {"properties": "never"}],
+    "one-var": ["error", {
+      "var": "never",
+      "let": "never",
+      "const": "never"
+    }],
+    "no-var": "error",
+    "prefer-const": ["error", {"destructuring": "all"}],
+    "comma-dangle": ["error", "always-multiline"]
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest/globals": true
+  }
+}
