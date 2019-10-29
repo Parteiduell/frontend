@@ -3,37 +3,19 @@ import React, { Component } from "react";
 import { BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
 
-import mock from "./mock.json";
 import "./App.css";
-import Result from "./Result.js";
-import Option from "./Option.js";
+import Result from "./Result";
+import Option from "./Option";
 import Startscreen from "./Startscreen";
 import Settings from "./Settings";
+import { API } from "./API";
+import { findGetParameter } from "./findGetParameter";
+import { FragmentIdentifier } from "./FragmentIdentifier";
 
-const BarLoader_CSS = css`
+const BarLoaderCSS = css`
   display: block;
   margin: 0 auto;
 `;
-
-/*
- * extract parameter from url to toggle test mode and joystick mode
- */
-function findGetParameter(parameterName) {
-  var result = null,
-    tmp = [];
-  window.location.search
-    .substr(1)
-    .split("&")
-    .forEach(function (item) {
-      tmp = item.split("=");
-      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-    });
-  return result;
-}
-
-const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de";
-window.url = url;
-console.log(`Backend URL: ${url}`);
 
 class Main extends Component {
   constructor(props) {
@@ -43,19 +25,25 @@ class Main extends Component {
     this.state = {
       isLoaded: false,
       err: null,
-      items: [],
-      item: null,
       correct: null,
       selected: null,
-      first: null
+      first: null,
     };
+
+    this.api = new API(this.settings);
   }
   componentDidMount() {
     // Specify keydown handler
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
 
     // Load first question
-    this.handleNext();
+    if (window.location.hash === "") {
+      this.handleNext();
+    } else {
+      FragmentIdentifier.get(this.api).then(item => {
+        this.setState({ isLoaded: true, item });
+      });
+    }
   }
 
   // Is the selected party the right one?
@@ -64,7 +52,7 @@ class Main extends Component {
       this.setState({
         correct: partei === this.state.item.answer,
         selected: partei,
-        first: this.state.first === null ? true : false
+        first: this.state.first === null ? true : false,
       });
     };
   }
@@ -87,97 +75,16 @@ class Main extends Component {
   }
 
   handleNext() {
-    if (this.state.items.length === 0) {
-      // There aren't any loaded items
+    this.setState({
+      correct: null,
+      isLoaded: false,
+      selected: null,
+      first: null,
+    });
 
-      this.setState({
-        correct: null,
-        isLoaded: false,
-        selected: null,
-        first: null
-      });
-
-      if (findGetParameter("mock") === "True") {
-        // use mock data when GET arg mock is set to "True"
-        if (mock.length !== 0) {
-          this.setState({
-            isLoaded: true,
-            item: mock.shift()
-          });
-        }
-      } else {
-        // Load items the first time (loading only 1 because preloading will extend it by 10 in the background)
-
-        fetch(this.createFetchUrl(1)) // fetch from REMOTE!
-          .then(result => result.json())
-          .then(
-            result => {
-              var item = result.shift();
-              this.setState({
-                isLoaded: true,
-                items: result,
-                item: item
-              });
-            },
-            error => {
-              console.log("Error connecting to backend! (url: " + this.createFetchUrl(1) + ")", error);
-            }
-          );
-        // preload items cause we only have one
-        this.preload();
-      }
-    } else {
-      // There are enough items, take one from the list
-
-      this.setState({
-        correct: null,
-        isLoaded: true,
-        selected: null,
-        first: null,
-        item: this.state.items.shift()
-      });
-
-      // Preload items if there are less than 5 remaining
-      this.preload();
-    }
-  }
-
-  createFetchUrl(count) {
-    var settings = null;
-    if (this.settings.current !== null) {
-      settings = this.settings.current.getSettings();
-    } else {
-      settings = new Settings().getSettings();
-    }
-
-    return (
-      url +
-      "/list" +
-      "?count=" +
-      String(count) +
-      "&parties=" +
-      encodeURIComponent(settings.selectedParties.join(",")) +
-      "&sources=" +
-      encodeURIComponent(settings.selectedSources.join(","))
-    );
-  }
-
-  preload() {
-    if (this.state.items.length < 5) {
-      // use data from backend
-      fetch(this.createFetchUrl(10)) // fetch from REMOTE!
-        .then(result => result.json())
-        .then(
-          result => {
-            this.setState({
-              items: this.state.items.concat(result)
-            });
-          },
-          error => {
-            console.log("Error connecting to backend! (url: " + this.createFetchUrl(10) + ")", error);
-          }
-        );
-    }
+    this.api.getItem().then(item => {
+      this.setState({ isLoaded: true, item });
+    });
   }
 
   onSettingsClose() {
@@ -188,17 +95,22 @@ class Main extends Component {
 
   render() {
     const { isLoaded, item, selected, correct, first } = this.state;
-    var joystick = findGetParameter("joystick") === "True";
+    const joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
-      var parties = Object.keys(item.possibleAnswers);
+      const parties = Object.keys(item.possibleAnswers);
+
+      FragmentIdentifier.set(item);
+
       return (
         <>
           <Startscreen />
-          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} />
+          <Settings
+            ref={this.settings}
+            onClose={this.onSettingsClose.bind(this)}
+          />
           <p className="these">{item.these}</p>
-          {
-            // eslint-disable-next-line
+          {// eslint-disable-next-line
           }<p className="statement quote" role="text" aria-label={item.statement.replace(/█████/g, "Partei")}>
             <span aria-hidden="true">{"„" + item.statement + "“"}</span>
           </p>
@@ -206,16 +118,40 @@ class Main extends Component {
             {item.source} - {item.context}
           </div>
 
-          <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
+          <div
+            id="options"
+            className={[
+              selected ? "selected" : "",
+              joystick ? "joystick" : "",
+            ].join(" ")}
+          >
             {parties.map((partei, index) => (
-              <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)} />
+              <Option
+                key={index}
+                partei={partei}
+                answer={item.answer}
+                onSelect={this.compare(partei)}
+              />
             ))}
           </div>
-          <Result first={first} item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
+          <Result
+            first={first}
+            item={item}
+            correct={correct}
+            selected={selected}
+            onNext={this.handleNext.bind(this)}
+          />
         </>
       );
     } else {
-      return <BarLoader css={BarLoader_CSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
+      return (
+        <BarLoader
+          css={BarLoaderCSS}
+          sizeUnit={"px"}
+          size={4000}
+          color={"#414242"}
+        />
+      );
     }
   }
 }

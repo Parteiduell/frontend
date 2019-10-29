@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Confetti from "react-confetti";
-import windowSize from 'react-window-size';
+import windowSize from "react-window-size";
 
 class Result extends Component {
   // return colours for confetti
@@ -36,7 +36,7 @@ class Result extends Component {
         "#FFC107",
         "#FF9800",
         "#FF5722",
-        "#795548"
+        "#795548",
       ];
     }
   }
@@ -70,7 +70,10 @@ class Result extends Component {
           return (
             <div>
               {" "}
-              <p className="notfirst"> Dies ist zwar richtig, war aber leider nicht deine erste Wahl </p>{" "}
+              <p className="notfirst">
+                {" "}
+                Dies ist zwar richtig, war aber leider nicht deine erste Wahl{" "}
+              </p>{" "}
               <p className="emoji" aria-label="Confused Face">
                 {" "}
                 ☹️&#xFE0E;{" "}
@@ -85,9 +88,13 @@ class Result extends Component {
       } else {
         return (
           <div>
-            <h2 autoFocus={true}>Falsch, diese Aussage war von {item.answer}</h2>
-            <h3>Die Partei "{selected}" hat folgendes Statement abgegeben:</h3>
-            <p className="quote">{"„" + item.possibleAnswers[selected] + "“"}</p>
+            <h2 autoFocus={true}>
+              Falsch, diese Aussage war von {item.answer}
+            </h2>
+            <h3>Die Partei „{selected}“ hat folgendes Statement abgegeben:</h3>
+            <p className="quote">
+              {"„" + item.possibleAnswers[selected] + "“"}
+            </p>
             <label className="next">
               <button onClick={this.props.onNext}></button>
               Nächste Frage
