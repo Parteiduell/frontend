@@ -46,7 +46,7 @@ class Settings extends Component {
             "DIE LINKE",
             "NPD",
             "Die PARTEI",
-            "AfD"
+            "AfD",
           ],
       selectedSources: selectedSources
         ? selectedSources
@@ -54,8 +54,8 @@ class Settings extends Component {
             "Bundestagswahl 2005",
             "Bundestagswahl 2009",
             "Bundestagswahl 2013",
-            "Bundestagswahl 2017"
-          ]
+            "Bundestagswahl 2017",
+          ],
     };
   }
 
@@ -68,7 +68,7 @@ class Settings extends Component {
             this.setState({
               selectedParties: this.state.selectedParties.filter(x => {
                 return parties.includes(x);
-              })
+              }),
             });
             this.setState({ parties });
           });

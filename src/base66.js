@@ -1,7 +1,7 @@
 
-let stringOfChars =
+const stringOfChars =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-_~";
-let radix = stringOfChars.length;
+const radix = stringOfChars.length;
 
 export function encode(number) {
   let output = "";
@@ -16,7 +16,7 @@ export function encode(number) {
 }
 
 export function decode(string) {
-  var number = 0;
+  let number = 0;
 
   for (const i in string) {
     const char = string.charAt(i);

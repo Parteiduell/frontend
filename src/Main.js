@@ -12,7 +12,7 @@ import { API } from "./API";
 import { findGetParameter } from "./findGetParameter";
 import { FragmentIdentifier } from "./FragmentIdentifier";
 
-const BarLoader_CSS = css`
+const BarLoaderCSS = css`
   display: block;
   margin: 0 auto;
 `;
@@ -27,7 +27,7 @@ class Main extends Component {
       err: null,
       correct: null,
       selected: null,
-      first: null
+      first: null,
     };
 
     this.api = new API(this.settings);
@@ -52,7 +52,7 @@ class Main extends Component {
       this.setState({
         correct: partei === this.state.item.answer,
         selected: partei,
-        first: this.state.first === null ? true : false
+        first: this.state.first === null ? true : false,
       });
     };
   }
@@ -79,7 +79,7 @@ class Main extends Component {
       correct: null,
       isLoaded: false,
       selected: null,
-      first: null
+      first: null,
     });
 
     this.api.getItem().then(item => {
@@ -95,10 +95,10 @@ class Main extends Component {
 
   render() {
     const { isLoaded, item, selected, correct, first } = this.state;
-    let joystick = findGetParameter("joystick") === "True";
+    const joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
-      let parties = Object.keys(item.possibleAnswers);
+      const parties = Object.keys(item.possibleAnswers);
 
       FragmentIdentifier.set(item);
 
@@ -122,7 +122,7 @@ class Main extends Component {
             id="options"
             className={[
               selected ? "selected" : "",
-              joystick ? "joystick" : ""
+              joystick ? "joystick" : "",
             ].join(" ")}
           >
             {parties.map((partei, index) => (
@@ -146,7 +146,7 @@ class Main extends Component {
     } else {
       return (
         <BarLoader
-          css={BarLoader_CSS}
+          css={BarLoaderCSS}
           sizeUnit={"px"}
           size={4000}
           color={"#414242"}
