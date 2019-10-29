@@ -1,8 +1,9 @@
 import {encode} from "./base66"
 
 function cyrb53(str, seed = 0) {
-  let h1 = 0xdeadbeef ^ seed,
-    h2 = 0x41c6ce57 ^ seed;
+  let h1 = 0xdeadbeef ^ seed;
+  let h2 = 0x41c6ce57 ^ seed;
+
   for (let i = 0, ch; i < str.length; i++) {
     ch = str.charCodeAt(i);
     h1 = Math.imul(h1 ^ ch, 2654435761);
@@ -19,7 +20,7 @@ function cyrb53(str, seed = 0) {
 
 
 export function smallestHashes(strings) {
-  let longHashes = [];
+  const longHashes = [];
   let longestHash = 0;
 
   for (const string of strings) {
@@ -30,10 +31,10 @@ export function smallestHashes(strings) {
     longHashes.push(hash);
   }
 
-  let hashes = [];
+  const hashes = [];
 
-  for (var length = 1; length < longestHash; length++) {
-    var worked = true;
+  for (let length = 1; length < longestHash; length++) {
+    let worked = true;
     for (const hash of longHashes) {
       const shortHash = hash.substr(0, length);
       if (!(shortHash in hashes)) {

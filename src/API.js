@@ -87,7 +87,6 @@ export class API {
         fetchUrl.searchParams.set("count", params.count);
       }
     }
-  
     return fetch(fetchUrl).then(
       result => result.json(),
       error => {
