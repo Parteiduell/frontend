@@ -31,13 +31,13 @@ export function smallestHashes(strings) {
     longHashes.push(hash);
   }
 
-  const hashes = [];
 
   for (let length = 1; length < longestHash; length++) {
     let worked = true;
+    const hashes = [];
     for (const hash of longHashes) {
       const shortHash = hash.substr(0, length);
-      if (!(shortHash in hashes)) {
+      if (!(hashes.includes(shortHash))) {
         hashes.push(shortHash);
       } else {
         worked = false;
@@ -45,10 +45,9 @@ export function smallestHashes(strings) {
       }
     }
     if (worked) {
-      break;
+      return hashes;
     }
   }
-  return hashes;
 }
 
 export function getFromHash(strings, hash) {
