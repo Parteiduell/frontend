@@ -1,4 +1,4 @@
-import {encode} from "./base66"
+import { encode } from "./base66";
 
 function cyrb53(str, seed = 0) {
   let h1 = 0xdeadbeef ^ seed;
@@ -18,7 +18,6 @@ function cyrb53(str, seed = 0) {
   return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 }
 
-
 export function smallestHashes(strings) {
   const longHashes = [];
   let longestHash = 0;
@@ -31,13 +30,12 @@ export function smallestHashes(strings) {
     longHashes.push(hash);
   }
 
-
   for (let length = 1; length < longestHash; length++) {
     let worked = true;
     const hashes = [];
     for (const hash of longHashes) {
       const shortHash = hash.substr(0, length);
-      if (!(hashes.includes(shortHash))) {
+      if (!hashes.includes(shortHash)) {
         hashes.push(shortHash);
       } else {
         worked = false;
@@ -56,5 +54,5 @@ export function getFromHash(strings, hash) {
       return string;
     }
   }
-  throw new Error(`No matching statement for hash '${hash}' found!`)
+  throw new Error(`No matching statement for hash '${hash}' found!`);
 }

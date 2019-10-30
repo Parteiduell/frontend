@@ -5,9 +5,8 @@ class Startscreen extends Component {
     super();
     let completedStartscreen = false;
     if (typeof Storage !== "undefined") {
-      completedStartscreen = localStorage.getItem("completedStartscreen") === "true"
-        ? true
-        : false;
+      completedStartscreen =
+        localStorage.getItem("completedStartscreen") === "true" ? true : false;
     }
 
     this.state = {

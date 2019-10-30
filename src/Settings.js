@@ -1,7 +1,5 @@
 import Select from "react-select";
 import React, { Component } from "react";
-import { API } from "./API";
-
 
 function optionsToElements(options) {
   return options.map(option => option.value);
@@ -29,8 +27,6 @@ class Settings extends Component {
         selectedSources = JSON.parse(selectedSources);
       }
     }
-
-    this.api = new API(this);
 
     this.state = {
       fetched: false,
@@ -64,7 +60,7 @@ class Settings extends Component {
       this.setState(
         { selectedSources: optionsToElements(selectedSources) },
         () => {
-          this.api.getSelectableParties().then(parties => {
+          window.api.getSelectableParties().then(parties => {
             this.setState({
               selectedParties: this.state.selectedParties.filter(x => {
                 return parties.includes(x);
@@ -72,7 +68,7 @@ class Settings extends Component {
             });
             this.setState({ parties });
           });
-        }
+        },
       );
     }
   }
@@ -83,16 +79,15 @@ class Settings extends Component {
     }
   }
 
-
   close() {
     if (typeof Storage !== "undefined") {
       localStorage.setItem(
         "selectedSources",
-        JSON.stringify(this.state.selectedSources)
+        JSON.stringify(this.state.selectedSources),
       );
       localStorage.setItem(
         "selectedParties",
-        JSON.stringify(this.state.selectedParties)
+        JSON.stringify(this.state.selectedParties),
       );
     }
     this.setState({ closed: true });
@@ -112,8 +107,12 @@ class Settings extends Component {
   show() {
     this.setState({ closed: false });
     if (!this.state.fetched) {
-      this.api.getSelectableParties().then(parties => this.setState({ parties }));
-      this.api.getSelectableSources().then(sources => this.setState({ sources }));
+      window.api
+        .getSelectableParties()
+        .then(parties => this.setState({ parties }));
+      window.api
+        .getSelectableSources()
+        .then(sources => this.setState({ sources }));
       this.setState({ fetched: true });
     }
   }

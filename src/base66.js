@@ -1,4 +1,3 @@
-
 const stringOfChars =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-_~";
 const radix = stringOfChars.length;

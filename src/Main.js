@@ -17,6 +17,8 @@ const BarLoaderCSS = css`
   margin: 0 auto;
 `;
 
+window.api = new API();
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +31,7 @@ class Main extends Component {
       selected: null,
       first: null,
     };
-
-    this.api = new API(this.settings);
+    window.api.settings = this.settings;
   }
   componentDidMount() {
     // Specify keydown handler
@@ -40,7 +41,7 @@ class Main extends Component {
     if (window.location.hash === "") {
       this.handleNext();
     } else {
-      FragmentIdentifier.get(this.api).then(item => {
+      FragmentIdentifier.get().then(item => {
         this.setState({ isLoaded: true, item });
       });
     }
@@ -82,7 +83,7 @@ class Main extends Component {
       first: null,
     });
 
-    this.api.getItem().then(item => {
+    window.api.get().then(item => {
       this.setState({ isLoaded: true, item });
     });
   }

@@ -1,32 +1,6 @@
 import { getFromHash } from "./smallestHash";
 import Settings from "./Settings";
 
-export function getItem(items, hash) {
-  const item = items.shift();
-
-  item.statement = "";
-
-  if (hash === undefined) {
-    item.answer = Object.keys(item.possibleAnswers)[
-      Math.floor(Math.random() * 3)
-    ];
-    item.statement = item.possibleAnswers[item.answer];
-  } else {
-    item.statement = getFromHash(Object.values(item.possibleAnswers), hash);
-    item.answer = Object.keys(item.possibleAnswers).find(
-      key => item.possibleAnswers[key] === item.statement
-    );
-  }
-  for (let replaceString of toReplace) {
-    if (typeof replaceString === "string") {
-      replaceString = RegExp(replaceString, "i");
-    }
-    item.statement = item.statement.replace(replaceString, "█████");
-  }
-  return item;
-}
-
-
 function sortAlphabetically(a, b) {
   a = a.toLowerCase();
   b = b.toLowerCase();
@@ -39,7 +13,6 @@ function sortAlphabetically(a, b) {
   }
   return 0;
 }
-
 
 const toReplace = [
   "CDU / CSU",
@@ -63,16 +36,17 @@ const toReplace = [
   "Die Linkspartei.PDS",
 ];
 
-const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de";
+const url = process.env.REACT_APP_BACKEND_URL
+  ? process.env.REACT_APP_BACKEND_URL
+  : "https://api.parteiduell.de";
 export class API {
-  constructor(settings) {
+  constructor() {
     this.items = [];
-    this.settings = settings
   }
-  
+
   fetchApi(path, params) {
     const fetchUrl = new URL(path, url);
-    
+
     if (params !== undefined) {
       if (params.id !== undefined) {
         fetchUrl.searchParams.set("id", params.id);
@@ -90,30 +64,28 @@ export class API {
     return fetch(fetchUrl).then(
       result => result.json(),
       error => {
-        console.log(
+        throw new Error(
           "Error connecting to backend! (url: " + fetchUrl + ")",
-          error
+          error,
         );
-      }
+      },
     );
   }
 
   getSettings() {
     if (this.settings.current !== null) {
       if (this.settings.current !== undefined) {
-        return this.settings.current.getSettings()
+        return this.settings.current.getSettings();
       } else {
-        return this.settings.getSettings()
+        return this.settings.getSettings();
       }
-      
     } else {
       return new Settings().getSettings();
     }
-
   }
 
   list(count, params) {
-    const settings = this.getSettings()
+    const settings = this.getSettings();
 
     return this.fetchApi("/list", {
       count: count,
@@ -123,7 +95,7 @@ export class API {
     });
   }
 
-  getItem() {
+  get() {
     // Start preloading
     this.preload();
 
@@ -131,13 +103,40 @@ export class API {
       // There is no item. Load one.
       return this.list(1, {}).then(items => {
         this.items = items;
-        return getItem(this.items);
+        return this.getItem(this.items);
       });
     } else {
       // There are enough items, take one from the list
 
-      return getItem(this.items);
+      return this.getItem(this.items);
     }
+  }
+
+  getItem(items, hash) {
+    const item = items.shift();
+
+    item.statement = "";
+
+    if (hash === undefined) {
+      item.answer = Object.keys(item.possibleAnswers)[
+        Math.floor(Math.random() * 3)
+      ];
+      item.statement = item.possibleAnswers[item.answer];
+    } else {
+      item.statement = getFromHash(Object.values(item.possibleAnswers), hash);
+      item.answer = Object.keys(item.possibleAnswers).find(
+        key => item.possibleAnswers[key] === item.statement,
+      );
+    }
+    for (let replaceString of toReplace.concat(
+      this.getSettings().selectedParties,
+    )) {
+      if (typeof replaceString === "string") {
+        replaceString = RegExp(replaceString, "gi");
+      }
+      item.statement = item.statement.replace(replaceString, "█████");
+    }
+    return item;
   }
 
   async preload() {
@@ -150,13 +149,15 @@ export class API {
   }
 
   getSelectableParties() {
-    const settings = this.getSettings()
-    return this.fetchApi("/allParties", { "sources": settings.selectedSources.join(",") })
-      .then(result => result.sort(sortAlphabetically));
+    const settings = this.getSettings();
+    return this.fetchApi("/allParties", {
+      sources: settings.selectedSources.join(","),
+    }).then(result => result.sort(sortAlphabetically));
   }
 
   getSelectableSources() {
-    return this.fetchApi("/allSources")
-      .then(result => result.sort(sortAlphabetically));
+    return this.fetchApi("/allSources").then(result =>
+      result.sort(sortAlphabetically),
+    );
   }
 }
