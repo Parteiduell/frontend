@@ -64,6 +64,7 @@ button {
   text-align: center;
   color: #000;
   line-height: 100px;
+  cursor: pointer;
 }
 
 #options.joystick {
