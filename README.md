@@ -14,7 +14,7 @@ In unserem Datensatz vom [Wahl-O-Meter](https://www.wahlometer.watch) sind alle 
 
 Das Frontend-Projekt wurde mit create-react-app gebootstrapped.
 
-Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zusätzlich [das Backend](https://www.github.com/jugendhackt/parteiduell-backend) geklont werden.
+Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zusätzlich [das Backend](https://github.com/Parteiduell/backend) geklont werden.
 
 ## Server lokal starten
 
