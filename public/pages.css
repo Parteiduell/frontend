@@ -1,0 +1,37 @@
+body {
+  font-family: Raleway, sans-serif !important ;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: inherit;
+}
+
+.container {
+  max-width: 50em;
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 0 0.5em;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000000;
+    color: #dddddd;
+    font-weight: 500;
+  }
+  a {
+    color: #348dff;
+  }
+}

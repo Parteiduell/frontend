@@ -45,6 +45,8 @@ class App extends Component {
             />
           </a>
           <img src="/logo.png" alt="Logo" aria-hidden="true" />
+          <a href="/Impressum.html">Impressum</a>
+          <a href="/Datenschutzerklärung.html">Datenschutzerklärung</a>
         </div>
       </>
     );
