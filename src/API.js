@@ -25,6 +25,7 @@ const toReplace = [
   "Liberalen",
   "Liberale",
   "FDP",
+  "Grünen",
   "BÜNDNIS 90 / DIE GRÜNEN",
   "BÜNDNIS 90/DIE GRÜNEN",
   "PIRATENpartei",
