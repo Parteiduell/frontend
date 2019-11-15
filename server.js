@@ -11,7 +11,7 @@ const request = require("request-promise");
 server.get("/version", async (_, res) => {
   try {
     const resp = await request.get(
-      "https://api.github.com/repos/Parteiduell/backend/commits/master",
+      "https://api.github.com/repos/Parteiduell/frontend/commits/master",
       {
         headers: {
           "User-Agent":
