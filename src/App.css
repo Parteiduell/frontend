@@ -324,16 +324,16 @@ button {
     border: 1px #ddd solid;
   }
 
-  .overlay {
-    background-color: rgba(37, 37, 37, 0.5);
-  }
-
   .next:hover {
     border: 2px #ffa800 solid;
   }
 
   #options img:hover {
     border: 4px #ffa800 solid;
+  }
+  .settings,
+  .startscreen {
+    box-shadow: 0 0 1em #000;
   }
 }
 
