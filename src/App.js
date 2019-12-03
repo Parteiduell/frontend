@@ -18,7 +18,11 @@ class App extends Component {
         <div className="content">
           <div className="header">
             <div className="container">
-              <h1 className="title">ParteiDuell</h1>
+              <h1 className="title">
+                <a href="/" target="_parent">
+                  ParteiDuell
+                </a>
+              </h1>
             </div>
             <label>
               <button onClick={this.showSettings.bind(this)} />

@@ -1,11 +1,11 @@
 @import "fonts.css";
 
 body {
-  font-family: Raleway !important;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
+    font-family: Raleway !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 h1,
@@ -13,340 +13,351 @@ h2,
 h3,
 h4,
 h5 {
-  font-weight: inherit;
+    font-weight: inherit;
 }
 
 .settings-icon {
-  margin-top: 0.5em;
-  margin-right: 0.5em;
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: pointer;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
 }
 
 .container {
-  max-width: 50em;
-  margin: 0 auto;
-  margin-top: 15px;
-  padding: 0 0.5em;
+    max-width: 50em;
+    margin: 0 auto;
+    margin-top: 15px;
+    padding: 0 0.5em;
 }
 
 button {
-  display: none;
+    display: none;
 }
 
 .header {
-  width: 100%;
-  padding-top: 10px;
-  margin-top: 0;
-  padding-bottom: 1px;
-  margin-bottom: 2em;
-  box-shadow: 0px 0px 10px #cacaca;
-  display: flex;
-  flex-direction: row;
-  padding: 0;
+    width: 100%;
+    padding-top: 10px;
+    margin-top: 0;
+    padding-bottom: 1px;
+    margin-bottom: 2em;
+    box-shadow: 0px 0px 10px #cacaca;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
 }
 
 .header a {
-  width: 5em;
+    width: 5em;
 }
 
 #options img {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  border: 4px rgba(0, 102, 255, 0) solid;
-  box-shadow: 0px 0px 5px #cacaca;
-  transition-duration: 0.1s;
-  margin-bottom: 10px;
-  background-color: #fff;
-  display: block;
-  text-align: center;
-  color: #000;
-  line-height: 100px;
-  cursor: pointer;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    border: 4px rgba(0, 102, 255, 0) solid;
+    box-shadow: 0px 0px 5px #cacaca;
+    transition-duration: 0.1s;
+    margin-bottom: 10px;
+    background-color: #fff;
+    display: block;
+    text-align: center;
+    color: #000;
+    line-height: 100px;
+    cursor: pointer;
 }
 
 #options.joystick {
-  display: grid;
-  grid-template-rows: repeat(3, 100px);
-  grid-template-columns: repeat(3, 100px);
+    display: grid;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
 }
 
 .joystick .logos:first-child {
-  grid-row: 1;
-  grid-column: 2;
+    grid-row: 1;
+    grid-column: 2;
 }
 
 .joystick .logos:nth-child(2) {
-  grid-row: 2;
-  grid-column: 1;
+    grid-row: 2;
+    grid-column: 1;
 }
 
 .joystick .logos:nth-child(4) {
-  grid-row: 2;
-  grid-column: 3;
+    grid-row: 2;
+    grid-column: 3;
 }
 
 .joystick .logos:nth-child(3) {
-  grid-row: 3;
-  grid-column: 2;
+    grid-row: 3;
+    grid-column: 2;
 }
 
 #options img:hover {
-  transition-duration: 0.1s;
-  border: 4px rgb(0, 102, 255) solid;
+    transition-duration: 0.1s;
+    border: 4px rgb(0, 102, 255) solid;
 }
 
 #options.selected img.right {
-  transition-duration: 0.1s;
-  border: 4px rgb(0, 255, 0) solid;
+    transition-duration: 0.1s;
+    border: 4px rgb(0, 255, 0) solid;
 }
 
 #options.selected img.wrong {
-  transition-duration: 0.1s;
-  border: 4px rgb(255, 0, 0) solid;
+    transition-duration: 0.1s;
+    border: 4px rgb(255, 0, 0) solid;
 }
 
 #options {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .title {
-  font-size: 40px;
-  letter-spacing: 0.1em;
-  font-family: "Playfair Display" !important;
-  font-weight: 400;
-  margin: 0 0.5em 2px 0.5em;
+    font-size: 40px;
+    letter-spacing: 0.1em;
+    font-family: "Playfair Display" !important;
+    font-weight: 400;
+    margin: 0 0.5em 2px 0.5em;
+}
+
+.title a:link, a:visited {
+    font-size: 40px;
+    letter-spacing: 0.1em;
+    font-family: "Playfair Display" !important;
+    font-weight: 400;
+    margin: 0 0.5em 2px 0.5em;
+    text-decoration: none;
+    color: inherit;
 }
 
 .source {
-  text-align: right;
-  margin-bottom: 3em;
-  color: grey;
+    text-align: right;
+    margin-bottom: 3em;
+    color: grey;
 }
 
 .these {
-  font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 .these:before {
-  margin-left: 1.25em;
-  font-size: 3.75em;
+    margin-left: 1.25em;
+    font-size: 3.75em;
 }
 
 .statement {
-  font-size: 1.5em;
-  word-break: normal;
-  hyphens: auto;
+    font-size: 1.5em;
+    word-break: normal;
+    hyphens: auto;
 }
 
 @media only screen and (min-width: 600px) {
-  .statement {
-    text-align: justify;
-  }
+    .statement {
+        text-align: justify;
+    }
 
-  .quote {
-    text-align: justify;
-  }
+    .quote {
+        text-align: justify;
+    }
 }
 
 .statement:after {
-  margin-left: -10px;
+    margin-left: -10px;
 }
 
 #answer {
-  font-size: 40px;
-  font-weight: bold;
-  color: #00ff00;
-  text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #00ff00;
+    text-align: center;
 }
 
 .error {
-  color: red;
+    color: red;
 }
 
 .next {
-  border: 2px rgb(202, 202, 202) solid;
-  padding: 0.5em;
-  border-radius: 0.5em;
-  margin: 3em;
-  width: calc(100% - 6em);
-  position: relative;
-  display: block;
-  text-align: center;
-  box-sizing: border-box;
+    border: 2px rgb(202, 202, 202) solid;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    margin: 3em;
+    width: calc(100% - 6em);
+    position: relative;
+    display: block;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .next:hover {
-  border: 2px rgb(0, 102, 255) solid;
+    border: 2px rgb(0, 102, 255) solid;
 }
 
 .quote {
-  font-style: italic;
-  word-break: normal;
-  hyphens: auto;
+    font-style: italic;
+    word-break: normal;
+    hyphens: auto;
 }
 
 .content {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .footer {
-  padding: 15px;
-  margin-top: 10px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  border-top: 1px #cacaca solid;
+    padding: 15px;
+    margin-top: 10px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-top: 1px #cacaca solid;
 }
+
 @media (max-width: 40em) {
-  .footer {
-    flex-direction: column;
-    align-items: center;
-  }
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .footer img {
-  height: 20px;
-  width: 20px;
+    height: 20px;
+    width: 20px;
 }
 
 .confetti {
-  position: fixed !important;
+    position: fixed !important;
 }
 
 .startscreen,
 .settings {
-  position: fixed;
-  background-color: #fff;
-  max-width: 40em;
-  max-height: 40em;
-  left: 0;
-  top: 0;
-  color: #000;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  margin-left: calc(50% - 20em);
-  padding: 1.5em;
-  box-sizing: border-box;
-  margin-top: calc(50vh - 20em);
-  border-radius: 1em;
-  box-shadow: 0 0 1em #5a5a5a;
-  font-weight: 500;
-  overflow-y: scroll;
+    position: fixed;
+    background-color: #fff;
+    max-width: 40em;
+    max-height: 40em;
+    left: 0;
+    top: 0;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    margin-left: calc(50% - 20em);
+    padding: 1.5em;
+    box-sizing: border-box;
+    margin-top: calc(50vh - 20em);
+    border-radius: 1em;
+    box-shadow: 0 0 1em #5a5a5a;
+    font-weight: 500;
+    overflow-y: scroll;
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
 }
 
 @media (max-width: 40em) {
-  .startscreen,
-  .settings {
-    margin-left: 0;
-
-    border-radius: 0;
-  }
+    .startscreen,
+    .settings {
+        margin-left: 0;
+        border-radius: 0;
+    }
 }
 
 @media (max-height: 40em) {
-  .startscreen,
-  .settings {
-    margin-top: 0;
-    border-radius: 0;
-  }
+    .startscreen,
+    .settings {
+        margin-top: 0;
+        border-radius: 0;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
-  body,
-  .startscreen,
-  .settings {
-    background-color: #0f0f0f;
-    color: #dddddd;
-    font-weight: 500;
-  }
+    body,
+    .startscreen,
+    .settings {
+        background-color: #0f0f0f;
+        color: #dddddd;
+        font-weight: 500;
+    }
 
-  .select .select__control {
-    background-color: #000;
-  }
+    .select .select__control {
+        background-color: #000;
+    }
 
-  .select .select__control--is-focused {
-    box-shadow: 0 0 0 1px #ffa800;
-    border-color: #ffa800 !important;
-  }
+    .select .select__control--is-focused {
+        box-shadow: 0 0 0 1px #ffa800;
+        border-color: #ffa800 !important;
+    }
 
-  .select .select__multi-value {
-    background-color: #333;
-  }
+    .select .select__multi-value {
+        background-color: #333;
+    }
 
-  .select .select__multi-value__label {
-    color: #fff;
-  }
+    .select .select__multi-value__label {
+        color: #fff;
+    }
 
-  .select .select__menu {
-    background-color: #000;
-    box-shadow: 0px 0px 5px #000;
-  }
+    .select .select__menu {
+        background-color: #000;
+        box-shadow: 0px 0px 5px #000;
+    }
 
-  .select .select__indicator-separator {
-    background-color: #333;
-  }
+    .select .select__indicator-separator {
+        background-color: #333;
+    }
 
-  .select .select__option--is-focused {
-    background-color: #333;
-  }
+    .select .select__option--is-focused {
+        background-color: #333;
+    }
 
-  #options img,
-  .header {
-    box-shadow: 0px 0px 10px #000;
-  }
+    #options img,
+    .header {
+        box-shadow: 0px 0px 10px #000;
+    }
 
-  .footer {
-    border-top-color: #dddddd;
-  }
+    .footer {
+        border-top-color: #dddddd;
+    }
 
-  .github {
-    background: #ddd;
-    border-radius: 100%;
-    border: 1px #ddd solid;
-  }
+    .github {
+        background: #ddd;
+        border-radius: 100%;
+        border: 1px #ddd solid;
+    }
 
-  .next:hover {
-    border: 2px #ffa800 solid;
-  }
+    .next:hover {
+        border: 2px #ffa800 solid;
+    }
 
-  #options img:hover {
-    border: 4px #ffa800 solid;
-  }
-  .settings,
-  .startscreen {
-    box-shadow: 0 0 1em #000;
-  }
+    #options img:hover {
+        border: 4px #ffa800 solid;
+    }
+
+    .settings,
+    .startscreen {
+        box-shadow: 0 0 1em #000;
+    }
 }
 
 .emoji {
-  font-size: 3em;
-  text-align: center;
+    font-size: 3em;
+    text-align: center;
 }
 
 .notfirst {
-  text-align: center;
+    text-align: center;
 }
 
 .footer a {
-  color: inherit;
-  text-decoration: inherit;
+    color: inherit;
+    text-decoration: inherit;
 }
