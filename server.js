@@ -8,6 +8,16 @@ server.use(express.static("build"));
 
 const request = require("request-promise");
 
+require("dotenv").config();
+
+const getPort = () => {
+  if (process.env.MODE == "production") return process.env.PRODUCTION_PORT;
+  else if (process.env.MODE == "staging") return process.env.STAGING_PORT;
+  else return 4000;
+};
+
+const PORT = getPort();
+
 server.get("/version", async (_, res) => {
   try {
     const resp = await request.get(
@@ -38,6 +48,4 @@ server.get("/ping", (_, res) => {
   res.send("Pong!");
 });
 
-server.listen(process.env.PORT || 4000, () =>
-  console.log(`Server started at port: ${process.env.PORT || 4000}`)
-);
+server.listen(PORT, () => console.log(`Server started at port: ${PORT}`));
