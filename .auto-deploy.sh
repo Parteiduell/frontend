@@ -6,4 +6,9 @@ if git pull origin $1| grep 'Already up to date.' > /dev/null; then
 fi
 npm i;
 npm run build;
-pm2 restart parteiduell.de;
+if [ "$1" == "master" ]; then  
+    pm2 restart parteiduell.de;
+fi
+if [ "$1" == "staging" ]; then  
+    pm2 restart staging.parteiduell.de;
+fi
