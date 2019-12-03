@@ -1,7 +1,7 @@
 #bin/bash!
 git add .;
 git reset --hard;
-if git pull | grep 'Already up to date.' > /dev/null; then
+if git pull origin $1| grep 'Already up to date.' > /dev/null; then
     exit;
 fi
 npm i;
