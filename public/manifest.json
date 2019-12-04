@@ -1,0 +1,17 @@
+{
+  "short_name": "ParteiDuell",
+  "name": "ParteiDuell",
+  "icons": [{
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone"
+}
