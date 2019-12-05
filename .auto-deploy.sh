@@ -4,8 +4,8 @@ git reset --hard;
 if git pull origin $1| grep 'Already up to date.' > /dev/null; then
     exit;
 fi
-npm i;
-npm run build;
+yarn i;
+yarn run build;
 if [ "$1" == "master" ]; then  
     pm2 restart parteiduell.de;
 fi
