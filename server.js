@@ -1,23 +1,24 @@
+/*
+ * File: server.js
+ * Project: parteiduell
+ * File Created: Wednesday, 4th December 2019 1:10:21 am
+ * Author: Nico Finkernagel <nico@gruselhaus.com>
+ * -----
+ * Last Modified: Sunday, 8th December 2019 4:18:20 pm
+ * Modified By: Nico Finkernagel <nico@gruselhaus.com>
+ * -----
+ */
+
+require("dotenv").config();
 const express = require("express");
 const server = express();
 
 const cors = require("cors");
 server.use(cors());
 
-server.use(express.static("build"));
-
 const request = require("request-promise");
 
-require("dotenv").config();
-
-const getPort = () => {
-  if (process.env.MODE == "production") return process.env.PRODUCTION_PORT;
-  else if (process.env.MODE == "staging") return process.env.STAGING_PORT;
-  else return 4000;
-};
-
-const PORT = getPort();
-
+//Get latest commit from the frontend repository.
 server.get("/version", async (_, res) => {
   try {
     const resp = await request.get(
@@ -48,4 +49,20 @@ server.get("/ping", (_, res) => {
   res.send("Pong!");
 });
 
+//React App Build
+server.use(express.static("build"));
+
+//If requested path is not available redirect to root
+server.get("*", (_, res) => {
+  res.redirect("/");
+});
+
+//Server Stuff
+const getPort = () => {
+  if (process.env.MODE == "production") return process.env.PRODUCTION_PORT;
+  else if (process.env.MODE == "staging") return process.env.STAGING_PORT;
+  else return 4000;
+};
+
+const PORT = getPort();
 server.listen(PORT, () => console.log(`Server started at port: ${PORT}`));
