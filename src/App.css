@@ -116,20 +116,14 @@ button {
     flex-wrap: wrap;
 }
 
-.title {
+.title,
+.title a:link,
+.title a:visited {
     font-size: 40px;
     letter-spacing: 0.1em;
     font-family: "Playfair Display" !important;
     font-weight: 400;
-    margin: 0 0.5em 2px 0.5em;
-}
-
-.title a:link, a:visited {
-    font-size: 40px;
-    letter-spacing: 0.1em;
-    font-family: "Playfair Display" !important;
-    font-weight: 400;
-    margin: 0 0.5em 2px 0.5em;
+    margin: 0;
     text-decoration: none;
     color: inherit;
 }
@@ -265,6 +259,7 @@ button {
 }
 
 @media (max-width: 40em) {
+
     .startscreen,
     .settings {
         margin-left: 0;
@@ -273,6 +268,7 @@ button {
 }
 
 @media (max-height: 40em) {
+
     .startscreen,
     .settings {
         margin-top: 0;
@@ -281,6 +277,7 @@ button {
 }
 
 @media (prefers-color-scheme: dark) {
+
     body,
     .startscreen,
     .settings {
