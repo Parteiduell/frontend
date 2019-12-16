@@ -108,16 +108,12 @@ class Main extends Component {
           <Startscreen />
           <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} />
           <p className="these">{item.these}</p>
-          {
-            // eslint-disable-next-line
-          }
-          <p className="statement quote" role="text" aria-label={item.statement.replace(/█████/g, "Partei")}>
+          <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
             <span aria-hidden="true">{"„" + item.statement + "“"}</span>
           </p>
           <div className="source">
             {item.source} - {item.context}
           </div>
-
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
             {parties.map((partei, index) => (
               <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)} />
