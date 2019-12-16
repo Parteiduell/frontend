@@ -21,16 +21,16 @@ Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zu
 1. [Node.js installieren](https://nodejs.org)
 
 2. Frontend lokal klonen
-`git clone https://github.com/Jugendhackt/parteiduell-frontend`
+`git clone https://github.com/Parteiduell/frontend.git`
 
 3. Ordner wechseln
-`cd parteiduell-frontend`
+`cd frontend`
 
 4. Abhängigkeiten installieren
-`npm i`
+`yarn install`
 
 5. Server starten
-`npm run dev`
+`yarn dev`
 
 ## Contributors ✨
 
