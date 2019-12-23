@@ -29,7 +29,7 @@ class Main extends Component {
       err: null,
       correct: null,
       selected: null,
-      first: null
+      first: null,
     };
     window.api.settings = this.settings;
   }
@@ -53,7 +53,7 @@ class Main extends Component {
       this.setState({
         correct: partei === this.state.item.answer,
         selected: partei,
-        first: this.state.first === null ? true : partei === this.state.item.answer && !this.state.first ? true : false
+        first: this.state.first === null,
       });
     };
   }
@@ -62,13 +62,13 @@ class Main extends Component {
   handleKeyDown(e) {
     if (this.state.selected === null || e.key === "a") {
       if (e.key === "ArrowUp") {
-        this.compare(this.state.item.possibleParties[0])();
+        this.compare(this.state.item.possibleParties[0]).bind(this)();
       } else if (e.key === "ArrowLeft") {
-        this.compare(this.state.item.possibleParties[1])();
+        this.compare(this.state.item.possibleParties[1]).bind(this)();
       } else if (e.key === "ArrowDown") {
-        this.compare(this.state.item.possibleParties[2])();
+        this.compare(this.state.item.possibleParties[2]).bind(this)();
       } else if (e.key === "ArrowRight") {
-        this.compare(this.state.item.possibleParties[3])();
+        this.compare(this.state.item.possibleParties[3]).bind(this)();
       } else if (e.key === "a") {
         this.handleNext();
       }
@@ -80,7 +80,7 @@ class Main extends Component {
       correct: null,
       isLoaded: false,
       selected: null,
-      first: null
+      first: null,
     });
 
     window.api.get().then(item => {
@@ -106,24 +106,54 @@ class Main extends Component {
       return (
         <>
           <Startscreen />
-          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} />
+          <Settings
+            ref={this.settings}
+            onClose={this.onSettingsClose.bind(this)}
+          />
           <p className="these">{item.these}</p>
-          <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
+          <p
+            className="statement quote"
+            aria-label={item.statement.replace(/█████/g, "Partei")}
+          >
             <span aria-hidden="true">{"„" + item.statement + "“"}</span>
           </p>
           <div className="source">
             {item.source} - {item.context}
           </div>
-          <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
+          <div
+            id="options"
+            className={[
+              selected ? "selected" : "",
+              joystick ? "joystick" : "",
+            ].join(" ")}
+          >
             {parties.map((partei, index) => (
-              <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)} />
+              <Option
+                key={index}
+                partei={partei}
+                answer={item.answer}
+                onSelect={this.compare(partei).bind(this)}
+              />
             ))}
           </div>
-          <Result first={first} item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
+          <Result
+            first={first}
+            item={item}
+            correct={correct}
+            selected={selected}
+            onNext={this.handleNext.bind(this)}
+          />
         </>
       );
     } else {
-      return <BarLoader css={BarLoaderCSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
+      return (
+        <BarLoader
+          css={BarLoaderCSS}
+          sizeUnit={"px"}
+          size={4000}
+          color={"#414242"}
+        />
+      );
     }
   }
 }
