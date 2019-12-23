@@ -1,5 +1,6 @@
 import { getFromHash } from "./smallestHash";
 import Settings from "./Settings";
+import escapeRegex from "escape-string-regexp";
 
 function sortAlphabetically(a, b) {
   a = a.toLowerCase();
@@ -25,9 +26,9 @@ const toReplace = [
   "Liberalen",
   "Liberale",
   "FDP",
-  "Grünen",
   "BÜNDNIS 90 / DIE GRÜNEN",
   "BÜNDNIS 90/DIE GRÜNEN",
+  "Grünen",
   "PIRATENpartei",
   "alternative für deutschland",
   "Die Linken",
@@ -130,10 +131,10 @@ export class API {
       );
     }
     for (let replaceString of toReplace.concat(
-      this.getSettings().selectedParties,
+      this.getSettings().selectedParties.map(escapeRegex),
     )) {
       if (typeof replaceString === "string") {
-        replaceString = RegExp(replaceString, "gi");
+        replaceString = RegExp(escapeRegex(replaceString), "gi");
       }
       item.statement = item.statement.replace(replaceString, "█████");
     }
