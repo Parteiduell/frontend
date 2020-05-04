@@ -53,7 +53,7 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Run build test
+      - name: Building source
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build
