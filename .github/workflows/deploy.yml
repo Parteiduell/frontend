@@ -5,8 +5,8 @@ on:
       - master
   pull_request:
 jobs:
-  test:
-    name: Build Test
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,14 +18,19 @@ jobs:
         uses: actions/cache@v1
         with:
           path: node_modules
-          key: ${{ matrix.node-version }}-${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: build
       - name: Install dependencies
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Run build test
+      - name: Building source
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build
@@ -37,26 +42,10 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js "13.x"
-        uses: actions/setup-node@v1
+      - name: Download build artifacts
+        uses: actions/download-artifact@v1
         with:
-          node-version: "13.x"
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ matrix.node-version }}-${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install dependencies
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
-      - name: Building source
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build
+          name: artifacts
       - name: Deploy files
         env:
           SSH_HOST_KEY: ${{secrets.SSH_HOST_KEY}}
@@ -66,4 +55,4 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 700 ~/.ssh/id_rsa
           echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
-          rsync -az --progress -e ssh ./build root@parteiduell.de:/var/www/parteiduell.de/production --delete
+          rsync -az --progress -e ssh .artifacts/build root@parteiduell.de:/var/www/parteiduell.de/production --delete
