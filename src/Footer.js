@@ -10,14 +10,8 @@ class Footer extends Component {
       <>
         <div className="footer">
           <div>Mit ❤&#xFE0E; beim JHFFM19 erstellt.</div>
-          <a href="https://github.com/Parteiduell">
-            <img
-              className="github"
-              role="link"
-              aria-label="GitHub"
-              src="/github.png"
-              alt="GitHub"
-            />
+          <a href="https://github.com/Parteiduell" target="_blank" rel="noopener noreferrer">
+            <img className="github" role="link" aria-label="GitHub" src="/github.png" alt="GitHub" />
           </a>
           <img src="/logo.png" alt="Logo" aria-hidden="true" />
           <a href="/Impressum.html">Impressum</a>
