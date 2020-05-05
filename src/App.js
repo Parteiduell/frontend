@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Settings } from "react-bytesize-icons";
 import Main from "./Main";
 import Footer from "./Footer";
+
 class App extends Component {
   constructor() {
     super();

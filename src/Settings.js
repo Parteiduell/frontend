@@ -1,6 +1,8 @@
 import Select from "react-select";
 import React, { Component } from "react";
 
+const styleOptions = [{ value: "auto", label: "Automatisch" }, { value: "dark", label: "Dunkel" }, { value: "light", label: "Hell" },];
+
 function optionsToElements(options) {
   return options.map(option => option.value);
 }
@@ -16,6 +18,7 @@ class Settings extends Component {
 
     let selectedParties = [];
     let selectedSources = [];
+    let selectedStyle = "";
 
     if (typeof Storage !== "undefined") {
       selectedParties = localStorage.getItem("selectedParties");
@@ -26,6 +29,10 @@ class Settings extends Component {
       if (selectedSources) {
         selectedSources = JSON.parse(selectedSources);
       }
+      selectedStyle = localStorage.getItem("selectedStyle");
+      if (selectedStyle) {
+        selectedStyle = JSON.parse(selectedStyle);
+      }
     }
 
     this.state = {
@@ -34,25 +41,27 @@ class Settings extends Component {
       selectedParties: selectedParties
         ? selectedParties
         : [
-            "SPD",
-            "CDU/CSU",
-            "GRÜNE",
-            "FDP",
-            "PIRATEN",
-            "DIE LINKE",
-            "NPD",
-            "Die PARTEI",
-            "AfD",
-          ],
+          "SPD",
+          "CDU/CSU",
+          "GRÜNE",
+          "FDP",
+          "PIRATEN",
+          "DIE LINKE",
+          "NPD",
+          "Die PARTEI",
+          "AfD"
+        ],
       selectedSources: selectedSources
         ? selectedSources
         : [
-            "Bundestagswahl 2005",
-            "Bundestagswahl 2009",
-            "Bundestagswahl 2013",
-            "Bundestagswahl 2017",
-          ],
+          "Bundestagswahl 2005",
+          "Bundestagswahl 2009",
+          "Bundestagswahl 2013",
+          "Bundestagswahl 2017"
+        ],
+      selectedStyle: selectedStyle ? selectedStyle : "auto"
     };
+    this.updateStyle(this.state.selectedStyle);
   }
 
   handleSourcesChange(selectedSources) {
@@ -79,6 +88,28 @@ class Settings extends Component {
     }
   }
 
+  updateStyle(selectedStyle) {
+    localStorage.setItem(
+      "selectedStyle",
+      JSON.stringify(selectedStyle)
+    );
+    if (selectedStyle === "dark") {
+      document.querySelector("body").classList.add("dark-mode");
+      document.querySelector("body").classList.remove("light-mode");
+    } else if (selectedStyle === "light") {
+      document.querySelector("body").classList.add("light-mode");
+      document.querySelector("body").classList.remove("dark-mode");
+    } else if (selectedStyle === "auto") {
+      document.querySelector("body").classList.remove("dark-mode");
+      document.querySelector("body").classList.remove("light-mode");
+    }
+  }
+
+  handleStyleChange(selectedStyle) {
+    this.setState({ selectedStyle: selectedStyle.value });
+    this.updateStyle(selectedStyle.value);
+  }
+
   close() {
     if (typeof Storage !== "undefined") {
       localStorage.setItem(
@@ -98,6 +129,7 @@ class Settings extends Component {
     if (typeof Storage !== "undefined") {
       localStorage.removeItem("selectedSources");
       localStorage.removeItem("selectedParties");
+      localStorage.removeItem("selectedStyle");
     }
 
     this.setState({ closed: true });
@@ -129,8 +161,11 @@ class Settings extends Component {
     ) {
       const selectedParties = elementsToOptions(this.state.selectedParties);
       const selectedSources = elementsToOptions(this.state.selectedSources);
+      const selectedStyle = styleOptions.filter((x) => x.value === this.state.selectedStyle)[0];
+
       const parties = elementsToOptions(this.state.parties);
       const sources = elementsToOptions(this.state.sources);
+
       return (
         <div className="overlay">
           <div className="settings">
@@ -153,6 +188,14 @@ class Settings extends Component {
               options={parties}
               isMulti={true}
               closeMenuOnSelect={false}
+            />
+            <h2>Aussehen</h2>
+            <Select
+              className="select"
+              classNamePrefix="select"
+              value={selectedStyle}
+              onChange={this.handleStyleChange.bind(this)}
+              options={styleOptions}
             />
             <label className="next">
               <button onClick={this.reset.bind(this)}></button>
