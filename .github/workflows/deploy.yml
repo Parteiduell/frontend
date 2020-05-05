@@ -21,11 +21,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: artifacts
-          path: build
       - name: Install dependencies
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -34,6 +29,11 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifacts
+          path: build
         env:
           CI: true
   deploy:
