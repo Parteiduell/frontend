@@ -55,7 +55,6 @@ class Main extends Component {
         selected: partei,
         correctAnswered: this.state.correctAnswered === null ? (partei === this.state.item.answer ? true : false) : this.state.correctAnswered,
       });
-      console.log(this.state.correct_answered);
     };
   }
 
