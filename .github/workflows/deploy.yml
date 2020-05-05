@@ -1,0 +1,69 @@
+name: Build Test & Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  test:
+    name: Build Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js "13.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ matrix.node-version }}-${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+      - name: Run build test
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build
+        env:
+          CI: true
+  deploy:
+    name: Deploy to production
+    needs: test
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js "13.x"
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13.x"
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ matrix.node-version }}-${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
+      - name: Building source
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build
+      - name: Deploy files
+        env:
+          SSH_HOST_KEY: ${{secrets.SSH_HOST_KEY}}
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
+          rsync -az --progress -e ssh ./build root@parteiduell.de:/var/www/parteiduell.de/production --delete

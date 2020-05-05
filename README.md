@@ -29,7 +29,7 @@ Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zu
 `yarn install`
 
 5. Server starten
-`yarn dev`
+`yarn start`
 
 ## Contributors ✨
 

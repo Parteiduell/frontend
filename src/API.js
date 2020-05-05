@@ -121,7 +121,7 @@ export class API {
 
     if (hash === undefined) {
       item.answer = Object.keys(item.possibleAnswers)[
-        Math.floor(Math.random() * 3)
+        Math.floor(Math.random() * 4)
       ];
       item.statement = item.possibleAnswers[item.answer];
     } else {

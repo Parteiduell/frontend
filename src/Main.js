@@ -29,7 +29,7 @@ class Main extends Component {
       err: null,
       correct: null,
       selected: null,
-      first: null
+      correctAnswered: null,
     };
     window.api.settings = this.settings;
   }
@@ -41,7 +41,7 @@ class Main extends Component {
     if (window.location.hash === "") {
       this.handleNext();
     } else {
-      FragmentIdentifier.get().then(item => {
+      FragmentIdentifier.get().then((item) => {
         this.setState({ isLoaded: true, item });
       });
     }
@@ -53,7 +53,7 @@ class Main extends Component {
       this.setState({
         correct: partei === this.state.item.answer,
         selected: partei,
-        first: this.state.first === null ? true : partei === this.state.item.answer && !this.state.first ? true : false
+        correctAnswered: this.state.correctAnswered === null ? (partei === this.state.item.answer ? true : false) : this.state.correctAnswered,
       });
     };
   }
@@ -80,10 +80,10 @@ class Main extends Component {
       correct: null,
       isLoaded: false,
       selected: null,
-      first: null
+      correctAnswered: null,
     });
 
-    window.api.get().then(item => {
+    window.api.get().then((item) => {
       this.setState({ isLoaded: true, item });
     });
   }
@@ -95,7 +95,7 @@ class Main extends Component {
   }
 
   render() {
-    const { isLoaded, item, selected, correct, first } = this.state;
+    const { isLoaded, item, selected, correct, correctAnswered } = this.state;
     const joystick = findGetParameter("joystick") === "True";
 
     if (isLoaded) {
@@ -119,7 +119,7 @@ class Main extends Component {
               <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei).bind(this)} />
             ))}
           </div>
-          <Result first={first} item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
+          <Result correctAnswered={correctAnswered} item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
         </>
       );
     } else {
