@@ -1,4 +1,4 @@
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
+![Build Test & Deploy](https://github.com/Parteiduell/frontend/workflows/Build%20Test%20&%20Deploy/badge.svg?branch=master) [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
 # ParteiDuell Frontend
 
@@ -30,6 +30,7 @@ Sollte jemand Interesse daran haben, dieses Projekt lokal aufzusetzen, sollte zu
 
 5. Server starten
 `yarn start`
+
 
 ## Contributors ✨
 
