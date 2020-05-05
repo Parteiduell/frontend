@@ -14,14 +14,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "13.x"
-      - name: Cache node modules
-        uses: actions/cache@v1
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        id: yarn-cache
         with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install dependencies
+            ${{ runner.os }}-yarn-
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        name: Install dependencies
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
@@ -55,4 +59,4 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 700 ~/.ssh/id_rsa
           echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
-          rsync -az --progress -e ssh ./artifacts/build root@parteiduell.de:/var/www/parteiduell.de/production --delete
+          rsync -az --progress -e ssh build root@parteiduell.de:/var/www/parteiduell.de/production --delete
