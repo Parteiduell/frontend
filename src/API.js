@@ -15,32 +15,9 @@ function sortAlphabetically(a, b) {
   return 0;
 }
 
-const toReplace = [
-  "CDU / CSU",
-  "CDU/CSU",
-  /(?:<!(Europäischen|Europäische) )Union/gi,
-  "CDU und CSU",
-  "CDU",
-  "CSU",
-  "Freie Demokraten",
-  "Liberalen",
-  "Liberale",
-  "FDP",
-  "BÜNDNIS 90 / DIE GRÜNEN",
-  "BÜNDNIS 90/DIE GRÜNEN",
-  "Grünen",
-  "PIRATENpartei",
-  "alternative für deutschland",
-  "Die Linken",
-  "Die Linke",
-  "Linken",
-  "Linke",
-  "Die Linkspartei.PDS",
-];
+const toReplace = ["CDU / CSU", "CDU/CSU", /(?:<!(Europäischen|Europäische) )Union/gi, "CDU und CSU", "CDU", "CSU", "Freie Demokraten", "Liberalen", "Liberale", "FDP", "BÜNDNIS 90 / DIE GRÜNEN", "BÜNDNIS 90/DIE GRÜNEN", "Grünen", "PIRATENpartei", "alternative für deutschland", "Die Linken", "Die Linke", "Linken", "Linke", "Die Linkspartei.PDS"];
 
-const url = process.env.REACT_APP_BACKEND_URL
-  ? process.env.REACT_APP_BACKEND_URL
-  : "https://api.parteiduell.de";
+const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de";
 export class API {
   constructor() {
     this.items = [];
@@ -64,12 +41,9 @@ export class API {
       }
     }
     return fetch(fetchUrl).then(
-      result => result.json(),
-      error => {
-        throw new Error(
-          "Error connecting to backend! (url: " + fetchUrl + ")",
-          error,
-        );
+      (result) => result.json(),
+      (error) => {
+        throw new Error("Error connecting to backend! (url: " + fetchUrl + ") " + error);
       },
     );
   }
@@ -103,7 +77,7 @@ export class API {
 
     if (this.items.length === 0) {
       // There is no item. Load one.
-      return this.list(1, {}).then(items => {
+      return this.list(1, {}).then((items) => {
         this.items = items;
         return this.getItem(this.items);
       });
@@ -120,19 +94,13 @@ export class API {
     item.statement = "";
 
     if (hash === undefined) {
-      item.answer = Object.keys(item.possibleAnswers)[
-        Math.floor(Math.random() * 4)
-      ];
+      item.answer = Object.keys(item.possibleAnswers)[Math.floor(Math.random() * 4)];
       item.statement = item.possibleAnswers[item.answer];
     } else {
       item.statement = getFromHash(Object.values(item.possibleAnswers), hash);
-      item.answer = Object.keys(item.possibleAnswers).find(
-        key => item.possibleAnswers[key] === item.statement,
-      );
+      item.answer = Object.keys(item.possibleAnswers).find((key) => item.possibleAnswers[key] === item.statement);
     }
-    for (let replaceString of toReplace.concat(
-      this.getSettings().selectedParties.map(escapeRegex),
-    )) {
+    for (let replaceString of toReplace.concat(this.getSettings().selectedParties.map(escapeRegex))) {
       if (typeof replaceString === "string") {
         replaceString = RegExp(escapeRegex(replaceString), "gi");
       }
@@ -144,7 +112,7 @@ export class API {
   async preload() {
     if (this.items.length < 5) {
       // use data from backend
-      this.list(10, {}).then(items => {
+      this.list(10, {}).then((items) => {
         this.items.concat(items);
       });
     }
@@ -154,12 +122,10 @@ export class API {
     const settings = this.getSettings();
     return this.fetchApi("/allParties", {
       sources: settings.selectedSources.join(","),
-    }).then(result => result.sort(sortAlphabetically));
+    }).then((result) => result.sort(sortAlphabetically));
   }
 
   getSelectableSources() {
-    return this.fetchApi("/allSources").then(result =>
-      result.sort(sortAlphabetically),
-    );
+    return this.fetchApi("/allSources").then((result) => result.sort(sortAlphabetically));
   }
 }

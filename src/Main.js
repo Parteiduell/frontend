@@ -47,6 +47,10 @@ class Main extends Component {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener("keydown");
+  }
+
   // Is the selected party the right one?
   compare(partei) {
     return () => {
@@ -62,13 +66,13 @@ class Main extends Component {
   handleKeyDown(e) {
     if (this.state.selected === null || e.key === "a") {
       if (e.key === "ArrowUp") {
-        this.compare(this.state.item.possibleParties[0]).bind(this)();
+        this.compare(this.state.item.possibleParties[0])();
       } else if (e.key === "ArrowLeft") {
-        this.compare(this.state.item.possibleParties[1]).bind(this)();
+        this.compare(this.state.item.possibleParties[1])();
       } else if (e.key === "ArrowDown") {
-        this.compare(this.state.item.possibleParties[2]).bind(this)();
+        this.compare(this.state.item.possibleParties[2])();
       } else if (e.key === "ArrowRight") {
-        this.compare(this.state.item.possibleParties[3]).bind(this)();
+        this.compare(this.state.item.possibleParties[3])();
       } else if (e.key === "a") {
         this.handleNext();
       }
