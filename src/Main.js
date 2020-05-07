@@ -48,7 +48,7 @@ class Main extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keydown");
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   // Is the selected party the right one?
@@ -120,7 +120,7 @@ class Main extends Component {
           </div>
           <div id="options" className={[selected ? "selected" : "", joystick ? "joystick" : ""].join(" ")}>
             {parties.map((partei, index) => (
-              <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei).bind(this)} />
+              <Option key={index} partei={partei} answer={item.answer} onSelect={this.compare(partei)} />
             ))}
           </div>
           <Result correctAnswered={correctAnswered} item={item} correct={correct} selected={selected} onNext={this.handleNext.bind(this)} />
