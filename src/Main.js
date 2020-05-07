@@ -33,6 +33,7 @@ class Main extends Component {
     };
     window.api.settings = this.settings;
   }
+
   componentDidMount() {
     // Specify keydown handler
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
@@ -45,10 +46,6 @@ class Main extends Component {
         this.setState({ isLoaded: true, item });
       });
     }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   // Is the selected party the right one?
