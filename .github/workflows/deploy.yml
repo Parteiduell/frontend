@@ -56,7 +56,10 @@ jobs:
           chmod 700 ~/.ssh/id_rsa
           echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
           OUTPUT=$(rsync -az --progress -e ssh ./build root@parteiduell.de:/var/www/parteiduell.de/production --delete)
-      - name: Create commit comment
-        uses: peter-evans/commit-comment@v1
-        with:
-          body: "${OUTPUT}"
+      - name: Add commit comment
+        run: |
+          jq -nc "{"body": '"${OUTPUT}"'}" | \
+          curl -sL  -X POST -d @- \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
