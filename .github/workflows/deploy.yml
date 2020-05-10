@@ -58,7 +58,7 @@ jobs:
           OUTPUT=$(rsync -az --progress -e ssh ./build root@parteiduell.de:/var/www/parteiduell.de/production --delete)
       - name: Add commit comment
         run: |
-          jq -nc "{"body": '"${OUTPUT}"'}" | \
+          jq -nc '{"body": '"$test"'}' | \
           curl -sL  -X POST -d @- \
             -H "Content-Type: application/json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
