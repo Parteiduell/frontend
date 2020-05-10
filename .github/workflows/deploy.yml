@@ -55,11 +55,4 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 700 ~/.ssh/id_rsa
           echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
-          OUTPUT=$(rsync -az --progress -e ssh ./build root@parteiduell.de:/var/www/parteiduell.de/production --delete)
-      - name: Add commit comment
-        run: |
-          jq -nc '{"body": '"$test"'}' | \
-          curl -sL  -X POST -d @- \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/comments"
+          rsync -az --progress -e ssh ./build root@parteiduell.de:/var/www/parteiduell.de/production --delete
