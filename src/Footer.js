@@ -14,8 +14,15 @@ class Footer extends Component {
             <img className="github" role="link" aria-label="GitHub" src="/github.png" alt="GitHub" />
           </a>
           <img src="/logo.png" alt="Logo" aria-hidden="true" />
-          <a href="/Impressum.html">Impressum</a>
-          <a href="/Datenschutzerklärung.html">Datenschutzerklärung</a>
+          <a href="https://status.parteiduell.de" target="_blank" rel="noopener noreferrer" aria-label="Statusseite">
+            Status
+          </a>
+          <a href="/Impressum.html" aria-label="Impressum">
+            Impressum
+          </a>
+          <a href="/Datenschutzerklärung.html" aria-label="Datenschutzerklärung">
+            Datenschutzerklärung
+          </a>
         </div>
       </>
     );
