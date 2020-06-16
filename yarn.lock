@@ -8519,10 +8519,10 @@ react-app-polyfill@^1.0.6:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
-react-bytesize-icons@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/react-bytesize-icons/-/react-bytesize-icons-0.12.0.tgz#c709813a6499f90250155d3df45626592c6fc288"
-  integrity sha512-l50neeaeej1Pis+nlEOCWyAvH5cA6MNY5afwwNVCMiRGBgDV7PL1hoGu4g6CxvsXkE6gL8h78kA4k9JbL7LRtg==
+react-bytesize-icons@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/react-bytesize-icons/-/react-bytesize-icons-0.12.2.tgz#ea36f3087c687e320654dae4dfb819ce3ba541b8"
+  integrity sha512-s4B0XljA4R3Fe7B9l8ZGAwH7YVIauwfx4z0z2uLe1HcX+e3Nb6P1qT0gPf9e92U39K0+gtEZO+bsT3jABwKJJQ==
 
 react-confetti@^5.0.1:
   version "5.0.1"
