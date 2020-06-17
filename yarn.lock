@@ -8524,10 +8524,10 @@ react-bytesize-icons@^0.12.2:
   resolved "https://registry.yarnpkg.com/react-bytesize-icons/-/react-bytesize-icons-0.12.2.tgz#ea36f3087c687e320654dae4dfb819ce3ba541b8"
   integrity sha512-s4B0XljA4R3Fe7B9l8ZGAwH7YVIauwfx4z0z2uLe1HcX+e3Nb6P1qT0gPf9e92U39K0+gtEZO+bsT3jABwKJJQ==
 
-react-confetti@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-5.0.1.tgz#3003570778cafad4db0ab5513018d4c10e9d1271"
-  integrity sha512-mMxg2JPiRynzWEcfdsUVciRSKr2Mm3pFVKSGng/9Rgg1fYLxVj5XgSqiCP7kz2fN8/xfC79Rbgp1JRyCYssBkA==
+react-confetti@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-5.1.0.tgz#86469773d39c93c41bbdcbd9aca5e2bd3382933e"
+  integrity sha512-KJPs6FppT3VV8hz3KGuKeqISOGYVcQd5UpE+38KiUbgw9JONTgvHGhKgqy37iDdmZw2xMw3kv6sWzWa4rCwMew==
   dependencies:
     tween-functions "^1.2.0"
 
