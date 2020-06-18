@@ -9,7 +9,13 @@ class Footer extends Component {
     return (
       <>
         <div className="footer">
-          <div>Mit ❤&#xFE0E; beim JHFFM19 erstellt.</div>
+          <div>
+            Mit ❤&#xFE0E; bei{" "}
+            <a href="https://jugendhackt.org/event-rueckblick/frankfurt-main-2019/" target="_blank" rel="noopener noreferrer">
+              #JHFFM19
+            </a>{" "}
+            erstellt.
+          </div>
           <a href="https://github.com/Parteiduell" target="_blank" rel="noopener noreferrer">
             <img className="github" role="link" aria-label="GitHub" src="/github.png" alt="GitHub" />
           </a>
