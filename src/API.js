@@ -15,7 +15,7 @@ function sortAlphabetically(a, b) {
   return 0;
 }
 
-const toReplace = ["CDU / CSU", "CDU/CSU", /(?:<!(Europäischen|Europäische) )Union/gi, "CDU und CSU", "CDU", "CSU", "Freie Demokraten", "Liberalen", "Liberale", "FDP", "BÜNDNIS 90 / DIE GRÜNEN", "BÜNDNIS 90/DIE GRÜNEN", "Grünen", "PIRATENpartei", "alternative für deutschland", "Die Linken", "Die Linke", "Linken", "Linke", "Die Linkspartei.PDS"];
+const toReplace = ["CDU / CSU", "CDU/CSU", /(?:<!(Europäischen|Europäische) )Union/gi, "CDU und CSU", "CDU", "CSU", "Freie Demokraten", "Liberalen", "Liberale", "FDP", "BÜNDNIS 90 / DIE GRÜNEN", "BÜNDNIS 90/DIE GRÜNEN", "Grünen", "PIRATENpartei", "alternative für deutschland", "Die Linken", "Die Linke", "Linken", "Linke", "Die Linkspartei.PDS","unionsgeführten Regierungen"];
 
 const url = process.env.REACT_APP_BACKEND_URL ? process.env.REACT_APP_BACKEND_URL : "https://api.parteiduell.de";
 export class API {
