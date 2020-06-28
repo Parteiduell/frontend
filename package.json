@@ -24,8 +24,8 @@
     "eslint-plugin-jest": "^23.17.1"
   },
   "scripts": {
-    "start": "IMAGE_INLINE_SIZE_LIMIT=0 react-scripts start",
-    "build": "IMAGE_INLINE_SIZE_LIMIT=0 react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
