@@ -162,7 +162,7 @@ button {
 
 .statement {
     font-size: 1.5em;
-    word-break: word-break;
+    overflow-wrap: anywhere;
     hyphens: auto;
 }
 
@@ -209,7 +209,7 @@ button {
 
 .quote {
     font-style: italic;
-    word-break: break-all;
+    overflow-wrap: anywhere;
     hyphens: auto;
 }
 
