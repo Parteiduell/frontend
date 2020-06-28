@@ -162,7 +162,7 @@ button {
 
 .statement {
     font-size: 1.5em;
-    word-break: normal;
+    word-break: word-break;
     hyphens: auto;
 }
 
@@ -209,7 +209,7 @@ button {
 
 .quote {
     font-style: italic;
-    word-break: normal;
+    word-break: break-all;
     hyphens: auto;
 }
 
@@ -276,7 +276,6 @@ button {
 }
 
 @media (max-width: 40em) {
-
     .startscreen,
     .settings {
         margin-left: 0;
@@ -285,7 +284,6 @@ button {
 }
 
 @media (max-height: 40em) {
-
     .startscreen,
     .settings {
         margin-top: 0;
