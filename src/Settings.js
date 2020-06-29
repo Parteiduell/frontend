@@ -1,14 +1,18 @@
 import Select from "react-select";
 import React, { Component } from "react";
 
-const styleOptions = [{ value: "auto", label: "Automatisch" }, { value: "dark", label: "Dunkel" }, { value: "light", label: "Hell" },];
+const styleOptions = [
+  { value: "auto", label: "Automatisch" },
+  { value: "dark", label: "Dunkel" },
+  { value: "light", label: "Hell" },
+];
 
 function optionsToElements(options) {
-  return options.map(option => option.value);
+  return options.map((option) => option.value);
 }
 
 function elementsToOptions(elements) {
-  return elements.map(element => {
+  return elements.map((element) => {
     return { value: element, label: element };
   });
 }
@@ -38,47 +42,25 @@ class Settings extends Component {
     this.state = {
       fetched: false,
       closed: true,
-      selectedParties: selectedParties
-        ? selectedParties
-        : [
-          "SPD",
-          "CDU/CSU",
-          "GRÜNE",
-          "FDP",
-          "PIRATEN",
-          "DIE LINKE",
-          "NPD",
-          "Die PARTEI",
-          "AfD"
-        ],
-      selectedSources: selectedSources
-        ? selectedSources
-        : [
-          "Bundestagswahl 2005",
-          "Bundestagswahl 2009",
-          "Bundestagswahl 2013",
-          "Bundestagswahl 2017"
-        ],
-      selectedStyle: selectedStyle ? selectedStyle : "auto"
+      selectedParties: selectedParties ? selectedParties : ["SPD", "CDU/CSU", "GRÜNE", "FDP", "PIRATEN", "DIE LINKE", "NPD", "Die PARTEI", "AfD"],
+      selectedSources: selectedSources ? selectedSources : ["Bundestagswahl 2005", "Bundestagswahl 2009", "Bundestagswahl 2013", "Bundestagswahl 2017"],
+      selectedStyle: selectedStyle ? selectedStyle : "auto",
     };
     this.updateStyle(this.state.selectedStyle);
   }
 
   handleSourcesChange(selectedSources) {
     if (selectedSources !== null && selectedSources.length >= 1) {
-      this.setState(
-        { selectedSources: optionsToElements(selectedSources) },
-        () => {
-          window.api.getSelectableParties().then(parties => {
-            this.setState({
-              selectedParties: this.state.selectedParties.filter(x => {
-                return parties.includes(x);
-              }),
-            });
-            this.setState({ parties });
+      this.setState({ selectedSources: optionsToElements(selectedSources) }, () => {
+        window.api.getSelectableParties().then((parties) => {
+          this.setState({
+            selectedParties: this.state.selectedParties.filter((x) => {
+              return parties.includes(x);
+            }),
           });
-        },
-      );
+          this.setState({ parties });
+        });
+      });
     }
   }
 
@@ -89,10 +71,7 @@ class Settings extends Component {
   }
 
   updateStyle(selectedStyle) {
-    localStorage.setItem(
-      "selectedStyle",
-      JSON.stringify(selectedStyle)
-    );
+    localStorage.setItem("selectedStyle", JSON.stringify(selectedStyle));
     if (selectedStyle === "dark") {
       document.querySelector("body").classList.add("dark-mode");
       document.querySelector("body").classList.remove("light-mode");
@@ -112,14 +91,8 @@ class Settings extends Component {
 
   close() {
     if (typeof Storage !== "undefined") {
-      localStorage.setItem(
-        "selectedSources",
-        JSON.stringify(this.state.selectedSources),
-      );
-      localStorage.setItem(
-        "selectedParties",
-        JSON.stringify(this.state.selectedParties),
-      );
+      localStorage.setItem("selectedSources", JSON.stringify(this.state.selectedSources));
+      localStorage.setItem("selectedParties", JSON.stringify(this.state.selectedParties));
     }
     this.setState({ closed: true });
     this.props.onClose();
@@ -130,6 +103,7 @@ class Settings extends Component {
       localStorage.removeItem("selectedSources");
       localStorage.removeItem("selectedParties");
       localStorage.removeItem("selectedStyle");
+      localStorage.removeItem("completedStartscreen");
     }
 
     this.setState({ closed: true });
@@ -139,12 +113,8 @@ class Settings extends Component {
   show() {
     this.setState({ closed: false });
     if (!this.state.fetched) {
-      window.api
-        .getSelectableParties()
-        .then(parties => this.setState({ parties }));
-      window.api
-        .getSelectableSources()
-        .then(sources => this.setState({ sources }));
+      window.api.getSelectableParties().then((parties) => this.setState({ parties }));
+      window.api.getSelectableSources().then((sources) => this.setState({ sources }));
       this.setState({ fetched: true });
     }
   }
@@ -154,11 +124,7 @@ class Settings extends Component {
   }
 
   render() {
-    if (
-      !this.state.closed &&
-      this.state.parties !== undefined &&
-      this.state.sources !== undefined
-    ) {
+    if (!this.state.closed && this.state.parties !== undefined && this.state.sources !== undefined) {
       const selectedParties = elementsToOptions(this.state.selectedParties);
       const selectedSources = elementsToOptions(this.state.selectedSources);
       const selectedStyle = styleOptions.filter((x) => x.value === this.state.selectedStyle)[0];
@@ -170,33 +136,11 @@ class Settings extends Component {
         <div className="overlay">
           <div className="settings">
             <h2>Quellen</h2>
-            <Select
-              className="select"
-              classNamePrefix="select"
-              value={selectedSources}
-              onChange={this.handleSourcesChange.bind(this)}
-              options={sources}
-              isMulti={true}
-              closeMenuOnSelect={false}
-            />
+            <Select className="select" classNamePrefix="select" value={selectedSources} onChange={this.handleSourcesChange.bind(this)} options={sources} isMulti={true} closeMenuOnSelect={false} />
             <h2>Parteien</h2>
-            <Select
-              className="select"
-              classNamePrefix="select"
-              value={selectedParties}
-              onChange={this.handlePartiesChange.bind(this)}
-              options={parties}
-              isMulti={true}
-              closeMenuOnSelect={false}
-            />
+            <Select className="select" classNamePrefix="select" value={selectedParties} onChange={this.handlePartiesChange.bind(this)} options={parties} isMulti={true} closeMenuOnSelect={false} />
             <h2>Aussehen</h2>
-            <Select
-              className="select"
-              classNamePrefix="select"
-              value={selectedStyle}
-              onChange={this.handleStyleChange.bind(this)}
-              options={styleOptions}
-            />
+            <Select className="select" classNamePrefix="select" value={selectedStyle} onChange={this.handleStyleChange.bind(this)} options={styleOptions} />
             <label className="next">
               <button onClick={this.reset.bind(this)}></button>
               Reset
