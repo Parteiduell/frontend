@@ -4,7 +4,7 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
-const images = importAll(require.context("./pictures/", false, /\.(svg)$/));
+const images = importAll(require.context("../assets/logos/", false, /\.(svg)$/));
 
 // Get icon from party name
 function getImage(partei) {
@@ -21,13 +21,7 @@ class Option extends Component {
     const { partei, answer } = this.props;
     return (
       <label className="logos">
-        <img
-          role={"button"}
-          src={getImage(partei)}
-          aria-label={partei}
-          alt={partei}
-          className={partei === answer ? "right" : "wrong"}
-        />
+        <img role={"button"} src={getImage(partei)} aria-label={partei} alt={partei} className={partei === answer ? "right" : "wrong"} />
         <button onClick={this.props.onSelect}></button>
       </label>
     );

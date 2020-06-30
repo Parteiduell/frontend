@@ -3,14 +3,14 @@ import React, { Component } from "react";
 import { BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
 
-import "./App.css";
-import Result from "./Result";
-import Option from "./Option";
-import Startscreen from "./Startscreen";
-import Settings from "./Settings";
-import { API } from "./API";
-import { findGetParameter } from "./findGetParameter";
-import { FragmentIdentifier } from "./FragmentIdentifier";
+import "./assets/App.css";
+import Result from "./Components/Result";
+import Option from "./Components/Option";
+import Startscreen from "./Components/Startscreen";
+import Settings from "./Components/Settings";
+import { API } from "./Api/API";
+import { findGetParameter } from "./Functions/findGetParameter";
+import { FragmentIdentifier } from "./Functions/FragmentIdentifier";
 
 const BarLoaderCSS = css`
   display: block;
