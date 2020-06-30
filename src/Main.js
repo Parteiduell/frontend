@@ -124,7 +124,13 @@ class Main extends Component {
         </>
       );
     } else {
-      return <BarLoader css={BarLoaderCSS} sizeUnit={"px"} size={4000} color={"#414242"} />;
+      return (
+        <>
+          <Startscreen />
+          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} />
+          <BarLoader css={BarLoaderCSS} sizeUnit={"px"} size={4000} color={"#414242"} />
+        </>
+        );
     }
   }
 }

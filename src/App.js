@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Settings } from "react-bytesize-icons";
+import { Settings as SettingsIcon } from "react-bytesize-icons";
 import Main from "./Main";
 import Footer from "./Components/Footer";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.main = React.createRef();
   }
 
@@ -27,7 +27,7 @@ class App extends Component {
             </div>
             <label>
               <button onClick={this.showSettings.bind(this)} />
-              <Settings width="20" height="20" className="settings-icon" strokeWidth="4%" />
+              <SettingsIcon width="20" height="20" className="settings-icon" strokeWidth="4%" />
             </label>
           </div>
           <div className="container" role="main">
