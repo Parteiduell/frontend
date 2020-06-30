@@ -135,7 +135,7 @@ class Settings extends Component {
       return (
         <div className="overlay">
           <div className="settings">
-            <h2>Quellen</h2>
+            <h2>Wahlen</h2>
             <Select className="select" classNamePrefix="select" value={selectedSources} onChange={this.handleSourcesChange.bind(this)} options={sources} isMulti={true} closeMenuOnSelect={false} />
             <h2>Parteien</h2>
             <Select className="select" classNamePrefix="select" value={selectedParties} onChange={this.handlePartiesChange.bind(this)} options={parties} isMulti={true} closeMenuOnSelect={false} />
