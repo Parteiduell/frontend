@@ -139,7 +139,7 @@ class Settings extends Component {
             <Select className="select" classNamePrefix="select" value={selectedSources} onChange={this.handleSourcesChange.bind(this)} options={sources} isMulti={true} closeMenuOnSelect={false} />
             <h2>Parteien</h2>
             <Select className="select" classNamePrefix="select" value={selectedParties} onChange={this.handlePartiesChange.bind(this)} options={parties} isMulti={true} closeMenuOnSelect={false} />
-            <h2>Aussehen</h2>
+            <h2>Erscheinungsbild</h2>
             <Select className="select" classNamePrefix="select" value={selectedStyle} onChange={this.handleStyleChange.bind(this)} options={styleOptions} />
             <label className="next">
               <button onClick={this.reset.bind(this)}></button>
