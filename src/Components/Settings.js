@@ -143,7 +143,7 @@ class Settings extends Component {
             <Select className="select" classNamePrefix="select" value={selectedStyle} onChange={this.handleStyleChange.bind(this)} options={styleOptions} />
             <label className="next">
               <button onClick={this.reset.bind(this)}></button>
-              Reset
+              Zurücksetzen
             </label>
             <label className="next">
               <button onClick={this.close.bind(this)}></button>
