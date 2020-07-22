@@ -18,7 +18,7 @@
     "react-spinners": "^0.9.0",
     "react-window-size": "^1.2.2",
     "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
     "eslint-plugin-jest": "^23.18.0"
