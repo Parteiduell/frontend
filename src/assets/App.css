@@ -262,7 +262,7 @@ button {
     border-radius: 1em;
     box-shadow: 0 0 1em var(--secondary-background-color);
     font-weight: 500;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .overlay {
