@@ -14,7 +14,7 @@
     "react-confetti": "^5.1.0",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.4",
-    "react-select": "^3.1.1",
+    "react-select": "^3.2.0",
     "react-spinners": "^0.10.4",
     "react-window-size": "^1.2.2",
     "request": "^2.88.2",
