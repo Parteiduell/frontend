@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js "13.x"
+      - name: Use Node.js "14.x"
         uses: actions/setup-node@v1
         with:
-          node-version: "13.x"
+          node-version: "14.x"
       - name: Cache node modules
         uses: actions/cache@v1
         with:
@@ -20,13 +20,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+        run: yarn install --prefer-offline
       - name: Building source
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build
+        run: yarn build
       - name: Upload build artifacts
         uses: actions/upload-artifact@v1
         with:
