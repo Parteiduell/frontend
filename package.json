@@ -11,7 +11,7 @@
     "express": "^4.17.1",
     "react": "^16.14.0",
     "react-bytesize-icons": "^0.12.2",
-    "react-confetti": "^5.1.0",
+    "react-confetti": "^6.0.1",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.4",
     "react-select": "^4.1.0",
