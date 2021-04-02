@@ -305,6 +305,10 @@ button {
     text-decoration: inherit;
 }
 
+.footer a:hover {
+    color: var(--focused-color)
+}
+
 .select .select__control {
     background-color: var(--background-color);
 }
