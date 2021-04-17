@@ -57,4 +57,4 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 700 ~/.ssh/id_rsa
           echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
-          rsync -az --progress -e ssh ./build/ root@parteiduell.de:/var/www/parteiduell.de/production --delete
+          rsync -az --progress -e ssh ./${{env.RELEASE_FILE}}/ root@parteiduell.de:/var/www/parteiduell.de/production --delete
