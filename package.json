@@ -7,7 +7,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "escape-string-regexp": "^4.0.0",
+    "escape-string-regexp": "^5.0.0",
     "express": "^4.17.1",
     "react": "^16.14.0",
     "react-bytesize-icons": "^0.12.2",
