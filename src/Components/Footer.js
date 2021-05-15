@@ -23,6 +23,9 @@ class Footer extends Component {
           <a href="https://status.parteiduell.de" target="_blank" rel="noopener noreferrer" aria-label="Statusseite">
             Status
           </a>
+          <a href="mailto:hello@parteiduell.de" target="_blank" rel="noopener noreferrer" aria-label="Kontakt">
+            Kontakt
+          </a>
           <a href="/Impressum.html" aria-label="Impressum">
             Impressum
           </a>
