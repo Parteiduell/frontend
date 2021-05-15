@@ -1,12 +1,13 @@
 name: Build & Deploy
 on:
   release:
-    types: [created]
+    types: [published]
     branches: main
 jobs:
   build:
     env:
       RELEASE_FILE: parteiduell-frontend-${{github.event.release.tag_name}}
+      VERSION: ${{github.event.release.tag_name}}
     name: Build
     runs-on: ubuntu-latest
     steps:
