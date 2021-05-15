@@ -17,6 +17,8 @@ jobs:
           node-version: "14.x"
       - name: Install dependencies
         run: yarn install --prefer-offline
+      - name: Inject the new version into the package.json
+        run: npm version --no-git-tag-version ${VERSION}
       - name: Building source
         run: yarn build
       - name: Upload build artifacts
