@@ -144,6 +144,7 @@ class Settings extends Component {
               onChange={this.handleSourcesChange.bind(this)}
               options={sources}
               isMulti={true}
+              isClearable={false}
               closeMenuOnSelect={false}
             />
             <h2>Parteien</h2>
@@ -154,6 +155,7 @@ class Settings extends Component {
               onChange={this.handlePartiesChange.bind(this)}
               options={parties}
               isMulti={true}
+              isClearable={false}
               closeMenuOnSelect={false}
             />
             <h2>Erscheinungsbild</h2>
