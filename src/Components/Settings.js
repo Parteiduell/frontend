@@ -1,5 +1,5 @@
-import Select from "react-select";
 import React, { Component } from "react";
+import Select from "react-select";
 
 const styleOptions = [
   { value: "auto", label: "Automatisch" },
@@ -106,6 +106,7 @@ class Settings extends Component {
       localStorage.removeItem("completedStartscreen");
     }
 
+    this.updateStyle("auto");
     this.setState({ closed: true });
     this.props.onClose();
   }
@@ -136,9 +137,25 @@ class Settings extends Component {
         <div className="overlay">
           <div className="settings">
             <h2>Wahlen</h2>
-            <Select className="select" classNamePrefix="select" value={selectedSources} onChange={this.handleSourcesChange.bind(this)} options={sources} isMulti={true} closeMenuOnSelect={false} />
+            <Select
+              className="select"
+              classNamePrefix="select"
+              value={selectedSources}
+              onChange={this.handleSourcesChange.bind(this)}
+              options={sources}
+              isMulti={true}
+              closeMenuOnSelect={false}
+            />
             <h2>Parteien</h2>
-            <Select className="select" classNamePrefix="select" value={selectedParties} onChange={this.handlePartiesChange.bind(this)} options={parties} isMulti={true} closeMenuOnSelect={false} />
+            <Select
+              className="select"
+              classNamePrefix="select"
+              value={selectedParties}
+              onChange={this.handlePartiesChange.bind(this)}
+              options={parties}
+              isMulti={true}
+              closeMenuOnSelect={false}
+            />
             <h2>Erscheinungsbild</h2>
             <Select className="select" classNamePrefix="select" value={selectedStyle} onChange={this.handleStyleChange.bind(this)} options={styleOptions} />
             <label className="next">
