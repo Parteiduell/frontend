@@ -25,21 +25,8 @@ export class API {
 
   fetchApi(path, params) {
     const fetchUrl = new URL(path, url);
-
-    if (params !== undefined) {
-      if (params.id !== undefined) {
-        fetchUrl.searchParams.set("id", params.id);
-      }
-      if (params.parties !== undefined) {
-        fetchUrl.searchParams.set("parties", params.parties);
-      }
-      if (params.sources !== undefined) {
-        fetchUrl.searchParams.set("sources", params.sources);
-      }
-      if (params.count !== undefined) {
-        fetchUrl.searchParams.set("count", params.count);
-      }
-    }
+    fetchUrl.search = new URLSearchParams(params);
+   
     return fetch(fetchUrl).then(
       (result) => result.json(),
       (error) => {
