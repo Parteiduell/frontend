@@ -1,7 +1,11 @@
 import { smallestHashes } from "./smallestHash";
 
 export class FragmentIdentifier {
-  static set(item) {
+  constructor(api) {
+    this.api = api;
+  }
+
+  set(item) {
     const hashes = smallestHashes(Object.values(item.possibleAnswers));
     window.location.hash =
       item.theseId +
@@ -11,19 +15,19 @@ export class FragmentIdentifier {
       hashes[Object.keys(item.possibleAnswers).indexOf(item.answer)];
   }
 
-  static get() {
+  get() {
     const [theseId, possibleParties, hash] = decodeURIComponent(
       window.location.hash,
     )
       .substr(1)
       .split(":");
 
-    window.api.preload();
+    this.api.preload();
 
-    return window.api
+    return this.api
       .list(1, { id: theseId, parties: possibleParties.split(",") }) // fetch from REMOTE!
       .then(items => {
-        return window.api.getItem(items, hash);
+        return this.api.getItem(items, hash);
       });
   }
 }

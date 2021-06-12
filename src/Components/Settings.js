@@ -52,7 +52,7 @@ class Settings extends Component {
   handleSourcesChange(selectedSources) {
     if (selectedSources !== null && selectedSources.length >= 1) {
       this.setState({ selectedSources: optionsToElements(selectedSources) }, () => {
-        window.api.getSelectableParties().then((parties) => {
+        this.api.getSelectableParties().then((parties) => {
           this.setState({
             selectedParties: this.state.selectedParties.filter((x) => {
               return parties.includes(x);
@@ -114,8 +114,8 @@ class Settings extends Component {
   show() {
     this.setState({ closed: false });
     if (!this.state.fetched) {
-      window.api.getSelectableParties().then((parties) => this.setState({ parties }));
-      window.api.getSelectableSources().then((sources) => this.setState({ sources }));
+      this.props.api.getSelectableParties().then((parties) => this.setState({ parties }));
+      this.props.api.getSelectableSources().then((sources) => this.setState({ sources }));
       this.setState({ fetched: true });
     }
   }

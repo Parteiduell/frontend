@@ -17,7 +17,9 @@ const BarLoaderCSS = css`
   margin: 0 auto;
 `;
 
-window.api = new API();
+const api = new API();
+
+const fragmentIdentifier = new FragmentIdentifier(api);
 
 class Main extends Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class Main extends Component {
       selected: null,
       correctAnswered: null,
     };
-    window.api.settings = this.settings;
+    api.settings = this.settings;
   }
 
   componentDidMount() {
@@ -42,7 +44,7 @@ class Main extends Component {
     if (window.location.hash === "") {
       this.handleNext();
     } else {
-      FragmentIdentifier.get().then((item) => {
+      fragmentIdentifier.get().then((item) => {
         this.setState({ isLoaded: true, item });
       });
     }
@@ -84,7 +86,7 @@ class Main extends Component {
       correctAnswered: null,
     });
 
-    window.api.get().then((item) => {
+    api.get().then((item) => {
       this.setState({ isLoaded: true, item });
     });
   }
@@ -102,12 +104,12 @@ class Main extends Component {
     if (isLoaded) {
       const parties = Object.keys(item.possibleAnswers);
 
-      FragmentIdentifier.set(item);
+      fragmentIdentifier.set(item);
 
       return (
         <>
           <Startscreen />
-          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} />
+          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)}api={ api } />
           <p className="these">{item.these}</p>
           <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
             <span aria-hidden="true">{"„" + item.statement + "“"}</span>
