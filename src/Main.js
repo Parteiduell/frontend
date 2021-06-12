@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { BarLoader } from "react-spinners";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 
 import "./assets/App.css";
 import Result from "./Components/Result";
