@@ -43,7 +43,7 @@ class Settings extends Component {
       fetched: false,
       closed: true,
       selectedParties: selectedParties ? selectedParties : ["SPD", "CDU/CSU", "GRÜNE", "FDP", "PIRATEN", "DIE LINKE", "NPD", "Die PARTEI", "AfD"],
-      selectedSources: selectedSources ? selectedSources : ["Bundestagswahl 2005", "Bundestagswahl 2009", "Bundestagswahl 2013", "Bundestagswahl 2017"],
+      selectedSources: selectedSources ? selectedSources : ["Bundestagswahl 2021"],
       selectedStyle: selectedStyle ? selectedStyle : "auto",
     };
     this.updateStyle(this.state.selectedStyle);
