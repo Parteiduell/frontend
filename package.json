@@ -5,7 +5,7 @@
   "license": "MIT",
   "homepage": "https://parteiduell.de",
   "dependencies": {
-    "@emotion/react": "^11.5.0",
+    "@emotion/react": "^11.6.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "escape-string-regexp": "^5.0.0",
