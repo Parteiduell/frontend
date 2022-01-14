@@ -25,7 +25,7 @@
     "prefer-const": ["error", {
       "destructuring": "all"
     }],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": 0
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "env": {

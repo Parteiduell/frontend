@@ -1,6 +1,6 @@
-import { getFromHash } from "../Functions/smallestHash";
-import Settings from "../Components/Settings";
 import escapeRegex from "escape-string-regexp";
+import Settings from "../Components/Settings";
+import { getFromHash } from "../Functions/smallestHash";
 
 function sortAlphabetically(a, b) {
   a = a.toLowerCase();
@@ -15,7 +15,30 @@ function sortAlphabetically(a, b) {
   return 0;
 }
 
-const toReplace = ["CDU / CSU", "Union", "CDU/CSU", /(?:<!(Europäischen|Europäische) )Union/gi, "CDU und CSU", "CDU", "CSU", "Freie Demokraten", "Liberalen", "Liberale", "FDP", "BÜNDNIS 90 / DIE GRÜNEN", "BÜNDNIS 90/DIE GRÜNEN", "Grünen", "PIRATENpartei", "alternative für deutschland", "Die Linken", "Die Linke", "Linken", "Linke", "Die Linkspartei.PDS", "unionsgeführten Regierungen"];
+const toReplace = [
+  "CDU / CSU",
+  "Union",
+  "CDU/CSU",
+  /(?:<!(Europäischen|Europäische) )Union/gi,
+  "CDU und CSU",
+  "CDU",
+  "CSU",
+  "Freie Demokraten",
+  "Liberalen",
+  "Liberale",
+  "FDP",
+  "BÜNDNIS 90 / DIE GRÜNEN",
+  "BÜNDNIS 90/DIE GRÜNEN",
+  "Grünen",
+  "PIRATENpartei",
+  "alternative für deutschland",
+  "Die Linken",
+  "Die Linke",
+  "Linken",
+  "Linke",
+  "Die Linkspartei.PDS",
+  "unionsgeführten Regierungen",
+];
 
 const url = process.env.REACT_APP_BACKEND_URL || "https://api.parteiduell.de";
 export class API {
@@ -26,7 +49,7 @@ export class API {
   fetchApi(path, params) {
     const fetchUrl = new URL(path, url);
     fetchUrl.search = new URLSearchParams(params);
-   
+
     return fetch(fetchUrl).then(
       (result) => result.json(),
       (error) => {

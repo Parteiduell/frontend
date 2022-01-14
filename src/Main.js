@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-
-import { BarLoader } from "react-spinners";
 import { css } from "@emotion/react";
-
-import "./assets/App.css";
-import Result from "./Components/Result";
-import Option from "./Components/Option";
-import Startscreen from "./Components/Startscreen";
-import Settings from "./Components/Settings";
+import React, { Component } from "react";
+import { BarLoader } from "react-spinners";
 import { API } from "./Api/API";
+import "./assets/App.css";
+import Option from "./Components/Option";
+import Result from "./Components/Result";
+import Settings from "./Components/Settings";
+import Startscreen from "./Components/Startscreen";
 import { findGetParameter } from "./Functions/findGetParameter";
 import { FragmentIdentifier } from "./Functions/FragmentIdentifier";
 
@@ -109,7 +107,7 @@ class Main extends Component {
       return (
         <>
           <Startscreen />
-          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)}api={ api } />
+          <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} api={api} />
           <p className="these">{item.these}</p>
           <p className="statement quote" aria-label={item.statement.replace(/█████/g, "Partei")}>
             <span aria-hidden="true">{"„" + item.statement + "“"}</span>
@@ -132,7 +130,7 @@ class Main extends Component {
           <Settings ref={this.settings} onClose={this.onSettingsClose.bind(this)} />
           <BarLoader css={BarLoaderCSS} sizeUnit={"px"} size={4000} color={"#414242"} />
         </>
-        );
+      );
     }
   }
 }

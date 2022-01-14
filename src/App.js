@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Settings as SettingsIcon } from "react-bytesize-icons";
-import Main from "./Main";
 import Footer from "./Components/Footer";
+import Main from "./Main";
 
 class App extends Component {
   constructor(props) {
