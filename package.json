@@ -22,7 +22,7 @@
     "request-promise": "^4.2.6"
   },
   "devDependencies": {
-    "eslint-plugin-jest": "^25.3.4"
+    "eslint-plugin-jest": "^25.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
